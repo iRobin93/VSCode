@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="numUp()">Opp</button>
+    <button onclick="numDown()">Ned</button>
+    <div id="Output"></div>
+
+<script>
+let DivOutput = document.getElementById('Output');
+let numToShow = 0;
+
+function numUp(){
+    numToShow++;
+    DivOutput.innerHTML = numToShow;
+}
+
+function numDown(){
+    numToShow--;
+    DivOutput.innerHTML = numToShow;
+}
+
+</script>
+
+</body>
+</html>
