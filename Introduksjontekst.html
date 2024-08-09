@@ -42,10 +42,17 @@ function visData(){
     showingPicture.src = "maskin.jpg";
 }
 
-function changeColor(){
-    underlist.style.backgroundColor="orange";
-}
 
+    function randomcolor() {
+            return Math.floor(Math.random() * 255);
+
+        }
+function changeColor(){
+            underlist.style.backgroundColor = 'rgba('
+                + randomcolor() + ',' + randomcolor()
+                + ',' + randomcolor() + '\)'
+        }
+    
 
  </script>
     
