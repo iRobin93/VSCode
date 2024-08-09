@@ -10,10 +10,10 @@
 <body>
     <div> Hei, jeg heter Robin og mine hobbier er:</div>
     <ul style="background-color: red;" id="underlist">
-        <li style="user-select: none;" onclick="visGaming()"> Gaming</li>
-        <li style="user-select: none;" onclick="visGolf()">Golf</li>
-        <li style="user-select: none;" onclick="visLando()">Formel1</li>
-        <li style="user-select: none;" onclick="visData()">Data</li>
+        <li style="user-select: none;" onclick="visBilde('css.jpg')"> Gaming</li>
+        <li style="user-select: none;" onclick="visBilde('golf.jpg')">Golf</li>
+        <li style="user-select: none;" onclick="visBilde('lando.jpg')">Formel1</li>
+        <li style="user-select: none;" onclick="visBilde('maskin.jpg')">Data</li>
     </ul>
 
     <div> Trykk på en hobby!</div>
@@ -28,18 +28,8 @@
  <script>
 
 
-function visGaming(){
-showingPicture.src = "css.jpg";
-}
-
-function visGolf(){
-    showingPicture.src = "golf.jpg";
-}
-function visLando(){
-    showingPicture.src = "lando.jpg";
-}
-function visData(){
-    showingPicture.src = "maskin.jpg";
+function visBilde(bilde){
+showingPicture.src = bilde;
 }
 
 
