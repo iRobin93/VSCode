@@ -7,45 +7,52 @@
     <title>Robin's Intro</title>
 </head>
 
+<style>
+li{
+    cursor: pointer;
+    width: 70px;
+}
+</style>
+
 <body>
-    <div> Hei, jeg heter Robin og mine hobbier er:</div>
+    <div> Hei, jeg heter <ins onclick="visBilde('./images/introduksjontekst/robin.jpg')" style="cursor: pointer;">Robin</ins> og mine hobbier er:</div>
     <ul style="background-color: red;" id="underlist">
-        <li style="user-select: none;" onclick="visBilde('css.jpg')"> Gaming</li>
-        <li style="user-select: none;" onclick="visBilde('golf.jpg')">Golf</li>
-        <li style="user-select: none;" onclick="visBilde('lando.jpg')">Formel1</li>
-        <li style="user-select: none;" onclick="visBilde('maskin.jpg')">Data</li>
+        <li style="user-select: none;" onclick="visBilde('./images/introduksjontekst/css.jpg')"> Gaming</li>
+        <li style="user-select: none;" onclick="visBilde('./images/introduksjontekst/golf.jpg')">Golf</li>
+        <li style="user-select: none;" onclick="visBilde('./images/introduksjontekst/lando.jpg')">Formel1</li>
+        <li style="user-select: none;" onclick="visBilde('./images/introduksjontekst/maskin.jpg')">Data</li>
     </ul>
 
     <div> Trykk på en hobby!</div>
 
 
     <div>
-        <img id="showingPicture">
+        <img id="showingPicture" style="width: 300px;">
     </div>
 
     <button onclick="changeColor()">Bytt Farge</button>
-        
- <script>
+
+    <script>
 
 
-function visBilde(bilde){
-showingPicture.src = bilde;
-}
+        function visBilde(bilde) {
+            showingPicture.src = bilde;
+        }
 
 
-    function randomcolor() {
+        function randomcolor() {
             return Math.floor(Math.random() * 255);
 
         }
-function changeColor(){
+        function changeColor() {
             underlist.style.backgroundColor = 'rgba('
                 + randomcolor() + ',' + randomcolor()
                 + ',' + randomcolor() + '\)'
         }
-    
 
- </script>
-    
+
+    </script>
+
 
 </body>
 

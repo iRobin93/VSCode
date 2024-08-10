@@ -1,32 +1,35 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eksempel 1</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Index Robin</title>
+    <link rel="stylesheet" href="./css/indexstyle.css"/>
+    <script src="./js/index.js"></script>
 </head>
-
 <body>
-    <button> Ingen Layout</button>
-    <button> Vertikal Layout</button>
-    <button> Horisontal Layout</button>
-    <button> Grid Layout</button>
 
-    <h1>Eksempel 1</h1>
-    <div>
-        Verktøy
-    </div>
 
-    <div> De to viktigste...
-        <ul>
-            <li>
- <a>      Hei</a>          
-            </li>
-        </ul>
+<div class="hoved"> 
+   <p>  Hei, dette er oversikt over mine oppgaver per uke. Hilsen Robin <br></p>
+    <div class="uke" onclick="showText('uke1')" id="uke1">
+        Uke 1
     </div>
+    <div class="tekst" id="uke1Text"> 
+  
+      </div>
+      <div class="uke" onclick="showText('uke2')" id="uke2" style="background-color: rgb(176, 176, 201);">
+        Uke 2
+    </div>
+    <div class="tekst" id="uke2Text"> 
+
+      </div>
+
+</div>
+
+
+
+
 
 </body>
-
 </html>
