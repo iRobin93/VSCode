@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funksjon med paremeter</title>
+</head>
+<body>
+    <div id="text"> Hei, jeg heter Robin denne teksten kan endres med knappene</div>
+    <button onclick="changeText('50px', 'lightblue', 'Denne teksten er nå blå og stor')">Stor og Blå</button>
+    <button onclick="changeText('20px', 'lightyellow', 'Denne teksten er nå gul og liten')">Liten og Gul</button>
+</body>
+
+
+<script>
+function changeText(størrelse, farge, tekst){
+if (farge != undefined)
+    text.style.backgroundColor = farge;
+if (størrelse != undefined)
+    text.style.fontSize = størrelse;
+if(tekst != undefined)
+    text.innerHTML = tekst;
+}
+
+</script>
+</html>

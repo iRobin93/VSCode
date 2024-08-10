@@ -19,6 +19,15 @@ let strHtml;
                 <li>
                 <a href="https://irobin93.github.io/VSCode/ChangeLogo.html" target="_blank">ChangeLogo.html </a>
                 </li>
+                <li>
+                <a href="https://irobin93.github.io/VSCode/MinFørsteHTML.html" target="_blank">MinFørsteHTML.html </a>
+                </li>
+                <li>
+                <a href="https://irobin93.github.io/VSCode/MinFørsteOnclick.html" target="_blank">MinFørsteOnclick.html </a>
+                </li>
+                <li>
+                <a href="https://irobin93.github.io/VSCode/funksjonMedParameter.html" target="_blank">funksjonMedParameter.html </a>
+                </li>
              </ul> ` 
         }
         case "uke2":{
