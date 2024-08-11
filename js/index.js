@@ -1,6 +1,9 @@
 function showText(uke){
+    
+    let variabel = document.getElementById(uke + 'Text').innerHTML
     blankAll();
-    writeUke(uke);
+    if(variabel == "")
+        writeUke(uke);
 }
 
 
@@ -11,25 +14,25 @@ let strHtml;
             strHtml = /*html*/ `
             <ul>
                 <li>
-                    <a href="https://irobin93.github.io/VSCode/Introduksjontekst.html" target="_blank">Introduksjontekst</a>
+                    <a href="https://irobin93.github.io/VSCode/Introduksjontekst.html" target="_blank">Introduksjon tekst</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/SimpleButtons.html" target="_blank">SimpleButtons</a>
+                <a href="https://irobin93.github.io/VSCode/SimpleButtons.html" target="_blank">Enkle knapper</a>
                 </li>
                 <li>
                 <a href="https://irobin93.github.io/VSCode/førsteGetTime.html" target="_blank">Første GetAcademy time</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/MinFørsteHTML.html" target="_blank">MinFørsteHTML</a>
+                <a href="https://irobin93.github.io/VSCode/MinFørsteHTML.html" target="_blank">Min første HTML</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/MinFørsteOnclick.html" target="_blank">MinFørsteOnclick</a>
+                <a href="https://irobin93.github.io/VSCode/MinFørsteOnclick.html" target="_blank">Min første onclick</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/funksjonMedParameter.html" target="_blank">funksjonMedParameter</a>
+                <a href="https://irobin93.github.io/VSCode/funksjonMedParameter.html" target="_blank">Funksjon med parameter</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/merOmVariabler.html" target="_blank">Mer Om Variabler</a>
+                <a href="https://irobin93.github.io/VSCode/merOmVariabler.html" target="_blank">Mer om variabler</a>
                 </li>
              </ul> ` 
         }
