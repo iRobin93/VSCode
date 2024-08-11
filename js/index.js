@@ -17,7 +17,7 @@ let strHtml;
                 <a href="https://irobin93.github.io/VSCode/SimpleButtons.html" target="_blank">SimpleButtons</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/ChangeLogo.html" target="_blank">ChangeLogo</a>
+                <a href="https://irobin93.github.io/VSCode/førsteGetTime.html" target="_blank">Første GetAcademy time</a>
                 </li>
                 <li>
                 <a href="https://irobin93.github.io/VSCode/MinFørsteHTML.html" target="_blank">MinFørsteHTML</a>
