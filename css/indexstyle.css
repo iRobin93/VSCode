@@ -1,6 +1,6 @@
 .uke{
 background-color: red;
-width: 704px;
+width: 424px;
 height: 50px;
 cursor: pointer;
 text-align: center;
@@ -12,11 +12,7 @@ margin-left: 00px;
 .tekst{
     background-color: white;
     border: solid black 2px;
-    width: 700px;
-    font-size: 50px;
+    width: 420px;
+    font-size: 40px;
     margin-left: 0px;
-}
-
-li{
-
 }
