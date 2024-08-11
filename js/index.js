@@ -11,25 +11,25 @@ let strHtml;
             strHtml = /*html*/ `
             <ul>
                 <li>
-                    <a href="https://irobin93.github.io/VSCode/Introduksjontekst.html" target="_blank">Introduksjontekst.html </a>
+                    <a href="https://irobin93.github.io/VSCode/Introduksjontekst.html" target="_blank">Introduksjontekst</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/SimpleButtons.html" target="_blank">SimpleButtons.html </a>
+                <a href="https://irobin93.github.io/VSCode/SimpleButtons.html" target="_blank">SimpleButtons</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/ChangeLogo.html" target="_blank">ChangeLogo.html </a>
+                <a href="https://irobin93.github.io/VSCode/ChangeLogo.html" target="_blank">ChangeLogo</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/MinFørsteHTML.html" target="_blank">MinFørsteHTML.html </a>
+                <a href="https://irobin93.github.io/VSCode/MinFørsteHTML.html" target="_blank">MinFørsteHTML</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/MinFørsteOnclick.html" target="_blank">MinFørsteOnclick.html </a>
+                <a href="https://irobin93.github.io/VSCode/MinFørsteOnclick.html" target="_blank">MinFørsteOnclick</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/funksjonMedParameter.html" target="_blank">funksjonMedParameter.html </a>
+                <a href="https://irobin93.github.io/VSCode/funksjonMedParameter.html" target="_blank">funksjonMedParameter</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/merOmVariabler.html" target="_blank">merOmVariabler.html </a>
+                <a href="https://irobin93.github.io/VSCode/merOmVariabler.html" target="_blank">Mer Om Variabler</a>
                 </li>
              </ul> ` 
         }

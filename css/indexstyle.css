@@ -1,15 +1,22 @@
 .uke{
 background-color: red;
-width: 304px;
+width: 704px;
 height: 50px;
 cursor: pointer;
 text-align: center;
 line-height: 50px;
 font-size: 30px;
+margin-left: 00px;
 }
 
 .tekst{
     background-color: white;
     border: solid black 2px;
-    width: 300px;
+    width: 700px;
+    font-size: 50px;
+    margin-left: 0px;
+}
+
+li{
+
 }
