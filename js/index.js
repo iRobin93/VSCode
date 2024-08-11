@@ -28,6 +28,9 @@ let strHtml;
                 <li>
                 <a href="https://irobin93.github.io/VSCode/funksjonMedParameter.html" target="_blank">funksjonMedParameter.html </a>
                 </li>
+                <li>
+                <a href="https://irobin93.github.io/VSCode/merOmVariabler.html" target="_blank">merOmVariabler.html </a>
+                </li>
              </ul> ` 
         }
         case "uke2":{

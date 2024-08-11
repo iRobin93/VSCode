@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mer om variabler</title>
+</head>
+<style>
+    div.color {
+        width: 300px;
+        height: 300px;
+        cursor: pointer;
+    }
+
+    div.solidLine {
+        border: solid black 2px;
+    }
+
+    div.Red {
+        background-color: red;
+    }
+
+    div.Brown {
+        background-color: brown;
+    }
+
+    div.Blue {
+        background-color: blue;
+    }
+
+    div.dashedLine {
+        border: dashed orange 4px;
+    }
+
+    div.White {
+        background-color: white;
+    }
+</style>
+
+<body class="White">
+    <div id="colorRed" class="color Red solidLine" onclick="chooseColor('Red', this)"></div>
+    <div id="colorBrown" class="color Brown solidLine" onclick="chooseColor('Brown', this)"> </div>
+    <div id="colorBlue" class="color Blue solidLine" onclick="chooseColor('Blue', this)"> </div>
+    <button style="vertical-align: top;" onclick="changeBackgroundColor()">Bytt bakgrunnsfarge!</button>
+    <div id="leftDiv" onclick="changeDivColor(chosenColor, this)" class="color solidLine White" style="display: inline-block;"></div>
+    <div id="rightDiv" onclick="changeDivColor(chosenColor, this)" class="color solidLine White" style="display: inline-block;"> </div>
+
+
+    <script>
+
+        let chosenColor = "White";
+
+        function chooseColor(newColor, element) {
+            if (newColor != chosenColor) {
+                if (chosenColor != "White") {
+                    toggleBorder(document.getElementById('color' + chosenColor));
+                }
+              
+                chosenColor = newColor;
+
+            }
+            else{
+                
+                chosenColor = "White";
+            }
+
+            toggleBorder(element);
+        }
+
+        function toggleBorder(element) {
+            element.classList.toggle('dashedLine');
+            element.classList.toggle('solidLine');
+        }
+
+        function changeBackgroundColor() {
+            document.body.style.backgroundColor = chosenColor;
+        }
+        function changeDivColor(newColor, element) {
+            //element.style.backgroundColor = newColor;
+            
+            if(element.classList.contains("Red"))
+                element.classList.remove("Red");
+            if(element.classList.contains("Brown"))
+                element.classList.remove("Brown");
+            if(element.classList.contains("Blue"))
+                element.classList.remove("Blue");
+            if(element.classList.contains("White"))
+                element.classList.remove("White");
+
+
+            element.classList.add(newColor);
+        }
+
+    </script>
+</body>
+
+</html>
