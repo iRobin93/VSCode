@@ -32,7 +32,7 @@ function writeUke(uke) {
                 <a href="https://irobin93.github.io/VSCode/funksjonMedParameter.html" target="_blank">Funksjon med parameter</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/merOmVariabler.html" target="_blank">Mer om variabler</a>
+                <a href="https://irobin93.github.io/VSCode/merOmVariabler.html" target="_blank">Farge lek</a>
                 </li>
              </ul> 
             `
