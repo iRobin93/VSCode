@@ -44,6 +44,9 @@ function writeUke(uke) {
                     <li>
                         <a href="https://irobin93.github.io/VSCode/uke2/StrengthProfile.pdf" target="_blank">Mine styrker</a>
                     </li>
+                    <li>
+                        <a href="https://irobin93.github.io/VSCode/uke2/andreGetTime.html" target="_blank">Andre Get Time</a>
+                    </li>
                 </ul>
             `
             break;
