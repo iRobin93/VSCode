@@ -14,37 +14,39 @@ function writeUke(uke) {
             strHtml = /*html*/ `
             <ul>
                 <li>
-                    <a href="https://irobin93.github.io/VSCode/Introduksjontekst.html" target="_blank">Introduksjon tekst</a>
+                    <a href="https://irobin93.github.io/VSCode/uke1/Introduksjontekst.html" target="_blank">Introduksjon tekst</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/SimpleButtons.html" target="_blank">Enkle knapper</a>
+                <a href="https://irobin93.github.io/VSCode/uke1/SimpleButtons.html" target="_blank">Enkle knapper</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/førsteGetTime.html" target="_blank">Første GetAcademy time</a>
+                <a href="https://irobin93.github.io/VSCode/uke1/førsteGetTime.html" target="_blank">Første GetAcademy time</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/MinFørsteHTML.html" target="_blank">Min første HTML</a>
+                <a href="https://irobin93.github.io/VSCode/uke1/MinFørsteHTML.html" target="_blank">Min første HTML</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/MinFørsteOnclick.html" target="_blank">Min første onclick</a>
+                <a href="https://irobin93.github.io/VSCode/uke1/MinFørsteOnclick.html" target="_blank">Min første onclick</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/funksjonMedParameter.html" target="_blank">Funksjon med parameter</a>
+                <a href="https://irobin93.github.io/VSCode/uke1/funksjonMedParameter.html" target="_blank">Funksjon med parameter</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/merOmVariabler.html" target="_blank">Farge lek</a>
+                <a href="https://irobin93.github.io/VSCode/uke1/merOmVariabler.html" target="_blank">Farge lek</a>
                 </li>
              </ul> 
             `
+            break;
         }
         case "uke2": {
-          //  strHtml = /*html*/ `
-            /*    <ul>
+            strHtml = /*html*/ `
+                <ul>
                     <li>
-                        <a href="https://irobin93.github.io/VSCode/pdf/StrengthProfile.pdf" target="_blank">Mine styrker</a>
+                        <a href="https://irobin93.github.io/VSCode/uke2/StrengthProfile.pdf" target="_blank">Mine styrker</a>
                     </li>
                 </ul>
-            ` */
+            `
+            break;
         }
 
         default:
