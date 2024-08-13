@@ -17,22 +17,22 @@ function writeUke(uke) {
                     <a href="https://irobin93.github.io/VSCode/uke1/Introduksjontekst.html" target="_blank">Introduksjon tekst</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/uke1/SimpleButtons.html" target="_blank">Enkle knapper</a>
+                    <a href="https://irobin93.github.io/VSCode/uke1/SimpleButtons.html" target="_blank">Enkle knapper</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/uke1/førsteGetTime.html" target="_blank">Første GetAcademy time</a>
+                    <a href="https://irobin93.github.io/VSCode/uke1/førsteGetTime.html" target="_blank">Første GetAcademy time</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/uke1/MinFørsteHTML.html" target="_blank">Min første HTML</a>
+                    <a href="https://irobin93.github.io/VSCode/uke1/MinFørsteHTML.html" target="_blank">Min første HTML</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/uke1/MinFørsteOnclick.html" target="_blank">Min første onclick</a>
+                    <a href="https://irobin93.github.io/VSCode/uke1/MinFørsteOnclick.html" target="_blank">Min første onclick</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/uke1/funksjonMedParameter.html" target="_blank">Funksjon med parameter</a>
+                    <a href="https://irobin93.github.io/VSCode/uke1/funksjonMedParameter.html" target="_blank">Funksjon med parameter</a>
                 </li>
                 <li>
-                <a href="https://irobin93.github.io/VSCode/uke1/merOmVariabler.html" target="_blank">Farge lek</a>
+                    <a href="https://irobin93.github.io/VSCode/uke1/merOmVariabler.html" target="_blank">Farge lek</a>
                 </li>
              </ul> 
             `
@@ -46,6 +46,9 @@ function writeUke(uke) {
                     </li>
                     <li>
                         <a href="https://irobin93.github.io/VSCode/uke2/andreGetTime.html" target="_blank">Andre Get Time</a>
+                    </li>
+                    <li>
+                        <a href="https://touraymk.github.io/inventory-game/" target="_blank">Team Oppgave 1 - Inventory Game</a>
                     </li>
                 </ul>
             `
