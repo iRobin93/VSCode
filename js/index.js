@@ -1,15 +1,15 @@
-function showText(uke){
-    
+function showText(uke) {
+
     let variabel = document.getElementById(uke + 'Text').innerHTML
     blankAll();
-    if(variabel == "")
+    if (variabel == "")
         writeUke(uke);
 }
 
 
-function writeUke(uke){
-let strHtml;
-    switch(uke){
+function writeUke(uke) {
+    let strHtml;
+    switch (uke) {
         case "uke1": {
             strHtml = /*html*/ `
             <ul>
@@ -34,32 +34,39 @@ let strHtml;
                 <li>
                 <a href="https://irobin93.github.io/VSCode/merOmVariabler.html" target="_blank">Mer om variabler</a>
                 </li>
-             </ul> ` 
+             </ul> 
+            `
         }
-        case "uke2":{
-           
+        case "uke2": {
+          //  strHtml = /*html*/ `
+            /*    <ul>
+                    <li>
+                        <a href="https://irobin93.github.io/VSCode/pdf/StrengthProfile.pdf" target="_blank">Mine styrker</a>
+                    </li>
+                </ul>
+            ` */
         }
-       
+
         default:
             break;
-       }
+    }
 
 
 
-         document.getElementById(uke + 'Text').innerHTML = strHtml;
+    document.getElementById(uke + 'Text').innerHTML = strHtml;
 }
 
 
-function blankAll(){
+function blankAll() {
     let textObject;
     let i = 1;
-    while(true){
-      textObject = document.getElementById('uke' + i + 'Text');
-   
-    if (textObject != undefined)
-      textObject.innerHTML = "";
-    else 
-        break;
-    i++;
+    while (true) {
+        textObject = document.getElementById('uke' + i + 'Text');
+
+        if (textObject != undefined)
+            textObject.innerHTML = "";
+        else
+            break;
+        i++;
     }
 }
