@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        img{ width: 50%;}
+
+    </style>
+</head>
+<body>
+  
+    
+
+
+    <div id="app">
+    </div>
+
+
+
+
+    
+<script> 
+
+showTimer();
+        function showTimer() {
+            document.getElementById('app').innerHTML = /*HTML*/`            
+                <div id="container">
+                    <div id="timer">
+                        1
+                    </div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+
+                <div id="buttons">
+                    <div></div>
+                    <button onclick="startTimer()">Start</button>
+                    <div></div>
+                    <button >Pause</button>
+                    <div></div>
+                    <button onclick="">RundeTid</button>
+                    <div></div>
+                    <button onclick="">Start på nytt</button>
+                </div>            
+            `;
+            }
+
+
+
+ var seconds = 0;
+        function startTimer(){
+            
+             let interval = setInterval(increment, 1000)
+             
+
+        }
+
+        function increment(){
+            seconds++
+            timer.innerHTML = seconds;
+        }
+
+        function pauseTimer(){
+
+        }
+
+        function roundTime(){
+
+        }
+
+        function restart(){
+            
+
+
+        }
+
+
+</script>
+
+</body>
+</html>
