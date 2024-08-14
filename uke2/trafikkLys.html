@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+
+.red{
+    background-color: black;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+.yellow{
+    background-color: black;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+.green{
+    background-color: black;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+</style>
+
+</head>
+<body>
+    
+
+    <div id="app">
+        <div class="red" id="red"></div>
+        <div class="yellow" id="yellow"></div>
+        <div class="green" id="green"></div>
+
+
+
+        <button onclick="clicked('red')" >Rødt</button>
+        <button onclick="clicked('yellow')" >Gult</button>
+        <button onclick="clicked('green')" >Grønt</button>
+    </div>
+
+
+<script>
+
+function clicked(color){
+ document.getElementById(color).style.backgroundColor = color;
+}
+
+
+</script>
+
+</body>
+</html>

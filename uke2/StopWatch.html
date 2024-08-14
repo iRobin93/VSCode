@@ -7,16 +7,15 @@
     <title>Document</title>
 
     <style>
-  #timerInterval{
-    border: dashed orange 2px;
-    width: 25%;
-  }
+        #timerInterval {
+            border: dashed orange 2px;
+            width: 25%;
+        }
 
-  #buttons > button{
-    width: 400px;
-    height: 100px;
-  }
-
+        #buttons>button {
+            width: 400px;
+            height: 100px;
+        }
     </style>
 </head>
 
@@ -79,29 +78,29 @@
 
         function increment() {
             if (timerRunning == true)
-            seconds++
+                seconds++
             timer.innerHTML = seconds;
         }
 
         function pauseTimer() {
-                
+
             clearInterval(interval);
             interval = undefined;
         }
 
         function roundTime() {
             let secondText;
-            
 
 
-                if (seconds == 1)
-                    secondText = " Sekund"
-                else
-                    secondText = " Sekunder";
-                timerInterval.innerHTML += seconds + secondText + " (" + round  + ")" + "<br>";
-                seconds = 0;
-                timer.innerHTML = seconds;
-                round++
+
+            if (seconds == 1)
+                secondText = " Sekund"
+            else
+                secondText = " Sekunder";
+            timerInterval.innerHTML += seconds + secondText + " (" + round + ")" + "<br>";
+            seconds = 0;
+            timer.innerHTML = seconds;
+            round++
         }
 
         function restart() {
