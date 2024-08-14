@@ -50,6 +50,9 @@ function writeUke(uke) {
                     <li>
                         <a href="https://touraymk.github.io/inventory-game/" target="_blank">Team Oppgave 1 - Inventory Game</a>
                     </li>
+                    <li>
+                        <a href="https://irobin93.github.io/VSCode/uke2/StopWatch.html" target="_blank">Stoppeklokke</a>
+                    </li>
                 </ul>
             `
             break;

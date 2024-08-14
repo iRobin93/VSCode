@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
     <style>
+  #timerInterval{
+    border: dashed orange 2px;
+    width: 15%;
+  }
 
-        img{ width: 50%;}
+  #buttons > button{
+    width: 400px;
+    height: 100px;
+  }
 
     </style>
 </head>
+
 <body>
-  
-    
+
+
 
 
     <div id="app">
@@ -22,65 +31,92 @@
 
 
 
-    
-<script> 
 
-showTimer();
+    <script>
+
+        showTimer();
         function showTimer() {
-            document.getElementById('app').innerHTML = /*HTML*/`            
-                <div id="container">
-                    <div id="timer">
-                        1
-                    </div>
+            document.getElementById('app').innerHTML = /*HTML*/` 
+            <div id="buttons">
                     <div></div>
+                    <button onclick="startTimer()">Start</button>
+                    <div></div>
+                    <button onclick="pauseTimer()" >Pause</button>
+                    <div></div>
+                    <button onclick="roundTime()">RundeTid</button>
+                    <div></div>
+                    <button onclick="restart()">Start på nytt</button>
+                </div>     
+                <br>
+                <div id="container">
+                    <div>Timer: </div>
+                   <div id="timer">
+                        0
+                    </div> <br>
+                    <div>RundeTider:  </div>
+                    <div id="timerInterval"></div>
                     <div></div>
                     <div></div>
                 </div>
 
-                <div id="buttons">
-                    <div></div>
-                    <button onclick="startTimer()">Start</button>
-                    <div></div>
-                    <button >Pause</button>
-                    <div></div>
-                    <button onclick="">RundeTid</button>
-                    <div></div>
-                    <button onclick="">Start på nytt</button>
-                </div>            
+       
             `;
+        }
+
+
+
+        let seconds = 0;
+        let interval;
+        let round = 1;
+        function startTimer() {
+            if (interval == undefined) {
+                interval = setInterval(increment, 1000)
+                timerRunning = true;
             }
 
 
-
- var seconds = 0;
-        function startTimer(){
-            
-             let interval = setInterval(increment, 1000)
-             
-
         }
 
-        function increment(){
+        function increment() {
+            if (timerRunning == true)
             seconds++
             timer.innerHTML = seconds;
         }
 
-        function pauseTimer(){
-
+        function pauseTimer() {
+                
+            clearInterval(interval);
+            interval = undefined;
         }
 
-        function roundTime(){
-
-        }
-
-        function restart(){
+        function roundTime() {
+            let secondText;
             
 
 
+                if (seconds == 1)
+                    secondText = " Sekund"
+                else
+                    secondText = " Sekunder";
+                timerInterval.innerHTML += seconds + secondText + " (" + round  + ")" + "<br>";
+                seconds = 0;
+                timer.innerHTML = seconds;
+                round++
+        }
+
+        function restart() {
+            seconds = 0;
+            if (interval != undefined)
+                clearInterval(interval);
+            interval = undefined;
+            timer.innerHTML = "0";
+            timerInterval.innerHTML = "";
+            round = 1;
         }
 
 
-</script>
+    </script>
 
 </body>
+
 </html>
