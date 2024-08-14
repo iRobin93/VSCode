@@ -1,57 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-<style>
+    <style>
+        .red {
+            background-color: black;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
 
-.red{
-    background-color: black;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-}
-.yellow{
-    background-color: black;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-}
-.green{
-    background-color: black;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-}
+        }
 
-</style>
+        .yellow {
+            background-color: black;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            float: left;
+            position: absolute;
+        }
+
+        .green {
+            background-color: green;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            float: left;
+            position: absolute;
+            margin-top: 200px;
+            
+        }
+
+
+        #pedestrian {
+            width: 200px;
+            margin-left: 200px;
+            float: left;
+            display: inline-block;
+        }
+
+        #pedestrianDiv {}
+
+        button {
+            width: 20vh;
+            height: 20vh;
+        }
+    </style>
 
 </head>
+
 <body>
-    
+
 
     <div id="app">
         <div class="red" id="red"></div>
         <div class="yellow" id="yellow"></div>
         <div class="green" id="green"></div>
+        <div id="pedestrianDiv"><img id="pedestrian" src="./images/red.png" /></div>
 
+        <br>
 
-
-        <button onclick="clicked('red')" >Rødt</button>
-        <button onclick="clicked('yellow')" >Gult</button>
-        <button onclick="clicked('green')" >Grønt</button>
+        <button id="btn" onclick="clicked()">Trykk meg!</button>
     </div>
 
 
-<script>
+    <script>
 
-function clicked(color){
- document.getElementById(color).style.backgroundColor = color;
-}
+        let secondInterval = 0;
+        let secondsToWait = 5;
+        let interval;
+
+        function clicked() {
+
+            interval = setInterval(increment, 1000);
 
 
-</script>
+        }
+
+        function increment() {
+            secondsToWait--;
+            if (secondsToWait < 6 && secondsToWait > -1)
+                document.getElementById('btn').textContent = secondsToWait;
+
+            if (secondsToWait == 3){
+                document.getElementById('green').style.backgroundColor = "black";
+                document.getElementById('yellow').style.backgroundColor = "rgb(238, 186, 14)";
+            }
+            if (secondsToWait == 0) {
+                document.getElementById('pedestrian').src = "./images/green.jpg";
+                document.getElementById('red').style.backgroundColor = "red";
+                document.getElementById('yellow').style.backgroundColor = "black";
+                document.getElementById('btn').textContent = "Gå";
+            }
+
+            if (secondsToWait == -10){
+                document.getElementById('pedestrian').src = "./images/red.png";
+                document.getElementById('yellow').style.backgroundColor = "rgb(238, 186, 14)";
+                document.getElementById('btn').textContent = "Vent";
+            }
+
+            if (secondsToWait == -14){
+            document.getElementById('yellow').style.backgroundColor = "black";
+            document.getElementById('red').style.backgroundColor = "black";
+            document.getElementById('green').style.backgroundColor = "green";
+            document.getElementById('btn').textContent = "Trykk meg igjen!";
+            clearInterval(interval);
+            interval = undefined;
+            secondsToWait = 5;
+
+            }
+        }
+
+
+    </script>
 
 </body>
+
 </html>

@@ -53,6 +53,9 @@ function writeUke(uke) {
                     <li>
                         <a href="https://irobin93.github.io/VSCode/uke2/simpleStopWatch.html" target="_blank">Stoppeklokke</a>
                     </li>
+                    <li>
+                        <a href="https://irobin93.github.io/VSCode/uke2/trafikkLys.html" target="_blank">Trafikklys</a>
+                    </li>
                 </ul>
             `
             break;

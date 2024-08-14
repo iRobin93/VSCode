@@ -37,8 +37,8 @@
         </div>
         <br>
         <div id="container">
-            <div>Timer: </div>
-            <div id="timer">
+            <div>Sekunder: </div>
+            <div style="font-size: 7cap;" id="timer">
                 0
             </div> <br>
             <div>RundeTider: </div>
@@ -67,7 +67,6 @@
 
             if (interval == undefined) {
                 interval = setInterval(increment, 1000)
-                timerRunning = true;
                 document.getElementById("roundTimer").style.display = "";
                 document.getElementById("restart").style.display = "none";
             }
@@ -77,9 +76,8 @@
         }
 
         function increment() {
-            if (timerRunning == true)
-                seconds++
-            timer.innerHTML = seconds;
+                seconds++;
+                timer.innerHTML = seconds;
         }
 
         function pauseTimer() {
