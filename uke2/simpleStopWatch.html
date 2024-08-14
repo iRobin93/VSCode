@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #timerInterval {
+            border: dashed orange 2px;
+            width: 25%;
+        }
+
+        #buttons>button {
+            width: 400px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+
+    <div id="app">
+        <div id="buttons">
+            <div></div>
+            <button onclick="startTimer()">Start</button>
+            <div></div>
+            <button onclick="pauseTimer()">Pause</button>
+            <div></div>
+            <button style="display: none;" id="roundTimer" onclick="roundTime()">RundeTid</button>
+            <div></div>
+            <button onclick="restart()" id="restart">Start på nytt</button>
+        </div>
+        <br>
+        <div id="container">
+            <div>Timer: </div>
+            <div id="timer">
+                0
+            </div> <br>
+            <div>RundeTider: </div>
+            <div id="timerInterval"></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+
+
+
+
+    <script>
+
+
+
+
+
+        let seconds = 0;
+        let interval;
+        let round = 1;
+        let tempSeconds = 0;
+        function startTimer() {
+
+
+            if (interval == undefined) {
+                interval = setInterval(increment, 1000)
+                timerRunning = true;
+                document.getElementById("roundTimer").style.display = "";
+                document.getElementById("restart").style.display = "none";
+            }
+
+
+
+        }
+
+        function increment() {
+            if (timerRunning == true)
+                seconds++
+            timer.innerHTML = seconds;
+        }
+
+        function pauseTimer() {
+            if (interval != undefined) { // If timer is running stop timer and clear intervalID
+                clearInterval(interval);
+                interval = undefined;
+                document.getElementById("roundTimer").style.display = "none";
+                document.getElementById("restart").style.display = "";
+            }
+
+        }
+
+        function roundTime() {
+            let secondText;
+            let roundSeconds;
+            let totalSeconds = seconds;
+            if (interval != undefined) {
+                roundSeconds = totalSeconds - tempSeconds;
+                if (roundSeconds == 1)
+                    secondText = " Sekund";
+                else
+                    secondText = " Sekunder";
+
+                timerInterval.innerHTML += "Runde" + "(" + round + ")" + " " + roundSeconds + secondText + " " + "<br>";
+                timer.innerHTML = totalSeconds;
+                round++;
+                tempSeconds = totalSeconds;
+            }
+        }
+
+        function restart() {
+            seconds = 0;
+            if (interval != undefined)
+                clearInterval(interval);
+            interval = undefined;
+            timer.innerHTML = "0";
+            timerInterval.innerHTML = "";
+            round = 1;
+            tempSeconds = 0;
+        }
+
+
+    </script>
+
+</body>
+
+</html>
