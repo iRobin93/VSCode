@@ -16,7 +16,7 @@
 
     .grid {
         display: grid;
-        grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto;
+        grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto;
         width: 20px;
     }
 
@@ -29,7 +29,7 @@
     }
 
     .letterSpace {
-  width: 400px;
+        width: 400px;
     }
 
     #input {
@@ -66,6 +66,7 @@
             <div class="letter" onclick="letterClicked(this)">P</div>
 
             <div class="letter" onclick="letterClicked(this)">Å</div>
+            <div id="backSpace" class="letter" onclick="letterClicked(this)">⌫</div>
         </div>
         <div class="grid">
             <div class="letter" onclick="letterClicked(this)">A</div>
@@ -109,7 +110,7 @@
             <div class="letter" onclick="letterClicked(this)">-</div>
             <div id="shiftKey" class="letter" onclick="letterClicked(this)">SHIFT</div>
             <div class="grid">
-                <div class="letterSpace letter" onclick="letterClicked(this)">  </div>
+                <div class="letterSpace letter" onclick="letterClicked(this)"> </div>
                 <div id="enterKey" class="letterSpace letter" onclick="letterClicked(this)"> Enter </div>
 
 
@@ -123,9 +124,12 @@
             let inputText = document.getElementById('input');
 
             function letterClicked(element) {
-                if (element.id != "enterKey" && element.id != "shiftKey")
+                if (element.id != "enterKey" && element.id != "shiftKey" && element.id != "backSpace")
                     inputText.innerHTML += element.innerHTML;
-                else inputText.innerHTML += "<br>";
+                else if (element.id == "enterKey")
+                    inputText.innerHTML += "<br>";
+                else if (element.id == "backSpace")
+                inputText.innerHTML += " ";
             }
 
             function reset() {
