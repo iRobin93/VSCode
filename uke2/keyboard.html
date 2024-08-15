@@ -38,11 +38,10 @@
 </style>
 
 <body>
-
+    <div style="user-select: none;" id="input"> Skriv her: <br> </div>
     <div id="app">
         <button onclick="reset()"> Reset</button>
         <br>
-        <div style="user-select: none;" id="input"> Skriv her: <br> </div>
         <br>
         <div class="grid">
             <div class="letter" onclick="letterClicked(this)">Q</div>
@@ -90,9 +89,125 @@
             <div class="letter" onclick="letterClicked(this)">Ø</div>
 
             <div class="letter" onclick="letterClicked(this)">Æ</div>
+            <div id="capsLock" class="letter" onclick="letterClicked(this)">Caps Lock</div>
         </div>
         <div class="grid">
-            <div class="letter" onclick="letterClicked(this)"><</div>
+            <div class="letter" onclick="letterClicked(this)">
+                << /div>
+                    <div class="letter" onclick="letterClicked(this)">Z</div>
+
+                    <div class="letter" onclick="letterClicked(this)">X</div>
+
+                    <div class="letter" onclick="letterClicked(this)">C</div>
+
+                    <div class="letter" onclick="letterClicked(this)">V</div>
+
+                    <div class="letter" onclick="letterClicked(this)">B</div>
+
+                    <div class="letter" onclick="letterClicked(this)">N</div>
+                    <div class="letter" onclick="letterClicked(this)">M</div>
+                    <div class="letter" onclick="letterClicked(this)">,</div>
+                    <div class="letter" onclick="letterClicked(this)">.</div>
+                    <div class="letter" onclick="letterClicked(this)">-</div>
+                    <div id="shiftKey" class="letter" onclick="letterClicked(this)">SHIFT</div>
+                    <div class="grid">
+                        <div class="letterSpace letter" onclick="letterClicked(this)"> </div>
+                        <div id="enterKey" class="letterSpace letter" onclick="letterClicked(this)"> Enter </div>
+
+
+                    </div>
+            </div>
+
+
+
+            <script>
+                let shiftStatus = false;
+                let inputText = document.getElementById('input');
+                lowerCase();
+                function letterClicked(element) {
+                    let newStr;
+
+
+                    if (element.id == "capsLock")
+                        upperCase();
+                    else if (element.id == "enterKey")
+                        inputText.innerHTML += "<br>";
+                    else if (element.id == "backSpace") {
+                        newStr = inputText.innerHTML.slice(0, -1)
+                        inputText.innerHTML = newStr;
+                    }
+                    else {
+                        inputText.innerHTML += element.innerHTML;
+                        if (shiftStatus == true) {
+                            lowerCase();
+                            shiftStatus = false;
+                        }
+
+                        
+
+                    }
+
+                }
+
+                function reset() {
+                    inputText.innerHTML = "Skriv her: <br> ";
+                }
+
+                function upperCase() {
+                    document.getElementById('app').innerHTML = /*HTML*/ `
+                <button onclick="reset()"> Reset</button>
+        <br>      
+        <br>
+        <div class="grid">
+            <div class="letter" onclick="letterClicked(this)">Q</div>
+
+            <div class="letter" onclick="letterClicked(this)">W</div>
+
+            <div class="letter" onclick="letterClicked(this)">E</div>
+
+            <div class="letter" onclick="letterClicked(this)">R</div>
+
+            <div class="letter" onclick="letterClicked(this)">T</div>
+
+            <div class="letter" onclick="letterClicked(this)">Y</div>
+
+            <div class="letter" onclick="letterClicked(this)">U</div>
+
+            <div class="letter" onclick="letterClicked(this)">I</div>
+
+            <div class="letter" onclick="letterClicked(this)">O</div>
+
+            <div class="letter" onclick="letterClicked(this)">P</div>
+
+            <div class="letter" onclick="letterClicked(this)">Å</div>
+            <div id="backSpace" class="letter" onclick="letterClicked(this)">⌫</div>
+        </div>
+        <div class="grid">
+            <div class="letter" onclick="letterClicked(this)">A</div>
+
+            <div class="letter" onclick="letterClicked(this)">S</div>
+
+            <div class="letter" onclick="letterClicked(this)">D</div>
+
+            <div class="letter" onclick="letterClicked(this)">F</div>
+
+            <div class="letter" onclick="letterClicked(this)">G</div>
+
+            <div class="letter" onclick="letterClicked(this)">H</div>
+
+            <div class="letter" onclick="letterClicked(this)">J</div>
+
+            <div class="letter" onclick="letterClicked(this)">K</div>
+
+            <div class="letter" onclick="letterClicked(this)">L</div>
+
+            <div class="letter" onclick="letterClicked(this)">Ø</div>
+
+            <div class="letter" onclick="letterClicked(this)">Æ</div>
+            <div id="capsLock" class="letter" onclick="lowerCase()">Caps Lock</div>
+        </div>
+        <div class="grid">
+            <div class="letter" onclick="letterClicked(this)">></div>
             <div class="letter" onclick="letterClicked(this)">Z</div>
 
             <div class="letter" onclick="letterClicked(this)">X</div>
@@ -105,46 +220,116 @@
 
             <div class="letter" onclick="letterClicked(this)">N</div>
             <div class="letter" onclick="letterClicked(this)">M</div>
-            <div class="letter" onclick="letterClicked(this)">,</div>
-            <div class="letter" onclick="letterClicked(this)">.</div>
-            <div class="letter" onclick="letterClicked(this)">-</div>
-            <div id="shiftKey" class="letter" onclick="letterClicked(this)">SHIFT</div>
+            <div class="letter" onclick="letterClicked(this)">;</div>
+            <div class="letter" onclick="letterClicked(this)">:</div>
+            <div class="letter" onclick="letterClicked(this)">_</div>
+            <div id="shiftKey" class="letter" onclick="shiftPressed(this)">SHIFT</div>
             <div class="grid">
                 <div class="letterSpace letter" onclick="letterClicked(this)"> </div>
                 <div id="enterKey" class="letterSpace letter" onclick="letterClicked(this)"> Enter </div>
 
 
             </div>
-        </div>
-
-
-
-        <script>
-
-            let inputText = document.getElementById('input');
-            function letterClicked(element) {
-                let tmpInput = document.getElementById('input');
-                newStr = inputText.textContent.slice(11, -1)
-                let newstring;
-                if (element.id != "enterKey" && element.id != "shiftKey" && element.id != "backSpace")
-                    inputText.innerHTML += element.innerHTML;
-                else if (element.id == "enterKey")
-                    inputText.innerHTML += "<br>";
-                else if (element.id == "backSpace"){
-                     reset();
-                     inputText.innerHTML += newStr;
-                     
-                     
+                
+                `
                 }
-            
-               
-            }
 
-            function reset() {
-                inputText.innerHTML = "Skriv her: <br> ";
-            }
-        </script>
+                function lowerCase() {
+                    document.getElementById('app').innerHTML = /*HTML*/ `
+                <button onclick="reset()"> Reset</button>
+        <br>      
+        <br>
+        <div class="grid">
+            <div class="letter" onclick="letterClicked(this)">q</div>
+
+            <div class="letter" onclick="letterClicked(this)">w</div>
+
+            <div class="letter" onclick="letterClicked(this)">e</div>
+
+            <div class="letter" onclick="letterClicked(this)">r</div>
+
+            <div class="letter" onclick="letterClicked(this)">t</div>
+
+            <div class="letter" onclick="letterClicked(this)">y</div>
+
+            <div class="letter" onclick="letterClicked(this)">u</div>
+
+            <div class="letter" onclick="letterClicked(this)">i</div>
+
+            <div class="letter" onclick="letterClicked(this)">o</div>
+
+            <div class="letter" onclick="letterClicked(this)">p</div>
+
+            <div class="letter" onclick="letterClicked(this)">å</div>
+            <div id="backSpace" class="letter" onclick="letterClicked(this)">⌫</div>
+        </div>
+        <div class="grid">
+            <div class="letter" onclick="letterClicked(this)">a</div>
+
+            <div class="letter" onclick="letterClicked(this)">s</div>
+
+            <div class="letter" onclick="letterClicked(this)">d</div>
+
+            <div class="letter" onclick="letterClicked(this)">f</div>
+
+            <div class="letter" onclick="letterClicked(this)">g</div>
+
+            <div class="letter" onclick="letterClicked(this)">h</div>
+
+            <div class="letter" onclick="letterClicked(this)">j</div>
+
+            <div class="letter" onclick="letterClicked(this)">k</div>
+
+            <div class="letter" onclick="letterClicked(this)">l</div>
+
+            <div class="letter" onclick="letterClicked(this)">ø</div>
+
+            <div class="letter" onclick="letterClicked(this)">æ</div>
+            <div id="capsLock" class="letter" onclick="upperCase()">Caps Lock</div>
+        </div>
+        <div class="grid">
+            <div class="letter" onclick="letterClicked(this)"><</div>
+            <div class="letter" onclick="letterClicked(this)">z</div>
+
+            <div class="letter" onclick="letterClicked(this)">x</div>
+
+            <div class="letter" onclick="letterClicked(this)">c</div>
+
+            <div class="letter" onclick="letterClicked(this)">v</div>
+
+            <div class="letter" onclick="letterClicked(this)">b</div>
+
+            <div class="letter" onclick="letterClicked(this)">n</div>
+            <div class="letter" onclick="letterClicked(this)">m</div>
+            <div class="letter" onclick="letterClicked(this)">,</div>
+            <div class="letter" onclick="letterClicked(this)">.</div>
+            <div class="letter" onclick="letterClicked(this)">-</div>
+            <div id="shiftKey" class="letter" onclick="shiftPressed(this)">shift</div>
+            <div class="grid">
+                <div class="letterSpace letter" onclick="letterClicked(this)"> </div>
+                <div id="enterKey" class="letterSpace letter" onclick="letterClicked(this)"> Enter </div>
+
+
+            </div>
+                
+                `
+                }
+
+                function shiftPressed(element) {
+                    if (shiftStatus == false) {
+                        upperCase();
+                        shiftStatus = true;
+                    }
+                    else {
+                        lowerCase();
+                        shiftStatus = false;
+                    }
+                }
+            </script>
 
 </body>
+
+
+
 
 </html>
