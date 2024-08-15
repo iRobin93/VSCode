@@ -31,7 +31,7 @@
             float: left;
             position: absolute;
             margin-top: 200px;
-            
+
         }
 
 
@@ -39,14 +39,12 @@
             width: 200px;
             margin-left: 200px;
             float: left;
-            display: inline-block;
         }
 
-        #pedestrianDiv {}
 
         button {
-            width: 20vh;
-            height: 20vh;
+            width: 150px;
+            height: 150px;
         }
     </style>
 
@@ -72,11 +70,14 @@
         let secondInterval = 0;
         let secondsToWait = 5;
         let interval;
+        let clearToStart = true;
 
         function clicked() {
-
-            interval = setInterval(increment, 1000);
-
+            if (clearToStart) {
+                interval = setInterval(increment, 1000);
+                document.getElementById('btn').textContent = "5";
+                clearToStart = false;
+            }
 
         }
 
@@ -85,7 +86,7 @@
             if (secondsToWait < 6 && secondsToWait > -1)
                 document.getElementById('btn').textContent = secondsToWait;
 
-            if (secondsToWait == 3){
+            if (secondsToWait == 3) {
                 document.getElementById('green').style.backgroundColor = "black";
                 document.getElementById('yellow').style.backgroundColor = "rgb(238, 186, 14)";
             }
@@ -94,26 +95,33 @@
                 document.getElementById('red').style.backgroundColor = "red";
                 document.getElementById('yellow').style.backgroundColor = "black";
                 document.getElementById('btn').textContent = "Gå";
+                setTimeout(activeRed, 5000);
+                clearInterval(interval);
+                interval = undefined;
             }
 
-            if (secondsToWait == -10){
-                document.getElementById('pedestrian').src = "./images/red.png";
-                document.getElementById('yellow').style.backgroundColor = "rgb(238, 186, 14)";
-                document.getElementById('btn').textContent = "Vent";
-            }
+        }
 
-            if (secondsToWait == -14){
+
+        function activeRed() {
+            document.getElementById('pedestrian').src = "./images/red.png";
+            document.getElementById('btn').textContent = "Vent";
+            setTimeout(activeYellow, 1500);
+        }
+
+        function activeYellow() {
+            document.getElementById('yellow').style.backgroundColor = "rgb(238, 186, 14)";
+            setTimeout(activeGreen, 1800);
+        }
+
+        function activeGreen() {
             document.getElementById('yellow').style.backgroundColor = "black";
             document.getElementById('red').style.backgroundColor = "black";
             document.getElementById('green').style.backgroundColor = "green";
             document.getElementById('btn').textContent = "Trykk meg igjen!";
-            clearInterval(interval);
-            interval = undefined;
+            clearToStart = true;
             secondsToWait = 5;
-
-            }
         }
-
 
     </script>
 
