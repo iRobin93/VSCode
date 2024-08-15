@@ -1,12 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    div {
+
+
+        font-size: 30px;
+
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto;
+        width: 20px;
+    }
+
+    .letter {
+        cursor: pointer;
+        border: solid darkblue 4px;
+        padding: 20px;
+        margin: 5px;
+        user-select: none;
+    }
+
+    .letterSpace {
+  width: 400px;
+    }
+
+    #input {
+        border: solid green 2px;
+    }
+</style>
+
 <body>
-    
-    
+
+    <div id="app">
+        <button onclick="reset()"> Reset</button>
+        <br>
+        <div id="input"> Skriv her: <br> </div>
+        <br>
+        <div class="grid">
+            <div class="letter" onclick="letterClicked(this)">Q</div>
+
+            <div class="letter" onclick="letterClicked(this)">W</div>
+
+            <div class="letter" onclick="letterClicked(this)">E</div>
+
+            <div class="letter" onclick="letterClicked(this)">R</div>
+
+            <div class="letter" onclick="letterClicked(this)">T</div>
+
+            <div class="letter" onclick="letterClicked(this)">Y</div>
+
+            <div class="letter" onclick="letterClicked(this)">U</div>
+
+            <div class="letter" onclick="letterClicked(this)">I</div>
+
+            <div class="letter" onclick="letterClicked(this)">O</div>
+
+            <div class="letter" onclick="letterClicked(this)">P</div>
+
+            <div class="letter" onclick="letterClicked(this)">Å</div>
+        </div>
+        <div class="grid">
+            <div class="letter" onclick="letterClicked(this)">A</div>
+
+            <div class="letter" onclick="letterClicked(this)">S</div>
+
+            <div class="letter" onclick="letterClicked(this)">D</div>
+
+            <div class="letter" onclick="letterClicked(this)">F</div>
+
+            <div class="letter" onclick="letterClicked(this)">G</div>
+
+            <div class="letter" onclick="letterClicked(this)">H</div>
+
+            <div class="letter" onclick="letterClicked(this)">J</div>
+
+            <div class="letter" onclick="letterClicked(this)">K</div>
+
+            <div class="letter" onclick="letterClicked(this)">L</div>
+
+            <div class="letter" onclick="letterClicked(this)">Ø</div>
+
+            <div class="letter" onclick="letterClicked(this)">Æ</div>
+        </div>
+        <div class="grid">
+            <div class="letter" onclick="letterClicked(this)"><</div>
+            <div class="letter" onclick="letterClicked(this)">Z</div>
+
+            <div class="letter" onclick="letterClicked(this)">X</div>
+
+            <div class="letter" onclick="letterClicked(this)">C</div>
+
+            <div class="letter" onclick="letterClicked(this)">V</div>
+
+            <div class="letter" onclick="letterClicked(this)">B</div>
+
+            <div class="letter" onclick="letterClicked(this)">N</div>
+            <div class="letter" onclick="letterClicked(this)">M</div>
+            <div class="letter" onclick="letterClicked(this)">,</div>
+            <div class="letter" onclick="letterClicked(this)">.</div>
+            <div class="letter" onclick="letterClicked(this)">-</div>
+            <div id="shiftKey" class="letter" onclick="letterClicked(this)">SHIFT</div>
+            <div class="grid">
+                <div class="letterSpace letter" onclick="letterClicked(this)">  </div>
+                <div id="enterKey" class="letterSpace letter" onclick="letterClicked(this)"> Enter </div>
+
+
+            </div>
+        </div>
+
+
+
+        <script>
+
+            let inputText = document.getElementById('input');
+
+            function letterClicked(element) {
+                if (element.id != "enterKey" && element.id != "shiftKey")
+                    inputText.innerHTML += element.innerHTML;
+                else inputText.innerHTML += "<br>";
+            }
+
+            function reset() {
+                inputText.innerHTML = "Skriv her: <br> ";
+            }
+        </script>
+
 </body>
+
 </html>
