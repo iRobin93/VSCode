@@ -42,7 +42,7 @@
     <div id="app">
         <button onclick="reset()"> Reset</button>
         <br>
-        <div id="input"> Skriv her: <br> </div>
+        <div style="user-select: none;" id="input"> Skriv her: <br> </div>
         <br>
         <div class="grid">
             <div class="letter" onclick="letterClicked(this)">Q</div>
@@ -122,14 +122,22 @@
         <script>
 
             let inputText = document.getElementById('input');
-
             function letterClicked(element) {
+                let tmpInput = document.getElementById('input');
+                newStr = inputText.textContent.slice(11, -1)
+                let newstring;
                 if (element.id != "enterKey" && element.id != "shiftKey" && element.id != "backSpace")
                     inputText.innerHTML += element.innerHTML;
                 else if (element.id == "enterKey")
                     inputText.innerHTML += "<br>";
-                else if (element.id == "backSpace")
-                inputText.innerHTML += " ";
+                else if (element.id == "backSpace"){
+                     reset();
+                     inputText.innerHTML += newStr;
+                     
+                     
+                }
+            
+               
             }
 
             function reset() {

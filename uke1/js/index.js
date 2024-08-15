@@ -34,8 +34,8 @@ function writeUke(uke) {
                 <li>
                     <a href="https://irobin93.github.io/VSCode/uke1/merOmVariabler.html" target="_blank">Farge lek</a>
                 </li>
-             </ul> 
-            `
+             </ul>`
+
             break;
         }
         case "uke2": {
@@ -59,8 +59,8 @@ function writeUke(uke) {
                     <li>
                         <a href="https://irobin93.github.io/VSCode/uke2/keyboard.html" target="_blank">Tastatur</a>
                     </li>
-                </ul>
-            `
+                </ul>`
+                
             break;
         }
 
