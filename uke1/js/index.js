@@ -59,6 +59,9 @@ function writeUke(uke) {
                     <li>
                         <a href="https://irobin93.github.io/VSCode/uke2/keyboard.html" target="_blank">Tastatur</a>
                     </li>
+                    <li>
+                        <a href="https://irobin93.github.io/VSCode/uke2/lysBryter.html" target="_blank">Lyspæra og bryteren</a>
+                    </li>
                 </ul>`
                 
             break;
