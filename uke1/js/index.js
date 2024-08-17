@@ -69,6 +69,17 @@ function writeUke(uke) {
                 
             break;
         }
+        
+        case "uke3": {
+            strHtml = /*html*/ `
+                <ul>
+                    <li>
+                        Kommer...
+                    </li>
+
+                </ul>`
+
+        }
 
         default:
             break;
