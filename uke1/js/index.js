@@ -62,6 +62,9 @@ function writeUke(uke) {
                     <li>
                         <a href="https://irobin93.github.io/VSCode/uke2/lysBryter.html" target="_blank">Lyspæra og bryteren</a>
                     </li>
+                    <li>
+                        <a href="https://irobin93.github.io/VSCode/uke2/krokodilleSpillet.html" target="_blank">Krokodille Spillet</a>
+                    </li>
                 </ul>`
                 
             break;

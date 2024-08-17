@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .numberClass {
+            display: inline-block;
+            font-size: 40px;
+
+        }
+
+.btn1{
+    position: fixed;
+    left: 30px;
+    width: 50px;
+    height: 50px;
+}
+.btn2{
+    position: fixed;
+    left: 90px;
+    width: 50px;
+    height: 50px;
+}
+.btn3{
+    position: fixed;
+    top: 70px;
+    left: 60px;
+    height: 50px;
+    width: 50px;
+}
+.poeng{
+    position: fixed;
+    top: 150px;
+}
+
+.poeng1{
+    position: fixed;
+    top: 150px;
+    left: 90px;
+}
+
+    </style>
+
+
+    <div id="app">
+       
+
+        <div style="user-select: none;" id="number1Id" class="numberClass"></div>
+        <div style="user-select: none;" id="number2Id" class="numberClass"></div>
+        <button class="btn1" onclick="calculate('<')"><</button>
+        <button class="btn2" onclick="calculate('>')">></button>
+        <button class="btn3" onclick="calculate('==')">=</button>
+        <div class="poeng"> Poeng: </div>
+        <div id="poeng1" class="poeng1">0</div>
+        
+    </div>
+
+
+
+    <script>
+        let i = 0;
+
+        setRandomValue(document.getElementById('number1Id'), true);
+        setRandomValue(document.getElementById('number2Id'), false);
+
+
+        function crocodilesOnly(element, event) {
+            let keyCode = event.keyCode;
+            if (element.value == "" || keyCode == 8)
+                return (keyCode == 226 || keyCode == 8);
+            else
+                return false;
+        };
+
+
+
+        function setRandomValue(element, hasSpaces) {
+            let verdi = Math.floor((Math.random() * 10));
+            element.innerHTML = verdi;
+            if (hasSpaces)
+                element.innerHTML += "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;";
+        }
+
+
+        function calculate(operator) {
+            let id1 = document.getElementById('number1Id');
+            let id2 = document.getElementById('number2Id');
+            let id1Text = id1.textContent.slice(0, -11);
+            let id2Text = id2.textContent;
+            
+
+
+            if(id1Text == id2Text && operator == '==' || id1Text < id2Text && operator == '<' || id1Text > id2Text && operator == '>')
+                i++;
+            else
+                if (i >= 1){
+                   i--;
+                   alert('Feil');
+                }
+                
+
+            document.getElementById('poeng1').innerHTML = i;
+            setRandomValue(id1, true);
+            setRandomValue(id2, false);
+        }
+
+    </script>
+</body>
+
+</html>
