@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input id="inputField" type="text" onkeydown="return keydown(event)">
+
+    <div id="outputField"></div>
+
+
+
+    <script>
+
+        function keydown(keyPressedEvent) {
+            let newString;
+            let inputFieldObject = document.getElementById('inputField');
+            if (keyPressedEvent.key == "Enter") {
+                newString = inputFieldObject.value;
+                inputFieldObject.value = "";
+
+
+                document.getElementById('outputField').innerHTML = stringToUpperCase2(newString);
+            }
+        }
+
+        /*      function stringToUpperCase(myString) {
+      
+                 let firstLetter = myString.slice(0, 1);
+                 let restOfString = myString.slice(1);
+                 firstLetter = firstLetter.toUpperCase();
+                 let lastString = firstLetter + restOfString;
+      
+      
+                  return lastString;
+              }
+      */
+
+
+        function stringToUpperCase2(myString) {
+
+            let lastString = myString.slice(0, 1).toUpperCase() + myString.slice(1);
+            return lastString;
+        }
+
+    </script>
+
+</body>
+
+</html>

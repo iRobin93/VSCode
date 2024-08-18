@@ -74,7 +74,7 @@ function writeUke(uke) {
             strHtml = /*html*/ `
                 <ul>
                     <li>
-                        Kommer...
+                    <a href="https://irobin93.github.io/VSCode/uke2/formaterStringen.html" target="_blank">Formatering av string</a>
                     </li>
 
                 </ul>`
