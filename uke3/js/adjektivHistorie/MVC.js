@@ -1,10 +1,16 @@
 //MODEL
 
-let appObject = document.getElementById('app');
-let variable1 = "___"
-let variable2 = "___"
-let variable3 = "___"
-let variable4 = "___"
+const appObject = document.getElementById('app');
+let countVariables = 5;
+let variable = [];
+
+createVariables();
+
+function createVariables() {
+    for (let i = 0; i < countVariables; i++)
+        variable[i] = "___";
+
+}
 
 // VIEW
 
@@ -12,23 +18,27 @@ showView();
 function showView() {
 
     appObject.innerHTML = /*HTML*/ `
-    <div id="StoryId" class="StoryClass">Once, There was a ${variable1} ${variable2} that ${variable3} in the ${variable4} - and great things happened. The End.
+    <div id="StoryId" class="StoryClass">Once, There was a ${variable[0]} ${variable[1]} that ${variable[2]} in the ${variable[3]} - and ${variable[4]} things happened. The End.
     </div>
     <div class="container">
-        <div onclick="putText(this, 'adjective')" class="Circle">Green</div>
-        <div onclick="putText(this, 'adjective')" class="Circle">Red</div>
+        <div onclick="putText(this, 0)" class="Circle">Green</div>
+        <div onclick="putText(this, 0)" class="Circle">Red</div>
     </div>
     <div class="container">
-        <div onclick="putText(this, 'subsantive1')" class="Circle">Cat</div>
-        <div onclick="putText(this, 'subsantive1')" class="Circle">Man</div>
+        <div onclick="putText(this, 1)" class="Circle">Cat</div>
+        <div onclick="putText(this, 1)" class="Circle">Man</div>
     </div>
     <div class="container">
-        <div onclick="putText(this, 'verb')" class="Circle row2">Stared</div>
-        <div onclick="putText(this, 'verb')" class="Circle row2">Jumped</div>
+        <div onclick="putText(this, 2)" class="Circle row2">Stared</div>
+        <div onclick="putText(this, 2)" class="Circle row2">Jumped</div>
     </div>
     <div class="container">
-        <div onclick="putText(this, 'substantive2')" class="Circle row2">Pool</div>
-        <div onclick="putText(this, 'substantive2')" class="Circle row2">Wall</div>
+        <div onclick="putText(this, 3)" class="Circle row2">Pool</div>
+        <div onclick="putText(this, 3)" class="Circle row2">Wall</div>
+    </div>
+    <div class="container">
+        <div onclick="putText(this, 4)" class="Circle row2">Great</div>
+        <div onclick="putText(this, 4)" class="Circle row2">Horrible</div>
     </div>
     
     `
@@ -36,22 +46,10 @@ function showView() {
 
 // CONTROLLER
 
-function putText(element, wordType) {
-    switch (wordType) {
-        case "adjective": variable1 = element.innerHTML;
-        break;
-        case "subsantive1": variable2 = element.innerHTML;
-        break;
-        case "verb": variable3 = element.innerHTML;
-        break;
-        case "substantive2": variable4 = element.innerHTML;
-        break;
+function putText(element, indexPlace) {
 
-        default:
-        break;
-    }
+    variable[indexPlace] = element.innerHTML;
 
-    
     showView();
 
 }
