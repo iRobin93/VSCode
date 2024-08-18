@@ -1,0 +1,22 @@
+.StoryClass {
+    height: 50px;
+    border: 2px dashed orange;
+}
+
+.Circle {
+    width: 150px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: aqua;
+    text-align: center;
+    line-height: 90px;
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px;
+
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+}

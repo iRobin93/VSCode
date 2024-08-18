@@ -74,7 +74,10 @@ function writeUke(uke) {
             strHtml = /*html*/ `
                 <ul>
                     <li>
-                    <a href="https://irobin93.github.io/VSCode/uke2/formaterStringen.html" target="_blank">Formatering av string</a>
+                    <a href="https://irobin93.github.io/VSCode/uke3/formaterStringen.html" target="_blank">Formater Stringen</a>
+                    </li>
+                    <li>
+                    <a href="https://irobin93.github.io/VSCode/uke3/adjektivHistorie.html" target="_blank">Adjektiv Historien</a>
                     </li>
 
                 </ul>`
