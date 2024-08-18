@@ -9,40 +9,54 @@
 
 <body>
     <style>
-        .numberClass {
-            display: inline-block;
+        .numberClass1 {
+            position: fixed;
+            left: 50px;
+            top: 200px;
+            font-size: 40px;
+
+        }
+        .numberClass2 {
+            position: fixed;
+            left: 300px;
+            top: 200px;
             font-size: 40px;
 
         }
 
+
 .btn1{
     position: fixed;
     left: 30px;
-    width: 50px;
-    height: 50px;
+    top: 300px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
 }
 .btn2{
     position: fixed;
-    left: 90px;
-    width: 50px;
-    height: 50px;
+    left: 210px;
+    top: 300px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
 }
 .btn3{
     position: fixed;
-    top: 70px;
-    left: 60px;
-    height: 50px;
-    width: 50px;
+    top: 460px;
+    left: 120px;
+    height: 150px;
+    width: 150px;
 }
 .poeng{
-    position: fixed;
-    top: 150px;
+  
+font-size: 50px;
 }
 
 .poeng1{
-    position: fixed;
-    top: 150px;
-    left: 90px;
+    
+    font-size: 50px;
+
 }
 
     </style>
@@ -51,8 +65,8 @@
     <div id="app">
        
 
-        <div style="user-select: none;" id="number1Id" class="numberClass"></div>
-        <div style="user-select: none;" id="number2Id" class="numberClass"></div>
+        <div style="user-select: none;" id="number1Id" class="numberClass1"></div>
+        <div style="user-select: none;" id="number2Id" class="numberClass2"></div>
         <button class="btn1" onclick="calculate('<')"><</button>
         <button class="btn2" onclick="calculate('>')">></button>
         <button class="btn3" onclick="calculate('==')">=</button>
@@ -66,8 +80,8 @@
     <script>
         let i = 0;
 
-        setRandomValue(document.getElementById('number1Id'), true);
-        setRandomValue(document.getElementById('number2Id'), false);
+        setRandomValue(document.getElementById('number1Id'));
+        setRandomValue(document.getElementById('number2Id'));
 
 
         function crocodilesOnly(element, event) {
@@ -80,18 +94,19 @@
 
 
 
-        function setRandomValue(element, hasSpaces) {
+        function setRandomValue(element) {
             let verdi = Math.floor((Math.random() * 10));
             element.innerHTML = verdi;
-            if (hasSpaces)
-                element.innerHTML += "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;";
+            //if (hasSpaces)
+              //  element.innerHTML += "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;";
         }
 
 
         function calculate(operator) {
             let id1 = document.getElementById('number1Id');
             let id2 = document.getElementById('number2Id');
-            let id1Text = id1.textContent.slice(0, -11);
+            //let id1Text = id1.textContent.slice(0, -11);
+            let id1Text = id1.textContent;
             let id2Text = id2.textContent;
             
 
