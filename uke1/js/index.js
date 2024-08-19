@@ -82,6 +82,9 @@ function writeUke(uke) {
                     <li>
                     <a href="https://irobin93.github.io/VSCode/uke3/gangeTabellen.html" target="_blank">Gange Tabellen</a>
                     </li>
+                    <li>
+                    <a href="https://irobin93.github.io/VSCode/uke3/vokalTeller.html" target="_blank">Tell antall vokaler i teksten</a>
+                    </li>
 
                 </ul>`
 

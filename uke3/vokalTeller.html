@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+
+    </div>
+
+
+    <script>
+        //Model
+        let aCounter = 0;
+        let eCounter = 0;
+        let iCounter = 0;
+        let oCounter = 0;
+        let uCounter = 0;
+        let yCounter = 0;
+        let æCounter = 0;
+        let øCounter = 0;
+        let åCounter = 0;
+        let showString
+
+
+
+        function makeCountersZero() {
+            aCounter = eCounter = iCounter = oCounter = uCounter = yCounter = æCounter = øCounter = åCounter = 0;
+
+        }
+
+        function checkVocals(newnewString) {
+
+            for (i = 0; i < newnewString.length; i++) {
+                let myString = newnewString.slice(i, i + 1);
+
+                switch (myString.toLowerCase()) {
+
+                    case "a":
+                        aCounter++;
+                        break;
+                    case "e":
+                        eCounter++;
+                        break;
+                    case "i":
+                        iCounter++;
+                        break;
+                    case "o":
+                        oCounter++;
+                        break;
+                    case "u":
+                        uCounter++;
+                        break;
+                    case "y":
+                        yCounter++;
+                        break;
+                    case "æ":
+                        æCounter++;
+                        break;
+                    case "ø":
+                        øCounter++;
+                        break;
+                    case "å":
+                        åCounter++;
+                        break;
+
+
+                    default:
+                        break;
+                }
+
+            }
+
+            showString = aCounter + eCounter + iCounter + oCounter + uCounter + yCounter + æCounter + øCounter + åCounter;
+        }
+
+
+        //View
+        function showView() {
+            
+            document.getElementById('app').innerHTML = /*HTML*/ `
+            <input type="text" id="inputField" onkeydown="return keyDown(event, this.value)">
+            <div id="showCounters"></div>     
+            
+            `            
+            document.getElementById('inputField').value = ""
+        }
+
+        function showCounters() {
+            document.getElementById('showCounters').innerHTML = /*HTML*/ `
+            A = ${aCounter} <br>
+            E = ${eCounter} <br>
+            I = ${iCounter} <br>
+            O = ${oCounter} <br>
+            U = ${uCounter} <br>
+            Y = ${yCounter} <br>
+            Æ = ${æCounter} <br>
+            Ø = ${øCounter} <br>
+            Å = ${åCounter} <br>
+            
+            
+            
+            
+            `
+        }
+
+
+
+
+        //Controller
+        showView();
+   
+        function keyDown(keyPressedEvent, myWords) {
+
+            if (keyPressedEvent.key == "Enter") {
+                checkVocals(myWords);
+                showView();
+                showCounters();                
+                makeCountersZero();
+            }
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>
