@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        button {
+            width: 400px;
+            height: 400px;
+            font-size: 40px;
+            display: block;
+        }
+
+        input {
+            width: 400px;
+            height: 60px;
+        }
+    </style>
+
+
+    <div id="app">
+        <input id="inputField" onkeydown="return keyDown(event)" placeholder="Legg inn et tall for hvilken gangetabell du vil se"
+            type="text">
+        <button id="btn" onclick="showTwoTimes()">Trykk meg for ? gangeren...</button>
+
+
+
+
+    </div>
+
+    <script>
+        //model
+        let buttonObject = document.getElementById('btn');
+        let vis;
+        let timerRunning = false;
+        let nextTimeOut = 2;
+        let newString;
+        let newInt;
+
+        //view
+        function showView() {
+            buttonObject.textContent = vis;
+
+        }
+
+
+
+
+
+
+
+        //controller
+
+        function showTwoTimes() {
+
+
+            if (timerRunning == false)
+                for (let i = newInt; i <= ((newInt * 10) + newInt); i = newInt + i) {
+                    task(i);
+                }
+
+        }
+
+        function task(i) {
+
+            setTimeout(timer.bind(null, i), 500 * nextTimeOut);
+
+            nextTimeOut = nextTimeOut + 2;
+        }
+
+
+        function timer(i) {
+            timerRunning = true;
+            vis = i;
+            if (i == newInt * 10 + newInt) {
+                timerRunning = false;
+
+                vis = "Trykk meg for " + newInt + " gangeren...";
+                nextTimeOut = 2;
+            }
+
+            showView();
+
+        }
+
+
+        function keyDown(keyPressedEvent) {
+            
+            let inputObject = document.getElementById('inputField');
+            if (keyPressedEvent.key == "Enter") {
+                newString = inputObject.value;
+                newInt = parseInt(newString);
+                inputObject.value = "";
+
+
+                buttonObject.innerHTML = "Trykk meg for " + newInt + "-Gangeren";
+            }
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -79,6 +79,9 @@ function writeUke(uke) {
                     <li>
                     <a href="https://irobin93.github.io/VSCode/uke3/adjektivHistorie.html" target="_blank">Adjektiv Historien</a>
                     </li>
+                    <li>
+                    <a href="https://irobin93.github.io/VSCode/uke3/gangeTabellen.html" target="_blank">Gange Tabellen</a>
+                    </li>
 
                 </ul>`
 
