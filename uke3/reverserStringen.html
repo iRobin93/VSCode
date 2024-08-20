@@ -19,16 +19,43 @@
         let myNewWords;
         let placerHolderText = "Skriv her!"
 
-        function reverseString(myWords) {
+/*                 function reverseString(myWords) {
+                    let myLettersArray = [];
+                    myNewWords = "";
+                    for (let i = 0; i < myWords.length; i++) {
+        
+                        myLettersArray.push(myWords.slice(i, i + 1))
+        
+                    }
+                    for (let i = myWords.length; i > 0; i--) {
+                        myNewWords += myLettersArray[i - 1];
+        
+                    }
+        
+                    return myNewWords;
+                }
+
+                
+
+                function reverseString2(myWords) {
+                    let myLettersArray = [];
+                    myNewWords = "";
+                    for (let i = myWords.length; i > -1; i--) {
+        
+                       
+                        myNewWords +=  myWords.slice(i - 1, i)
+                    }
+        
+                    return myNewWords;
+                } */
+
+        function reverseString3(myWords) {
             let myLettersArray = [];
             myNewWords = "";
-            for (i = 0; i < myWords.length; i++) {
+            for (let i = 0; i < myWords.length; i++) {
 
-                myLettersArray.push(myWords.slice(i, i + 1))
 
-            }
-            for (i = myWords.length; i > 0; i--) {
-                myNewWords += myLettersArray[i - 1];
+                myNewWords = myWords.slice(i, i + 1) + myNewWords;
 
             }
 
@@ -37,8 +64,8 @@
 
         //VIEW
         function showView(myWords) {
-            if(myWords != undefined)
-            document.getElementById('outputField').innerHTML = myWords;
+            if (myWords != undefined)
+                document.getElementById('outputField').innerHTML = myWords;
 
             document.getElementById('inputField').value = "";
 
@@ -54,7 +81,7 @@
         function keydown(keyPressedEvent, myWords) {
 
             if (keyPressedEvent.key == "Enter") {
-                showView(reverseString(myWords));
+                showView(reverseString3(myWords));
             }
         }
 
