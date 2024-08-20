@@ -88,6 +88,9 @@ function writeUke(uke) {
                     <li>
                     <a href="https://irobin93.github.io/VSCode/uke3/reverserStringen.html" target="_blank">Bakvendt Snakk</a>
                     </li>
+                    <li>
+                    <a href="https://irobin93.github.io/VSCode/uke3/randomNumberFinder.html" target="_blank">Knapp for random number i loop av to</a>
+                    </li>
 
                 </ul>`
 
