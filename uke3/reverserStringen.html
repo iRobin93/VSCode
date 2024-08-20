@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input id="inputField" type="text" onkeydown="return keydown(event, this.value)">
+        <div id="outputField"></div>
+    </div>
+
+    <script>
+
+        //Model
+        let myNewWords;
+        let placerHolderText = "Skriv her!"
+
+        function reverseString(myWords) {
+            let myLettersArray = [];
+            myNewWords = "";
+            for (i = 0; i < myWords.length; i++) {
+
+                myLettersArray.push(myWords.slice(i, i + 1))
+
+            }
+            for (i = myWords.length; i > 0; i--) {
+                myNewWords += myLettersArray[i - 1];
+
+            }
+
+            return myNewWords;
+        }
+
+        //VIEW
+        function showView(myWords) {
+            if(myWords != undefined)
+            document.getElementById('outputField').innerHTML = myWords;
+
+            document.getElementById('inputField').value = "";
+
+            document.getElementById('inputField').placeholder = placerHolderText;
+
+        }
+
+
+
+        //Controller
+
+        showView();
+        function keydown(keyPressedEvent, myWords) {
+
+            if (keyPressedEvent.key == "Enter") {
+                showView(reverseString(myWords));
+            }
+        }
+
+
+
+
+
+    </script>
+</body>
+
+</html>

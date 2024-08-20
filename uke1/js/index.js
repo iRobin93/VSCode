@@ -85,6 +85,9 @@ function writeUke(uke) {
                     <li>
                     <a href="https://irobin93.github.io/VSCode/uke3/vokalTeller.html" target="_blank">Tell antall vokaler i teksten</a>
                     </li>
+                    <li>
+                    <a href="https://irobin93.github.io/VSCode/uke3/reverserStringen.html" target="_blank">Bakvendt Snakk</a>
+                    </li>
 
                 </ul>`
 
