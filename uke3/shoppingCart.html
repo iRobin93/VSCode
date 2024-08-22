@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <style>
+        img {
+            cursor: pointer;
+        }
+    </style>
+
+    <div id="app">
+
+        <img src="./images/shoppingCart.png " alt="">
+        <img onclick="addToShoppingCart(this)" src="./images/avocado.jpg " alt="">
+        <img src="./images/lime.jpg " alt="">
+        <img src="./images/pineapple.jpg " alt="">
+
+    </div>
+
+
+    <script>
+
+        //Model
+        let shoppingCart = [];
+
+        //View
+
+
+        //Controller
+        function addToShoppingCart(element) {
+            shoppingCart.push(element.src)
+        }
+
+    </script>
+</body>
+
+</html>

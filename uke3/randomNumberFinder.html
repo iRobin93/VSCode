@@ -13,70 +13,9 @@
     </div>
 
 
-    <script>
-
-        //Model
-        let app = document.getElementById('app');
-        let multiplier = 10000;
-        let random1 = Math.floor(Math.random() * multiplier);
-        let random2 = Math.floor(Math.random() * multiplier);
-        let counts = 0;
-        //let sameNumber = false;
-
-
-        /*         function checkNumbers() {
-                    while (!sameNumber) {
-                        random1 = Math.floor(Math.random() * 10);
-                        random2 = Math.floor(Math.random() * 10);
-                        if (random1 == random2) {
-                            sameNumber = true;
-                        }
-        
-                    } 
-        
-                }*/
-
-
-        function checkNumbers2() {
-            random1 = Math.floor(Math.random() * multiplier);
-            random2 = Math.floor(Math.random() * multiplier);
-            counts = 0;
-            while (random1 != random2) {
-                random1 = Math.floor(Math.random() * multiplier);
-                random2 = Math.floor(Math.random() * multiplier);
-                counts++
-            }
-        }
-
-        //View
-
-        function showView() {
-            app.innerHTML = /*HTML*/ `
-            <button onclick="onClick()">Random number!</button>
-            <div> Number generated : ${random1} </div>
-            <div> Det tok ${counts} "loops" for å finne nummeret.</div>
-    
-    `;
-
-
-        }
-
-
-        //Controller
-
-        function onClick() {
-
-            checkNumbers2();
-
-            showView();
-            console.log(counts)
-
-
-        }
-
-
-
-    </script>
+    <script src="./js/randomNumberFinder/Model.js"> </script>
+    <script src="./js/randomNumberFinder/View.js"> </script>
+    <script src="./js/randomNumberFinder/Controller.js"> </script>
 </body>
 
 </html>
