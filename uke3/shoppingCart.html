@@ -17,11 +17,12 @@
 
     <div id="app">
 
-        <img src="./images/shoppingCart.png " alt="">
-        <img onclick="addToShoppingCart(this)" src="./images/avocado.jpg " alt="">
-        <img src="./images/lime.jpg " alt="">
-        <img src="./images/pineapple.jpg " alt="">
+        <img onclick="showShoppingCartOnclick()" src="./images/shoppingCart.png " alt="">
+        <img onclick="itemOnclick('avocado')" src="./images/avocado.jpg " alt="">
+        <img onclick="itemOnclick('lime')" src="./images/lime.jpg " alt="">
+        <img onclick="itemOnclick('pineapple')" src="./images/pineapple.jpg " alt="">
 
+        <div id="spanId"></div>
     </div>
 
 
@@ -29,13 +30,30 @@
 
         //Model
         let shoppingCart = [];
+        function pushToShoppingCart(fruitString) {
+             shoppingCart.push(fruitString);
+
+        }
+
 
         //View
+        function showShoppingCartOnclick() {
+
+            document.getElementById('spanId').innerHTML = "Du har kjøpt:";
+
+            for (let i = 0; i < shoppingCart.length; i++) {
+                document.getElementById('spanId').innerHTML +=  " "  + shoppingCart[i];
+
+            }
+            shoppingCart.length = 0;
+        }
+
+
 
 
         //Controller
-        function addToShoppingCart(element) {
-            shoppingCart.push(element.src)
+        function itemOnclick(fruitString) {
+            pushToShoppingCart(fruitString);
         }
 
     </script>
