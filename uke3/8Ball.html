@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8 ball</title>
+</head>
+
+<body>
+
+    <style>
+        .ball8 {
+            height: 500px;
+            width: 500px;
+            border-radius: 50%;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
+
+        .whiteCircle {
+            background-color: white;
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 0 10px black;
+        }
+
+        .font {
+            font-size: 150px;
+            font-weight: bold;
+        }
+    </style>
+
+    <div id="app"></div>
+
+
+
+
+    <script>
+        //Model
+        let myArrayAnswers = [
+            "Ja",
+            "Nei",
+            "Kanskje",
+            "Det er definitivt",
+            "Uten Tvil",
+            "Det kan jeg ikke si",
+            "Mitt svar er: nei",
+            "Ser ikke bra ut",
+            "Ja, uten tvil",
+            "Tåkete svar, prøv igjen"];
+
+        function getValues() {
+            const txt = document.getElementById('inputField').value;
+            return txt;
+        }
+
+
+        //View
+        let appObject = document.getElementById('app');
+        let myInterval;
+        const inputFieldObject = document.createElement("input");
+        const buttonObject = document.createElement('button');
+        const div1 = document.createElement('div');
+        const div2 = document.createElement('div');
+        const div3 = document.createElement('div');
+        const div4 = document.createElement('div');
+        let index = 0;
+        let lastNumber;
+        function showMainView() {
+            while (appObject.lastElementChild) {
+                appObject.removeChild(appObject.lastElementChild);
+            }
+
+
+
+            inputFieldObject.id = "inputField";
+            inputFieldObject.placeholder = "Spør et spørsmål!"
+            buttonObject.innerHTML = "Trykk meg!";
+            buttonObject.onclick = onClickPushMe;
+            div1.classList.add('ball8');
+            div2.classList.add('whiteCircle');
+            div3.id = "8ball";
+            div3.innerHTML = "8";
+            div3.classList.add('font');
+            div4.innerHTML = "";
+
+
+
+            appObject.appendChild(inputFieldObject);
+            appObject.appendChild(buttonObject)
+            appObject.appendChild(div1);
+            div1.appendChild(div2);
+            div2.appendChild(div3);
+            appObject.appendChild(div4);
+
+
+
+        }
+
+        function writeQuestion(myAnswers) {
+            div4.innerHTML = inputFieldObject.value + "? Svaret er: " +myAnswers;
+            inputFieldObject.value = "";
+
+        }
+
+        function showNumber() {
+            document.getElementById('8ball').innerHTML = Math.floor(Math.random());
+        }
+
+
+        function changeNumbersInBall() {
+            index = 0;
+            if (!myInterval)
+                myInterval = setInterval(setNumberInterval, 1000)
+
+
+        }
+
+        function setNumberInterval() {
+
+            div3.innerHTML = Math.floor(Math.random() * 10);
+            index++
+            if (index == 5) {
+                clearInterval(myInterval);
+                myInterval = undefined;
+                while(div3.innerHTML == lastNumber)
+                    div3.innerHTML = Math.floor(Math.random() * 10);
+
+                lastNumber = div3.innerHTML
+                writeQuestion(myArrayAnswers[div3.innerHTML])
+            }
+
+
+
+
+        }
+        //Controller
+        showMainView();
+
+
+
+        function onClickPushMe() {
+            changeNumbersInBall();
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>

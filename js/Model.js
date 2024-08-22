@@ -46,7 +46,8 @@ let hrefArray3 = [
     "https://irobin93.github.io/VSCode/uke3/gangeTabellen.html",
     "https://irobin93.github.io/VSCode/uke3/vokalTeller.html",
     "https://irobin93.github.io/VSCode/uke3/reverserStringen.html",
-    "https://irobin93.github.io/VSCode/uke3/randomNumberFinder.html"];
+    "https://irobin93.github.io/VSCode/uke3/randomNumberFinder.html",
+    "https://irobin93.github.io/VSCode/uke3/8Ball.html"];
 
 
 let textArray3 = [
@@ -55,7 +56,8 @@ let textArray3 = [
     "Gange Tabellen",
     "Tell antall vokaler i teksten",
     "Bakvendt Snakk",
-    "To Random Nummere Blir Ett"];
+    "To Random Nummere Blir Ett",
+    "8Ball"];
 
 
 
