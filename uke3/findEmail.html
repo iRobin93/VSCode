@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input placeholder="Enter Email" type="text" id="inputField">
+    <button onclick="checkEmail()">Trykk meg!</button>
+    <div id="outputField"></div>
+
+
+    <script>
+        const inputFieldObject = document.getElementById('inputField');
+        const outputFieldObject = document.getElementById('outputField');
+
+
+        function checkEmail() {
+            let email = inputFieldObject.value;
+
+
+            if (email.includes('@')){
+                for(i = 0; i < email.length; i++)
+                outputFieldObject.innerHTML = "Email is: " + email;
+                if (email.includes(' '))
+                    outputFieldObject.innerHTML = "Not an email";
+            }
+                
+            else
+                outputFieldObject.innerHTML = "Not an email";
+
+
+
+            inputFieldObject.value = "";
+
+
+        }
+
+    </script>
+
+</body>
+
+</html>
