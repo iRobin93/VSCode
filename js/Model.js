@@ -49,7 +49,8 @@ let hrefArray3 = [
     "https://irobin93.github.io/VSCode/uke3/randomNumberFinder.html",
     "https://irobin93.github.io/VSCode/uke3/shoppingCart.html",
     "https://irobin93.github.io/VSCode/uke3/8Ball.html",
-    "https://irobin93.github.io/VSCode/uke3/findEmail.html"];
+    "https://irobin93.github.io/VSCode/uke3/findEmail.html",
+    "https://irobin93.github.io/VSCode/uke3/lightGame.html"];
 
 
 let textArray3 = [
@@ -61,7 +62,8 @@ let textArray3 = [
     "To Random Nummere Blir Ett",
     "Shopping Cart",
     "8Ball",
-    "Sjekk gyldig Email"];
+    "Sjekk gyldig Email",
+    "The Light Game"];
 
 
 
