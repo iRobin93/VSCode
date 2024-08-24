@@ -37,7 +37,7 @@ function createLists(thisHrefArray, thisTextArray) {
     myLists += "</ul>";
 
     return myLists;
-}
+}  
 
 function writeUke(ukeNr) {
     let strHtml;

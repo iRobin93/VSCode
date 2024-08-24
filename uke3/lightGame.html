@@ -9,7 +9,11 @@
 
 <body>
     <style>
-        div {
+        .number {
+            font-size: 50px;
+        }
+
+        .lampOn {
             background-color: yellow;
             width: 75px;
             height: 75px;
@@ -30,76 +34,288 @@
     </style>
 
     <div class="container">
-        <div id="div1" class="lamp"></div>
-        <div id="div2" class="lamp"></div>
-        <div id="div3" class="lamp"></div>
-        <div id="div4" class="lamp"></div>
-        <div id="div5" class="lamp"></div>
+        <div id="div1" class="lamp lampOn"></div>
+        <div id="div2" class="lamp lampOn"></div>
+        <div id="div3" class="lamp lampOn"></div>
+        <div id="div4" class="lamp lampOn"></div>
+        <div id="div5" class="lamp lampOn"></div>
     </div>
     <div class="container">
-        <div id="div6" class="lamp"></div>
-        <div id="div7" class="lamp"></div>
-        <div id="div8" class="lamp"></div>
-        <div id="div9" class="lamp"></div>
-        <div id="div10" class="lamp"></div>
+        <div id="div6" class="lamp lampOn"></div>
+        <div id="div7" class="lamp lampOn"></div>
+        <div id="div8" class="lamp lampOn"></div>
+        <div id="div9" class="lamp lampOn"></div>
+        <div id="div10" class="lamp lampOn"></div>
     </div>
     <div class="container">
-        <div id="div11" class="lamp"></div>
-        <div id="div12" class="lamp"></div>
-        <div id="div13" class="lamp"></div>
-        <div id="div14" class="lamp"></div>
-        <div id="div15" class="lamp"></div>
+        <div id="div11" class="lamp lampOn"></div>
+        <div id="div12" class="lamp lampOn"></div>
+        <div id="div13" class="lamp lampOn"></div>
+        <div id="div14" class="lamp lampOn"></div>
+        <div id="div15" class="lamp lampOn"></div>
     </div>
     <div class="container">
-        <div id="div16" class="lamp"></div>
-        <div id="div17" class="lamp"></div>
-        <div id="div18" class="lamp"></div>
-        <div id="div19" class="lamp"></div>
-        <div id="div20" class="lamp"></div>
+        <div id="div16" class="lamp lampOn"></div>
+        <div id="div17" class="lamp lampOn"></div>
+        <div id="div18" class="lamp lampOn"></div>
+        <div id="div19" class="lamp lampOn"></div>
+        <div id="div20" class="lamp lampOn"></div>
     </div>
     <div class="container">
-        <div id="div21" class="lamp"></div>
-        <div id="div22" class="lamp"></div>
-        <div id="div23" class="lamp"></div>
-        <div id="div24" class="lamp"></div>
-        <div id="div25" class="lamp"></div>
+        <div id="div21" class="lamp lampOn"></div>
+        <div id="div22" class="lamp lampOn"></div>
+        <div id="div23" class="lamp lampOn"></div>
+        <div id="div24" class="lamp lampOn"></div>
+        <div id="div25" class="lamp lampOn"></div>
     </div>
 
-
-    <button onclick="putLight()"> Trykk meg!</button>
+    <div class="number" id="showNumber"></div>
+    <div id="stats"></div>
+    <button onclick="putLight()">Trykk meg!</button>
 
     <script>
-        let div2;
+        let lightedObject;
         let lightIsOn = false;
+        let lastNr;
+        let startUpLightsIntervalTimer;
+        let countDownIntervalTimer;
+        let secondsToCountDown = 9;
+        let timerArrayStart = [];
+        let timerArrayEnd = [];
+        let startTime;
+        let roundedReactionTimes = [];
+        let randomNr;
+
+        let points = 0;
         function putLight() {
             if (lightIsOn == false) {
-                let randomNr = Math.floor(Math.random() * 25);
-                div2 = document.getElementById('div' + randomNr)
-                div2.classList.toggle('lamp')
+                randomNr = Math.floor(Math.random() * 25 + 1);
+                lightedObject = document.getElementById('div' + randomNr)
+                lightedObject.classList.toggle('lamp')
                 lightIsOn = true;
-                div2.onclick = turnOff;
+                if (startUpLightsIntervalTimer == undefined) {
+                    startUpLightsIntervalTimer = setInterval(startUpEvent, 100);
+                    setTimeout(clearStartUpTimer, 3000)
+
+                }
+                document.getElementById('stats').innerHTML = "";
             }
         }
 
+        function clearStartUpTimer() {
+            clearInterval(startUpLightsIntervalTimer)
+            startUpLightsIntervalTimer = undefined;
+            blankAll(true);
 
-        function turnOff() {
-            div2.classList.toggle('lamp')
-            div2.onclick = ""
-            lightIsOn = false;
-            turnOn();
-            
-        }
 
-        function turnOn(){
-            
-            let randomNr = Math.floor(Math.random() * 25);
-            while (randomNr == div2.innerHTML)
-                randomNr = Math.floor(Math.random() * 25);
-            div2 = document.getElementById('div' + randomNr)
-            div2.classList.toggle('lamp')
-            div2.onclick = turnOff;
+
+            lightedObject.onclick = onClickObjectfirst;
+            lightedObject.classList.toggle('lamp');
             lightIsOn = true;
         }
+
+
+        function clearCountDownTimer() {
+            clearInterval(countDownIntervalTimer);
+            countDownIntervalTimer = undefined;
+        }
+
+        function onClickObject() {
+            let myRandomNr;
+            turnOff(lightedObject);
+            myRandomNr = findNewRandomNr();
+            turnOn(myRandomNr);
+            points++
+            startTime = new Date().getTime();
+            timerArrayStart.push(startTime);
+            timerArrayEnd.push(startTime);
+        }
+
+        function onClickObjectfirst() {
+            let myRandomNr;
+            startTime = new Date().getTime();
+            timerArrayStart.push(startTime);
+            turnOff(lightedObject);
+            myRandomNr = findNewRandomNr();
+            turnOn(myRandomNr);
+            if (countDownIntervalTimer == undefined) {
+                countDownIntervalTimer = setInterval(CountDownEvent, 1000)
+
+            }
+            points++
+            document.getElementById('showNumber').innerHTML = secondsToCountDown + 1;
+
+
+
+        }
+
+        function CountDownEvent() {
+
+            if (secondsToCountDown > -1) {
+                document.getElementById('showNumber').innerHTML = secondsToCountDown;
+                secondsToCountDown--
+            }
+            if (secondsToCountDown == -1) {
+                CountDownEnded();
+            }
+        }
+
+        function CountDownEnded() {
+            blankAll();
+            clearCountDownTimer();
+            secondsToCountDown = 9;
+
+
+            showStats();
+            timerArrayStart = [];
+            timerArrayEnd = [];
+            roundedReactionTimes = [];
+            points = 0;
+            document.getElementById('showNumber').innerHTML = "";
+        }
+
+
+        function blankAll(firstStart) {
+            for (let i = 1; i <= 25; i++) {
+                div = document.getElementById('div' + i);
+                div.onclick = ""
+                if (!div.classList.contains('lamp')) {
+                    div.classList.toggle('lamp')
+                    lightIsOn = false;
+                }
+            }
+            if (firstStart)
+                document.getElementById('showNumber').innerHTML = 10;
+
+        }
+
+        function showStats() {
+            let fastestTime;
+            let averageTime;
+
+            if (points == 1)
+                document.getElementById('stats').innerHTML = "Du trykket:" + points + " gang <br>";
+            else
+                document.getElementById('stats').innerHTML = "Du trykket:" + points + " ganger <br>";
+
+            if (timerArrayEnd.length > 0) {
+                timerArrayEnd.forEach(computeAndPrintTime);
+
+                averageTime = getAverageTime();
+                fastestTime = getFastestTime();
+                document.getElementById('stats').innerHTML += "Raskeste tid var! : " + fastestTime;
+                document.getElementById('stats').innerHTML += " Gjennomsnittstid var! : " + averageTime;
+            }
+
+
+        }
+
+
+        function getAverageTime() {
+            let averageTime = 0;
+            for (let i = 0; i < roundedReactionTimes.length; i++) {
+                averageTime += roundedReactionTimes[i];
+            }
+            averageTime = averageTime / roundedReactionTimes.length;
+            averageTime = roundToHundreds(averageTime);
+            return averageTime;
+        }
+
+        function roundToHundreds(thisNumber) {
+            let roundedNumber;
+            roundedNumber = thisNumber * 100;
+            roundedNumber = Math.round(roundedNumber);
+            roundedNumber = roundedNumber / 100;
+
+            return roundedNumber;
+        }
+
+        function getFastestTime() {
+            let lowestNumber = roundedReactionTimes[0];
+            for (let i = 0; i < roundedReactionTimes.length; i++) {
+
+                if (roundedReactionTimes[i] < lowestNumber)
+                    lowestNumber = roundedReactionTimes[i];
+            }
+            return lowestNumber;
+
+        }
+
+        function computeAndPrintTime(item, index, arr) {
+            arr[index] = (timerArrayEnd[index] - timerArrayStart[index]) / 1000;
+            roundedReactionTimes[index] = roundToHundreds(arr[index]);
+        }
+
+
+        function findNewRandomNr() {
+            let randomNr;
+            randomNr = Math.floor(Math.random() * 25 + 1);
+            while (lastNr == randomNr) {
+                randomNr = Math.floor(Math.random() * 25 + 1);
+                console.log(lastNr);
+            }
+
+            lastNr = randomNr;
+            return randomNr;
+
+        }
+
+        function turnOff(myObject) {
+
+
+            myObject.classList.toggle('lamp')
+            myObject.onclick = ""
+        }
+
+        function startUpEvent() {
+            if(lightIsOn)
+            document.getElementById('div' + randomNr).classList.toggle('lamp')
+            
+            randomNr = findNewRandomNr();
+            
+            document.getElementById('div' + randomNr).classList.toggle('lamp')
+            lightIsOn = true;
+
+
+
+
+        }
+
+
+        function turnOn(randomNr) {
+            lightIsOn = true;
+            lightedObject = document.getElementById('div' + randomNr)
+            lightedObject.classList.toggle('lamp')
+            lightedObject.onclick = onClickObject;
+        }
+
+
+
+
+
+
+        function test() {
+            let i = 1;
+            let myInt = i;
+            console.log("i før " + i);
+            console.log("myInt før: " + myInt);
+            i = 2;
+            console.log("i etter: " + i);
+            console.log("myInt etter: " + myInt);
+
+            lightedObject = document.getElementById('div' + randomNr);
+            let myNewObject = lightedObject;
+            console.log("lightedObject.id før: " + lightedObject.id);
+            console.log("myNewObject.id før: " + myNewObject.id);
+            lightedObject.id = "div30";
+            console.log("lightedObject.id etter: " + lightedObject.id);
+            console.log("myNewObject.id etter: " + myNewObject.id);
+
+            lightedObject = undefined;
+            console.log("lightedObject etter undefined: " + lightedObject);
+            console.log("myNewObject etter undefined: " + myNewObject);
+        }
+
     </script>
 
 </body>
