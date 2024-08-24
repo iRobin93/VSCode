@@ -18,14 +18,11 @@
             width: 75px;
             height: 75px;
             border-radius: 50%;
-
-
         }
 
         .lamp {
             background-color: black;
         }
-
 
         .container {
             display: grid;
@@ -108,9 +105,8 @@
             blankAll(true);
 
 
-
             lightedObject.onclick = onClickObjectfirst;
-            lightedObject.classList.toggle('lamp');
+            lightedObject.classList.toggle('lamp')
             lightIsOn = true;
         }
 
@@ -248,15 +244,15 @@
 
 
         function findNewRandomNr() {
-            let randomNr;
-            randomNr = Math.floor(Math.random() * 25 + 1);
-            while (lastNr == randomNr) {
-                randomNr = Math.floor(Math.random() * 25 + 1);
+            let randomNr3;
+            randomNr3 = Math.floor(Math.random() * 25 + 1);
+            while (lastNr == randomNr3) {
+                randomNr3 = Math.floor(Math.random() * 25 + 1);
                 console.log(lastNr);
             }
 
-            lastNr = randomNr;
-            return randomNr;
+            lastNr = randomNr3;
+            return randomNr3;
 
         }
 
@@ -267,19 +263,19 @@
             myObject.onclick = ""
         }
 
+
+
         function startUpEvent() {
-            if(lightIsOn)
-            document.getElementById('div' + randomNr).classList.toggle('lamp')
-            
+            if (lightIsOn) {
+                document.getElementById('div' + randomNr).classList.toggle('lamp');
+            }
+
+
             randomNr = findNewRandomNr();
-            
-            document.getElementById('div' + randomNr).classList.toggle('lamp')
-            lightIsOn = true;
-
-
-
+            document.getElementById('div' + randomNr).classList.toggle('lamp');
 
         }
+
 
 
         function turnOn(randomNr) {
