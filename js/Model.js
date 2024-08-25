@@ -1,6 +1,8 @@
 let numberWeeks = 3;
 let rgbArray = [];
 let targetBlank = "_blank"
+
+
 let textArray1 =
     ["Introduksjon tekst",
         "Enkle knapper",
@@ -8,7 +10,8 @@ let textArray1 =
         "Min første HTML",
         "Min første onclick",
         "Funksjon med parameter",
-        "Farge lek"];
+        "Farge lek",
+    ];
 
 let hrefArray1 =
     ["https://irobin93.github.io/VSCode/uke1/Introduksjontekst.html",
@@ -17,7 +20,8 @@ let hrefArray1 =
         "https://irobin93.github.io/VSCode/uke1/MinFørsteHTML.html",
         "https://irobin93.github.io/VSCode/uke1/MinFørsteOnclick.html",
         "https://irobin93.github.io/VSCode/uke1/funksjonMedParameter.html",
-        "https://irobin93.github.io/VSCode/uke1/merOmVariabler.html"];
+        "https://irobin93.github.io/VSCode/uke1/merOmVariabler.html",
+    ];
 
 
 let hrefArray2 = [
@@ -28,7 +32,8 @@ let hrefArray2 = [
     "https://irobin93.github.io/VSCode/uke2/trafikkLys.html",
     "https://irobin93.github.io/VSCode/uke2/keyboard.html",
     "https://irobin93.github.io/VSCode/uke2/lysBryter.html",
-    "https://irobin93.github.io/VSCode/uke2/krokodilleSpillet.html"];
+    "https://irobin93.github.io/VSCode/uke2/krokodilleSpillet.html",
+];
 
 let textArray2 = [
     "Mine styrker",
@@ -38,7 +43,8 @@ let textArray2 = [
     "Trafikklys",
     "Tastatur",
     "Lyspæra og bryteren",
-    "Krokodille Spillet"];
+    "Krokodille Spillet",
+];
 
 let hrefArray3 = [
     "https://irobin93.github.io/VSCode/uke3/formaterStringen.html",
@@ -50,7 +56,9 @@ let hrefArray3 = [
     "https://irobin93.github.io/VSCode/uke3/shoppingCart.html",
     "https://irobin93.github.io/VSCode/uke3/8Ball.html",
     "https://irobin93.github.io/VSCode/uke3/findEmail.html",
-    "https://irobin93.github.io/VSCode/uke3/lightGame.html"];
+    "https://irobin93.github.io/VSCode/uke3/lightGame.html",
+    "https://irobin93.github.io/VSCode/uke3/toDoList.html",
+];
 
 
 let textArray3 = [
@@ -63,7 +71,9 @@ let textArray3 = [
     "Shopping Cart",
     "8Ball",
     "Sjekk gyldig Email",
-    "The Light Game"];
+    "The Light Game",
+    "To do list",
+];
 
 
 
