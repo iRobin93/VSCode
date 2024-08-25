@@ -58,9 +58,9 @@
         // Model
 
         var tasks = [
-            { description: 'Handle til middag', isDone: true, Person: "Per", Deadline: "25.8.2024", DeadlineObject: new Date("2024-08-25"), doneDate: "25.8.2024" },
-            { description: 'Lage middag', isDone: false, Person: "Pål", Deadline: "25.8.2024", DeadlineObject: new Date("2024-08-25"), doneDate: "" },
-            { description: 'Spise middag', isDone: false, Person: "Espen", Deadline: "25.8.2024", DeadlineObject: new Date("25.8.2024"), doneDate: "" },
+            { description: 'Handle til middag', isDone: true, Person: "Per", DeadlineDateObject: new Date("2024-08-25"), doneDateObject: new Date("2024-08-25") },
+            { description: 'Lage middag', isDone: false, Person: "Pål", DeadlineDateObject: new Date("2024-08-25"), doneDateObject: undefined },
+            { description: 'Spise middag', isDone: false, Person: "Espen", DeadlineDateObject: new Date("2024-08-25"), doneDateObject: undefined },
         ];
 
         // Controller
@@ -73,9 +73,8 @@
                 tasks.push({
                     description: taskDescriptionInput.value,
                     Person: taskPersonInput.value,
-                    Deadline: new Date(taskDeadlineInput.value).toLocaleDateString(),
-                    DeadlineObject: new Date(taskDeadlineInput.value),
-                    doneDate: "",
+                    DeadlineDateObject: new Date(taskDeadlineInput.value),
+                    doneDateObject: undefined,
                     isDone: false
                 });
 
@@ -83,9 +82,8 @@
                 tasks.push({
                     description: taskDescriptionInput.value,
                     Person: taskPersonInput.value,
-                    Deadline: "",
-                    DeadlineObject: undefined,
-                    doneDate: "",
+                    DeadlineDateObject: undefined,
+                    doneDateObject: undefined,
                     isDone: false
                 });
 
@@ -94,7 +92,7 @@
             taskDeadlineInput.value = "";
             show();
         }
-
+        
         // View
         var tasksTable = document.getElementById('tasksTable');
         show();
@@ -123,12 +121,12 @@
                 return `<tr>
                             <td>${task.description}</td>
                             <td>${task.Person}</td>
-                            <td>${task.Deadline}</td>
-                            <td>${task.doneDate}</td>
+                            <td>${(task.DeadlineDateObject != undefined) ? task.DeadlineDateObject.toLocaleDateString() : ""}</td>
+                            <td>${(task.doneDateObject != undefined) ? task.doneDateObject.toLocaleDateString() : ""}</td>
                             <td><input onchange="changeIsDone(this, ${i})" type="checkbox" ${checkedHtml} /></td>
                             <td>
                                 <button onclick="deleteTask(${i})">Slett</button>
-                                <button onclick="editTask(${i})">Rediger</button>
+                                <button ${(task.isDone) ? "disabled" : ""} id="editTask${i}" onclick="editTask(${i})">Rediger</button>
                             </td>
                         </tr>
                         `;
@@ -136,6 +134,7 @@
                             <td><input id="editDescription${i}" type="text" value="${task.description}"/></td>
                             <td><input id="editPerson${i}" type="text" value="${task.Person}"/></td>
                             <td><input id="editDeadline${i}" type="date" value="${myFunction(i)}"/></td>
+                            <td>${(task.doneDateObject != undefined) ? task.doneDateObject.toLocaleDateString() : ""}</td>
                             
                             <td><input onchange="changeIsDone(this, ${i})" type="checkbox" ${checkedHtml} /></td>
                             <td>
@@ -146,20 +145,20 @@
         }
 
         function myFunction(index) {
-            if (tasks[index].DeadlineObject == undefined)
-                return tasks[index].DeadlineObject.toISOString().substr(0, 10);
+            if (tasks[index].DeadlineDateObject != undefined)
+                return tasks[index].DeadlineDateObject.toISOString().substr(0, 10);
             return "";
-            
+
         }
 
         function changeIsDone(checkbox, index) {
             tasks[index].isDone = checkbox.checked;
 
-            if (checkbox.checked) {
-                tasks[index].doneDate = new Date().toLocaleDateString();
-            }
+            if (checkbox.checked) 
+                tasks[index].doneDateObject = new Date(); 
+            
             else
-                tasks[index].doneDate = "";
+                tasks[index].doneDateObject = undefined;
             show();
         }
 
@@ -178,13 +177,21 @@
             const idDescription = `editDescription${index}`;
             const idPerson = `editPerson${index}`;
             const inputDescribtionObject = document.getElementById(idDescription);
-            const inputDeadlineObject = document.getElementById(idDeadline);
+            const inputDeadlineDateObject = document.getElementById(idDeadline);
             const inputPersonObject = document.getElementById(idPerson);
             const task = tasks[index];
             task.description = inputDescribtionObject.value;
             task.Person = inputPersonObject.value;
-            task.DeadlineObject = new Date(inputDeadlineObject.value);
-            task.Deadline = task.DeadlineObject.toLocaleDateString();
+            if (inputDeadlineDateObject.value != "") {
+                task.DeadlineDateObject = new Date(inputDeadlineDateObject.value);
+
+            }
+            else {
+                task.DeadlineDateObject = undefined;
+
+            }
+
+
 
             task.editMode = false;
             show();
