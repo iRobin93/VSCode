@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+        }
+    </style>
+
+    <div id="app">
+        <div> <img onclick="showView('Peach')" src="./images/peach.png"></div>
+        <div> <img onclick="showView('Mario')" src="./images/mario.png"></div>
+
+
+    </div>
+
+    <script>
+        myArray = [bowser = { Name: "Bowser", HP: 300, Attack: 20, },
+        { Name: "Peach", HP: 100, Attack: 10, },
+        { Name: "Mario", HP: 200, Attack: 15, }
+        ];
+
+
+        let myCharacter
+        function showView(character) {
+
+            for (let i = 0; i < myArray.length; i++)
+                if (character == myArray[i].Name)
+                    myCharacter = myArray[i];
+
+            document.getElementById('app').innerHTML = /*HTML*/ `
+            <div class="container"> 
+                <div> <img  src="./images/${bowser.Name}.png"></div>
+                <div> <img  src="./images/${character}.png"></div>
+            </div>
+            <button onclick="attackFunction(myCharacter)">Angrip</button>
+            <div>${bowser.Name + " " + bowser.HP} HP<br></div>
+            <div>${myCharacter.Name + " " + myCharacter.HP + " HP"} </div>
+
+            `;
+        }
+
+        function attackFunction(myCharacterObject) {
+            if (myCharacterObject.HP <= 0)
+                getCharacter();
+                bowser.HP = bowser.HP - myCharacterObject.Attack;
+            myCharacterObject.HP = myCharacterObject.HP - bowser.Attack
+            showView(myCharacterObject.Name);
+        }
+
+
+        function getCharacter(){
+            
+        }
+    </script>
+
+</body>
+
+</html>
