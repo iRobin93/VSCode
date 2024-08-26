@@ -50,7 +50,7 @@
 
                 characterObject = document.createElement('img');
 
-                characterObject.src = "./images/" + myArray[i].Name + ".png";
+                characterObject.src = "./images/" + myArray[i].Name.toLocaleLowerCase() + ".png";
 
                 characterObject.onclick = function () { showFight(myArray[i].Name) }
 
