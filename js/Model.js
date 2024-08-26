@@ -1,4 +1,4 @@
-let numberWeeks = 3;
+let numberWeeks = 4;
 let rgbArray = [];
 let targetBlank = "_blank"
 
@@ -75,12 +75,22 @@ let textArray3 = [
     "To do list",
 ];
 
+let textArray4 = [
+    "Soundboard",
+];
+
+let hrefArray4 = [
+    "https://irobin93.github.io/VSCode/uke4/soundboard.html",
+];
+
 
 
 function pushRgbArray() {
     for (let i = 1; i <= numberWeeks; i = i + 3) {
         rgbArray.push("rgb(163, 192, 201)")
-        rgbArray.push("rgb(176, 176, 201)")
+        rgbArray.push("rgb(176, 156, 201)")
         rgbArray.push("rgb(104, 104, 250)")
+        rgbArray.push("rgb(144, 104, 250)")
+
     }
 }
