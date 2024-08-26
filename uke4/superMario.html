@@ -73,8 +73,8 @@
             let img2 = document.createElement('img');
             let button = document.createElement('button');
 
-            img1.src = "./images/"+ bowser.Name + ".png";
-            img2.src = "./images/"+ myCharacter.Name + ".png";
+            img1.src = "./images/"+ bowser.Name.toLowerCase() + ".png";
+            img2.src = "./images/"+ myCharacter.Name.toLowerCase() + ".png";
             container.classList.add('container');
             appObject.appendChild(container);
             container.appendChild(div);
