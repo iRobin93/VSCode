@@ -14,7 +14,7 @@
             grid-template-columns: repeat(2, 300px);
         }
 
-        img {
+        .secondPageObjects {
             width: 200px;
             height: 300px;
         }
@@ -36,14 +36,34 @@
         let myArray = [{ Name: "Bowser", HP: 300, Attack: 20, },
         { Name: "Peach", HP: 100, Attack: 10, },
         { Name: "Mario", HP: 200, Attack: 15, },
-        {Name: "Yoshi", HP: 150, Attack: 13,}
+            //{ Name: "Yoshi", HP: 150, Attack: 13, }
         ];
 
-        bowser = myArray[0];
+        let bowser = myArray[0];
 
         function showCharacters() {
+
+
             appObject.innerHTML = "";
             let characterObject;
+            let div = document.createElement('div');
+            div.innerHTML = "Velg din karakter!"
+            let someAlive = false;
+            for (let i = 1; i < myArray.length; i++)
+                if (myArray[i].HP > 0) {
+                    someAlive = true;
+                }
+
+
+            if (!someAlive) {
+                showEndScreen(false);
+                return;
+            }
+
+
+
+
+
             for (let i = 1; i < myArray.length; i++) {
                 if (myArray[i].HP <= 0)
                     continue;
@@ -57,6 +77,7 @@
                 characterObject.classList.add('firstPageObjects')
                 appObject.appendChild(characterObject);
             }
+            appObject.appendChild(div);
         }
 
         function showFight(character) {
@@ -73,8 +94,10 @@
             let img2 = document.createElement('img');
             let button = document.createElement('button');
 
-            img1.src = "./images/"+ bowser.Name.toLowerCase() + ".png";
-            img2.src = "./images/"+ myCharacter.Name.toLowerCase() + ".png";
+            img1.src = "./images/" + bowser.Name.toLowerCase() + ".png";
+            img2.src = "./images/" + myCharacter.Name.toLowerCase() + ".png";
+            img1.classList.add('secondPageObjects');
+            img2.classList.add('secondPageObjects');
             container.classList.add('container');
             appObject.appendChild(container);
             container.appendChild(div);
@@ -85,7 +108,7 @@
 
             container = document.createElement('div');
             container.classList.add('container');
-  
+
             appObject.appendChild(container);
 
             div = document.createElement('div');
@@ -100,27 +123,33 @@
             button.textContent = "Angrip";
             div.appendChild(button);
 
-            if(showShroom){
+            if (showShroom) {
                 shroom = document.createElement('img')
                 shroom.src = "./images/shroom.png";
                 shroom.style.cursor = "pointer";
-                shroom.onclick = function () {shroomUsed(myCharacter)};
+                shroom.classList.add('secondPageObjects')
+                shroom.onclick = function () { shroomUsed(myCharacter) };
                 appObject.appendChild(shroom);
             }
         }
 
 
-       
+
 
         function attackFunction() {
-          
+
 
             let randomNr = Math.floor(Math.random() * 4 + 1)
             if (randomNr == 3)
                 showShroom = true;
-            
+
             bowser.HP = bowser.HP - myCharacter.Attack;
             myCharacter.HP = myCharacter.HP - bowser.Attack;
+            if (bowser.HP <= 0) {
+                showEndScreen(true);
+                return;
+            }
+
             if (myCharacter.HP <= 0) {
                 showCharacters();
                 return;
@@ -130,9 +159,31 @@
         }
 
 
+        function showEndScreen(win) {
+            let button = document.createElement('button');
+            let img = document.createElement('img');
+            button.innerHTML = "Start på nytt ";
+            img.src = win ? "./images/win.jpg" : "./images/lose.jpg"
+            button.onclick = reset;
+            appObject.innerHTML = (win) ? "Du vant! <br> <br>" : "Du tapte! <br> <br>";
+            appObject.appendChild(img);
+            appObject.appendChild(button);
 
+        }
 
-        function shroomUsed(characterObject){
+        function reset() {
+            showShroom = false;
+            myArray = [{ Name: "Bowser", HP: 300, Attack: 20, },
+            { Name: "Peach", HP: 100, Attack: 10, },
+            { Name: "Mario", HP: 200, Attack: 15, },
+            { Name: "Yoshi", HP: 150, Attack: 13, }
+            ];
+            bowser = myArray[0];
+
+            showCharacters();
+        }
+
+        function shroomUsed(characterObject) {
             characterObject.HP += 20;
             showShroom = false;
             showFight(characterObject.Name);
