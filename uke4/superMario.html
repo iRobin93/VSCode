@@ -11,55 +11,135 @@
     <style>
         .container {
             display: grid;
-            grid-template-columns: repeat(2, auto);
+            grid-template-columns: repeat(2, 300px);
+        }
+
+        img {
+            width: 200px;
+            height: 300px;
+        }
+
+        .firstPageObjects {
+            cursor: pointer;
         }
     </style>
 
     <div id="app">
-        <div> <img onclick="showView('Peach')" src="./images/peach.png"></div>
-        <div> <img onclick="showView('Mario')" src="./images/mario.png"></div>
-
 
     </div>
 
     <script>
-        myArray = [bowser = { Name: "Bowser", HP: 300, Attack: 20, },
+        let showShroom = false;
+        let myCharacter
+        const appObject = document.getElementById('app');
+
+        let myArray = [{ Name: "Bowser", HP: 300, Attack: 20, },
         { Name: "Peach", HP: 100, Attack: 10, },
-        { Name: "Mario", HP: 200, Attack: 15, }
+        { Name: "Mario", HP: 200, Attack: 15, },
+        {Name: "Yoshi", HP: 150, Attack: 13,}
         ];
 
+        bowser = myArray[0];
 
-        let myCharacter
-        function showView(character) {
+        function showCharacters() {
+            appObject.innerHTML = "";
+            let characterObject;
+            for (let i = 1; i < myArray.length; i++) {
+                if (myArray[i].HP <= 0)
+                    continue;
+
+                characterObject = document.createElement('img');
+
+                characterObject.src = "./images/" + myArray[i].Name.toLowerCase() + ".png";
+
+                characterObject.onclick = function () { showFight(myArray[i].Name) }
+
+                characterObject.classList.add('firstPageObjects')
+                appObject.appendChild(characterObject);
+            }
+        }
+
+        function showFight(character) {
 
             for (let i = 0; i < myArray.length; i++)
                 if (character == myArray[i].Name)
                     myCharacter = myArray[i];
 
-            document.getElementById('app').innerHTML = /*HTML*/ `
-            <div class="container"> 
-                <div> <img  src="./images/${bowser.Name}.png"></div>
-                <div> <img  src="./images/${character}.png"></div>
-            </div>
-            <button onclick="attackFunction(myCharacter)">Angrip</button>
-            <div>${bowser.Name + " " + bowser.HP} HP<br></div>
-            <div>${myCharacter.Name + " " + myCharacter.HP + " HP"} </div>
+            appObject.innerHTML = "";
 
-            `;
+            let container = document.createElement('div');
+            let div = document.createElement('div');
+            let img1 = document.createElement('img');
+            let img2 = document.createElement('img');
+            let button = document.createElement('button');
+
+            img1.src = "./images/"+ bowser.Name.toLowerCase() + ".png";
+            img2.src = "./images/"+ myCharacter.Name.toLowerCase() + ".png";
+            container.classList.add('container');
+            appObject.appendChild(container);
+            container.appendChild(div);
+            div.appendChild(img1);
+            div = document.createElement('div');
+            container.appendChild(div);
+            div.appendChild(img2);
+
+            container = document.createElement('div');
+            container.classList.add('container');
+  
+            appObject.appendChild(container);
+
+            div = document.createElement('div');
+            div.innerHTML = bowser.Name + " " + bowser.HP + " HP";
+            container.appendChild(div);
+            div = document.createElement('div');
+            div.innerHTML = myCharacter.Name + " " + myCharacter.HP + " HP";
+            container.appendChild(div);
+            div = document.createElement('div');
+            appObject.appendChild(div);
+            button.onclick = attackFunction;
+            button.textContent = "Angrip";
+            div.appendChild(button);
+
+            if(showShroom){
+                shroom = document.createElement('img')
+                shroom.src = "./images/shroom.png";
+                shroom.style.cursor = "pointer";
+                shroom.onclick = function () {shroomUsed(myCharacter)};
+                appObject.appendChild(shroom);
+            }
         }
 
-        function attackFunction(myCharacterObject) {
-            if (myCharacterObject.HP <= 0)
-                getCharacter();
-                bowser.HP = bowser.HP - myCharacterObject.Attack;
-            myCharacterObject.HP = myCharacterObject.HP - bowser.Attack
-            showView(myCharacterObject.Name);
-        }
 
+       
 
-        function getCharacter(){
+        function attackFunction() {
+          
+
+            let randomNr = Math.floor(Math.random() * 4 + 1)
+            if (randomNr == 3)
+                showShroom = true;
             
+            bowser.HP = bowser.HP - myCharacter.Attack;
+            myCharacter.HP = myCharacter.HP - bowser.Attack;
+            if (myCharacter.HP <= 0) {
+                showCharacters();
+                return;
+            }
+            showFight(myCharacter.Name);
+
         }
+
+
+
+
+        function shroomUsed(characterObject){
+            characterObject.HP += 20;
+            showShroom = false;
+            showFight(characterObject.Name);
+        }
+        showCharacters();
+
+
     </script>
 
 </body>
