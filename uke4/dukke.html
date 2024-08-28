@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        #hodekroppben {
+            width: 250px;
+            height: 30px;
+            line-height: 30px;
+            color: white;
+            text-align: center;
+            background-color: blue;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 150px);
+        }
+
+        .myClass {
+            display: flex;
+            flex-direction: row;
+        }
+        .skrift{
+            line-height: 130px;
+            background-color: lightgray;
+        }
+    </style>
+    <div id="app">
+        <div id="hodekroppben">Hode, Kropp og Ben</div>
+        <div class="container">
+            <div class="myClass">
+                <div class="skrift">←</div>
+
+                <img class="image" src="./images/face1.png">
+
+                <div class="skrift">→</div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="myClass">
+                <div class="skrift">←</div>
+                <img class="image" src="./images/bod2.png">
+                <div class="skrift">→</div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="myClass">
+                <div class="skrift">←</div>
+                <img class="image" src="./images/legs2.png">
+                <div class="skrift">→</div>
+            </div>
+        </div>
+    </div>
+
+
+    
+    <script>
+
+    </script>
+</body>
+
+</html>

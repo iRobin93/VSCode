@@ -37,14 +37,16 @@
         let showShroom = false;
         let myCharacter;
         const appObject = document.getElementById('app');
+        let myArray = [];
 
-        let myArray = [{ Name: "Bowser", HP: 300, Attack: 20, },
-        { Name: "Peach", HP: 100, Attack: 10, },
-        { Name: "Mario", HP: 200, Attack: 15, },
+        function setMyArray(){
+            myArray = [{ Name: "Bowser", HP: 400, Attack: 20, },
+            { Name: "Peach", HP: 100, Attack: 10, },
+            { Name: "Mario", HP: 200, Attack: 15, },
             //{ Name: "Yoshi", HP: 150, Attack: 13, }
         ];
+        }
 
-        let bowser = myArray[0];
 
         function showCharacters() {
 
@@ -144,7 +146,7 @@
         function attackFunction() {
 
 
-            let randomNr = Math.floor(Math.random() * 4 + 1)
+            let randomNr = Math.floor(Math.random() * 6)
             if (randomNr == 3)
                 showShroom = true;
 
@@ -167,18 +169,24 @@
         function showEndScreen(win) {
             let button = document.createElement('button');
             let img = document.createElement('img');
+            let div = document.createElement('div');
             button.innerHTML = "Start på nytt ";
             img.src = win ? "./images/win.jpg" : "./images/lose.jpg"
+            img.innerHTML = "<br>"
             button.onclick = reset;
+            
             appObject.innerHTML = (win) ? "Du vant! <br> <br>" : "Du tapte! <br> <br>";
-            appObject.appendChild(img);
+            appObject.appendChild(div)
+            div.appendChild(img);
+           
             appObject.appendChild(button);
 
         }
 
+        
         function reset() {
             showShroom = false;
-            myArray = [{ Name: "Bowser", HP: 300, Attack: 20, },
+            myArray = [{ Name: "Bowser", HP: 350, Attack: 20, },
             { Name: "Peach", HP: 100, Attack: 10, },
             { Name: "Mario", HP: 200, Attack: 15, },
             { Name: "Yoshi", HP: 150, Attack: 13, }
@@ -193,8 +201,8 @@
             showShroom = false;
             showFight(characterObject.Name);
         }
-        showCharacters();
-
+        
+        reset();
 
     </script>
 
