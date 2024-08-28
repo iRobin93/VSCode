@@ -79,12 +79,14 @@ let textArray4 = [
     "Soundboard",
     "Super Mario",
     "Programmers Life - Teamoppgave 2",
+    "Code Along 1",
 ];
 
 let hrefArray4 = [
     "https://irobin93.github.io/VSCode/uke4/soundboard.html",
     "https://irobin93.github.io/VSCode/uke4/superMario.html",
     "https://irobin93.github.io/ProgrammersLife/",
+    "https://irobin93.github.io/VSCode/uke4/codeAlong1.html",
 ];
 
 

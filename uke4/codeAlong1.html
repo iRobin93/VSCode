@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- Treff tallet - variabler, operatorer, if
+Lag 3 knapper som legger til tallene 2, 3 og 9 som plusses i samme variabel. Programmet skal finne ut av hvor mange ganger knappene ble trykket på og hvor mange trykk det tok å komme til “vinner-tallet” som er 55. 
+Vis tallet og knappene i html. 
+Hvis du kommer til 55, skal “Winner” komme opp, sammen med hvor mange ganger du trykket på knappene. 
+Går tallet OVER 55, skal “Game Over” dukke opp. -->
+
+
+    <style>
+
+    </style>
+
+    <div id="app">
+
+    </div>
+
+
+    <button onclick="addNumber(this)" id="2">2</button>
+    <button onclick="addNumber(this)" id="3">3</button>
+    <button onclick="addNumber(this)" id="9">9</button>
+    <button onclick="restart()" id="restart">Restart</button>
+    <div id="previousNumbers"></div>
+    <script>
+
+        //Model
+
+        let appObject = document.getElementById('app');
+        let restartButton = document.getElementById('previousNumbers')
+        let myArray = [];
+        let myVariabel = 0;
+        let count = 0;
+        let winCon = getRandomNumber();
+
+
+        //View
+
+        function showView(){
+            appObject.innerHTML = myVariabel;
+        }
+
+
+
+        //Controller
+
+        function getRandomNumber() {
+            return Math.floor(Math.random() * 55 + 1);
+        }
+
+        function addNumber(number) {
+            myArray.push(number.innerHTML);
+            myVariabel += parseInt(number.innerHTML);
+            count++
+            if (myVariabel == winCon) {
+                appObject.innerHTML = "Du vant! antall trykk : " + count;
+
+                return;
+            }
+
+            else if (myVariabel > winCon) {
+                appObject.innerHTML = "Game over!";
+
+                return;
+            }
+
+
+            showView();
+        }
+
+        function restart() {
+            for (i = 0; i < myArray.length; i++) {
+                console.log(myArray[i])
+                restartButton.innerHTML += `<div>${myArray[i]}</div>`;
+            }
+
+
+            appObject.innerHTML = "";
+            myVariabel = 0;
+            count = 0;
+            winCon = getRandomNumber();
+
+        }
+    </script>
+
+</body>
+
+</html>
