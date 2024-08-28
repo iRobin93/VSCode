@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <style>
+        .answerDiv {
+            background-color: darkgray;
+            color: aliceblue;
+            display: inline-block;
+            font-size: 50px;
+        }
+    </style>
+
+    <div id="app">
+
+
+
+
+    </div>
+
+    <script>
+        //Model
+        let answer
+
+        function QuestionAndAnswer(question) {
+
+            question = question.toLowerCase();
+
+            if (question.charAt(question.length - 1) == "?")
+                question = question.slice(0,-1);
+            if (question == "hvordan går det")
+                answer = "Det går bra";
+
+            else if (question == "hvor gammel er du")
+                answer = "20";
+            else if (question == "hva er klokken")
+                answer = new Date().toLocaleTimeString();
+            else if (question == "hva heter du")
+                answer = "Alfred!"
+            else answer = "Ugyldig spørsmål";
+        }
+
+
+
+        //View
+        let inputField2;
+        let appObject = document.getElementById('app');
+        let answerDiv
+        function showView() {
+            appObject.innerHTML =  /*HTML*/ `
+            
+            
+            <input id="inputField" type="text">
+            <button id="button" onclick="onClickAnswer(inputField2.value)">Skriv et spørsmål og trykk meg!</button>
+            <br>
+            for eksempel: <br>
+            Hvordan går det? <br>
+            Hvor gammel er du? <br>
+            Hva er klokken? <br>
+            Hva heter du? <br>
+            <div class="answerDiv" id="answerDiv">${answer ? answer : ""}</div>
+
+
+            `;
+            inputField2 = document.getElementById('inputField');
+        }
+
+        function clearQuestion() {
+            answerDiv = document.getElementById('answerDiv');
+
+            answerDiv.innerHTML = "..."
+        }
+
+
+        //Controller
+
+        showView();
+
+
+        function onClickAnswer(question) {
+            clearQuestion();
+            QuestionAndAnswer(question);
+            setTimeout(showView, Math.floor(Math.random() * 4000 + 1))
+
+        }
+
+    </script>
+
+</body>
+
+</html>

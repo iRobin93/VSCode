@@ -10,58 +10,98 @@
 <body>
     <style>
         #hodekroppben {
-            width: 250px;
+            width: 244px;
             height: 30px;
             line-height: 30px;
             color: white;
             text-align: center;
-            background-color: blue;
+            background-color: darkblue;
         }
 
         .container {
-            display: grid;
-            grid-template-columns: repeat(3, 150px);
-        }
-
-        .myClass {
             display: flex;
             flex-direction: row;
         }
-        .skrift{
+
+        .skrift {
             line-height: 130px;
             background-color: lightgray;
         }
     </style>
     <div id="app">
-        <div id="hodekroppben">Hode, Kropp og Ben</div>
-        <div class="container">
-            <div class="myClass">
-                <div class="skrift">←</div>
 
-                <img class="image" src="./images/face1.png">
-
-                <div class="skrift">→</div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="myClass">
-                <div class="skrift">←</div>
-                <img class="image" src="./images/bod2.png">
-                <div class="skrift">→</div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="myClass">
-                <div class="skrift">←</div>
-                <img class="image" src="./images/legs2.png">
-                <div class="skrift">→</div>
-            </div>
-        </div>
     </div>
 
 
-    
+
     <script>
+        let appObject = document.getElementById('app')
+        let faceIMG = document.getElementById('faceIMG')
+        let faceObject = { picNr: 1 }
+        let bodObject = { picNr: 1 }
+        let legsObject = { picNr: 1 }
+
+        function countFace(up, bodyPartObject) {
+
+            if (up) {
+                if (bodyPartObject.picNr == 4)
+                bodyPartObject.picNr = 1;
+
+                else
+                bodyPartObject.picNr++;
+            }
+            else {
+                if (bodyPartObject.picNr == 1)
+                bodyPartObject.picNr = 4;
+
+                else
+                bodyPartObject.picNr--;
+            }
+        }
+        
+
+        //View
+        function showView() {
+            appObject.innerHTML = /*HTML*/ `
+
+        <div id="hodekroppben">Hode, Kropp og Ben</div>
+        <div class="container">
+            
+                <div onclick="onClickChange(false, faceObject)" class="skrift">←</div>
+
+                <img id="faceIMG" class="image" src="./images/face${faceObject.picNr}.png">
+
+                <div onclick="onClickChange(true, faceObject)" class="skrift">→</div>
+            
+        </div>
+        <div class="container">
+            
+                <div onclick="onClickChange(false, bodObject)" class="skrift">←</div>
+                <img id="bodIMG" class="image" src="./images/bod${bodObject.picNr}.png">
+                <div onclick="onClickChange(true, bodObject)" class="skrift">→</div>
+            
+        </div>
+        <div class="container">
+            
+                <div onclick="onClickChange(false, legsObject)" class="skrift">←</div>
+                <img id="legsIMG" class="image" src="./images/legs${legsObject.picNr}.png">
+                <div onclick="onClickChange(true, legsObject)" class="skrift">→</div>
+            
+        </div>
+            `;
+
+
+        }
+
+        //controller
+        showView();
+
+
+
+        function onClickChange(up, bodyPartObject) {
+            countFace(up, bodyPartObject);
+            showView();
+        }
 
     </script>
 </body>

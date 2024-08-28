@@ -80,6 +80,8 @@ let textArray4 = [
     "Super Mario",
     "Programmers Life - Teamoppgave 2",
     "Code Along 1",
+    "Dukke",
+    "Chatbot",
 ];
 
 let hrefArray4 = [
@@ -87,6 +89,8 @@ let hrefArray4 = [
     "https://irobin93.github.io/VSCode/uke4/superMario.html",
     "https://irobin93.github.io/ProgrammersLife/",
     "https://irobin93.github.io/VSCode/uke4/codeAlong1.html",
+    "https://irobin93.github.io/VSCode/uke4/dukke.html",
+    "https://irobin93.github.io/VSCode/uke4/chatbot.html",
 ];
 
 
