@@ -19,10 +19,6 @@
     </style>
 
     <div id="app">
-
-
-
-
     </div>
 
     <script>
@@ -74,9 +70,10 @@
         }
 
         function clearQuestion() {
+            inputField2 = document.getElementById('inputField');
             answerDiv = document.getElementById('answerDiv');
-
-            answerDiv.innerHTML = "..."
+            inputField2.value = "";
+            answerDiv.innerHTML = "...";
         }
 
 

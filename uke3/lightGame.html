@@ -83,6 +83,7 @@
         let roundedReactionTimes = [];
         let randomNr;
 
+        
         let points = 0;
         function putLight() {
             if (lightIsOn == false) {
@@ -92,7 +93,7 @@
                 lightIsOn = true;
                 if (startUpLightsIntervalTimer == undefined) {
                     startUpLightsIntervalTimer = setInterval(startUpEvent, 100);
-                    setTimeout(clearStartUpTimer, 3000)
+                    setTimeout(clearStartUpTimer, 4000)
 
                 }
                 document.getElementById('stats').innerHTML = "";
