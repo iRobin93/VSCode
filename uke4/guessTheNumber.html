@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <style>
+
+    </style>
+
+    <div id="app"></div>
+
+    <script>
+        //MODEL
+
+
+        let numberChosen;
+        let randomNr = getRandomNr();
+
+        function getRandomNr() {
+            return Math.floor(Math.random() * 19 + 1)
+        }
+
+        function setShowText() {
+            if (!numberChosen)
+                return "";           
+            else if (numberChosen == randomNr) {
+                resetGame();
+                return "You won, new number is chosen!";
+            }
+            else if (numberChosen < randomNr)
+                return "Number is higher";
+            else if (numberChosen > randomNr)
+                return "Number is lower"
+        }
+
+        function resetGame() {
+            randomNr = getRandomNr();
+        }
+
+        function getChosenNumber(number) {
+            numberChosen = number;
+            return numberChosen;
+        }
+
+        //VIEW
+        let appHtml = document.getElementById('app');
+        
+
+        function showView() {
+
+
+            appHtml.innerHTML = /*HTML*/ `
+            <input id="numberField" type="number">
+            <button onclick="onClickGuess()"> Trykk meg for å gjette tall!</button>
+            <div>${numberChosen ?? ""} </div>
+            <div>${getStateText() ?? ""} </div>
+
+            `;
+        }
+
+        function getNumberField() {
+            return document.getElementById('numberField').value;
+        }
+
+
+        //CONTROLLER
+        showView();
+        function getStateText(){
+            let myString = setShowText();
+            return myString;
+        }
+
+        function onClickGuess() {
+            showView(getChosenNumber(getNumberField()));
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>
