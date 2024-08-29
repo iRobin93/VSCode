@@ -24,11 +24,7 @@ Går tallet OVER 55, skal “Game Over” dukke opp. -->
     </div>
 
 
-    <button onclick="onClickNumber(2)" id="2">2</button>
-    <button onclick="onClickNumber(3)" id="3">3</button>
-    <button onclick="onClickNumber(9)" id="9">9</button>
-    <button onclick="onClickRestart()" id="restart">Restart</button>
-    <div id="previousNumbers"></div>
+
     <script>
 
         //Model
@@ -38,7 +34,7 @@ Går tallet OVER 55, skal “Game Over” dukke opp. -->
         let winCon = getRandomNumber();
         let winConArray = [];
         let endState = false;
-
+        let restartDisabled = "Disabled"
 
         //Return value 1 = normal, return value 2 = win, return value 3 = loss value 0 = game over.
         function addNumber(number) {
@@ -68,28 +64,55 @@ Går tallet OVER 55, skal “Game Over” dukke opp. -->
         }
 
 
-        function resetModelValues(){
+        function resetModelValues() {
             endState = false;
             myVariabel = 0;
             count = 0;
             winCon = getRandomNumber();
+            restartDisabled = "Disabled";
         }
-        
+
         //View
         let appObject = document.getElementById('app');
         let previousNumbersDiv = document.getElementById('previousNumbers')
 
         function showView(returnState) {
+
+            appObject.innerHTML = "";
+            appObject.innerHTML += /*HTML*/ `
+                <button onclick="onClickNumber(2)" id="2">2</button>
+                <button onclick="onClickNumber(3)" id="3">3</button>
+                <button onclick="onClickNumber(9)" id="9">9</button>
+                <button onclick="onClickRestart()" ${restartDisabled} id="restart">Restart</button>
+                <div id="previousNumbers"></div>
+            
+                 `;
+
+
             if (returnState == 1)
-                appObject.innerHTML = myVariabel;
-            if (returnState == 2)
-                appObject.innerHTML = "Du vant! antall trykk : " + count;
-            if (returnState == 3)
-                appObject.innerHTML = "Game over!";
+                appObject.innerHTML += myVariabel;
+            if (returnState == 2) {
+                
+                restartDisabled = "";
+                showView();
+                appObject.innerHTML += "Du vant! antall trykk : " + count;
+            }
+
+            if (returnState == 3) {
+                
+                restartDisabled = "";
+                showView();
+                appObject.innerHTML += "Game over!";
+            }
+
+            
+         
+
         }
 
-        
-        function showWinNumbers(){
+
+        function showWinNumbers() {
+            previousNumbersDiv = document.getElementById('previousNumbers')
             previousNumbersDiv.innerHTML = "";
             for (i = 0; i < winConArray.length; i++) {
                 previousNumbersDiv.innerHTML += `<div>Vinn Number was: ${winConArray[i]}</div>`;
@@ -99,7 +122,7 @@ Går tallet OVER 55, skal “Game Over” dukke opp. -->
         }
 
         //Controller
-
+        showView();
         function onClickNumber(number) {
             let returnState = addNumber(number);
             showView(returnState);
@@ -107,6 +130,7 @@ Går tallet OVER 55, skal “Game Over” dukke opp. -->
 
 
         function onClickRestart() {
+
             showWinNumbers();
             resetModelValues();
 
