@@ -32,6 +32,10 @@
         tr:nth-child(even) {
             background: antiquewhite;
         }
+
+        input {
+            width: 50%;
+        }
     </style>
 </head>
 
@@ -66,14 +70,19 @@
         let lime = myObjects[1];
         let pineapple = myObjects[2];
 
+
         function pushToShoppingCart(fruitObject) {
-            shoppingCart.push({ editMode: false, fruit: fruitObject });
+            for (let i = 0; i < shoppingCart.length; i++)
+                if (shoppingCart[i].fruitName == fruitObject.Name){
+                    shoppingCart[i].fruitQuantity++;
+                    return;
+                }
+
+                shoppingCart.push({ editMode: false, fruitName: fruitObject.Name, fruitPrice: fruitObject.Price, fruitQuantity: 1 });
 
         }
 
-        function clearItemsModel() {
-            shoppingCart.length = 0;
-        }
+
         //View
 
         let appObject = document.getElementById('app');
@@ -85,7 +94,6 @@
                 <img onclick="itemOnclick(lime)" src="../uke3/images/lime.jpg " alt="">
                 <img onclick="itemOnclick(pineapple)" src="../uke3/images/pineapple.jpg " alt="">
                 <div id="spanId"></div>
-                <button onclick="onClickClearItems()">Clear Items</button>
                 `;
 
         }
@@ -93,8 +101,7 @@
 
         function showShoppingCartOnclick() {
 
-            if (shoppingCart.length == 0)
-                return;
+
             appObject.innerHTML = "Du vil kjøpe:";
             appObject.innerHTML += /*HTML*/ `
             <table id="shoppingCartTable">
@@ -112,6 +119,9 @@
                     <th>                       
                         Pris
                     </th>
+                    <th>                       
+                       Kvantitet
+                    </th>
                     <th>
                         Funksjoner
                     </th>
@@ -124,6 +134,7 @@
             }
             shoppingCartTableObject.innerHTML += html;
             appObject.innerHTML += `<button onclick="showItems()">Tilbake</button>`;
+            appObject.innerHTML += `<button onclick="onClickShowCheckOut()">Til Checkout</button>`;
 
 
         }
@@ -134,18 +145,106 @@
                 <tr>
                     
                     <td>
-                    ${shoppingCart[index].fruit.Name}
+                    ${shoppingCart[index].fruitName ?? ""}
                     </td>
                     <td>
-                    ${shoppingCart[index].fruit.Price}
+                    ${shoppingCart[index].fruitPrice ?? ""}
                     </td>
                     <td>
-                        <button onclick="onClickEditItem(index)">Edit</button>
+                        ${shoppingCart[index].fruitQuantity ?? ""}
+                    </td>
+                    <td>
+                        <button onclick="onClickEditItem(${index})">Edit</button>
                     </td>
                 </tr>
-        `;
-  
+                `;
 
+            else
+                return /*HTML*/ `           
+                <tr>
+                    
+                    <td>
+                        <input id="inputField${index}" value="${shoppingCart[index].fruitName}" type="text">
+                    </td>
+                    <td>
+                        <input id="inputField2${index}" value="${shoppingCart[index].fruitPrice}" type="text">
+                    </td>
+                    <td>
+                        <input id="inputField3${index}" value="${shoppingCart[index].fruitQuantity}" type="text">
+                    </td>
+                    <td>
+                        <button onclick="onClickSaveItem(${index})">Save</button>
+                        <button onclick="onClickDeletetItem(${index})">Delete</button>
+                    </td>
+                </tr>
+                `;
+
+        }
+
+        function createHtmlCheckoutRow(index){
+            return /*HTML*/ `           
+                <tr>
+                    
+                    <td>
+                    ${shoppingCart[index].fruitName ?? ""}
+                    </td>
+                    <td>
+                    ${shoppingCart[index].fruitPrice ?? ""}
+                    </td>
+                    <td>
+                        ${shoppingCart[index].fruitQuantity ?? ""}
+                    </td>
+                    <td>
+                        ${shoppingCart[index].fruitPrice * shoppingCart[index].fruitQuantity}
+                    </td>
+                </tr>
+                `;
+        }
+
+        function onClickShowCheckOut(){
+            appObject.innerHTML = "";
+            appObject.innerHTML += /*HTML*/ `
+            <table id="shoppingCartTable">
+                
+                
+                </table>
+                
+                `;
+                
+                shoppingCartTableObject = document.getElementById('shoppingCartTable')
+                
+                
+            
+            let sum = 0;
+            html = `
+                 <tr>
+                    <th>
+                        Varenavn
+                    </th>
+                    <th>                       
+                        Pris
+                    </th>
+                    <th>                       
+                       Kvantitet
+                    </th>
+                    <th>
+                        Sum
+                    </th>
+                </tr>
+            `;
+            for (let i = 0; i < shoppingCart.length; i++) {
+                html += createHtmlCheckoutRow(i);
+            }
+
+
+             for(let i = 0; i < shoppingCart.length; i++){
+                sum += shoppingCart[i].fruitPrice * shoppingCart[i].fruitQuantity;
+             }
+
+            shoppingCartTableObject.innerHTML += html;
+            
+            appObject.innerHTML += `<button onclick="showItems()">Tilbake</button>`;
+            appObject.innerHTML += " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Summen er: " + sum;
 
         }
 
@@ -165,6 +264,22 @@
 
         function itemOnclick(fruitObject) {
             pushToShoppingCart(fruitObject);
+        }
+
+        function onClickDeletetItem(index) {
+            shoppingCart.splice(index, 1);
+            showShoppingCartOnclick();
+        }
+
+        function onClickSaveItem(index) {
+            inputfield = document.getElementById('inputField' + index);
+            inputfield2 = document.getElementById('inputField2' + index);
+            inputfield3 = document.getElementById('inputField3' + index);
+            shoppingCart[index].fruitName = inputfield.value;
+            shoppingCart[index].fruitPrice = inputfield2.value;
+            shoppingCart[index].fruitQuantity = inputfield3.value;
+            shoppingCart[index].editMode = false;
+            showShoppingCartOnclick();
         }
 
     </script>
