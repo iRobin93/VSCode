@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="app"></div>
+
+    <script>
+        //MODEL
+        let gameStarted = false;
+
+
+
+        function chooseItemAi() {
+            let computerChoice = Math.floor(Math.random() * 3 + 1)
+            if (computerChoice == 1)
+                return "rock"
+            if (computerChoice == 2)
+                return "paper"
+            else (computerChoice == 3)
+            return "scissors"
+        }
+
+        function restartGame() {
+            gameStarted = false;
+        }
+
+        function startGame() {
+            gameStarted = true;
+        }
+
+        function checkWinner(playerChoice, aiChoice) {
+            if (playerChoice == aiChoice)
+                return "draw";
+            if (playerChoice == "paper" && aiChoice == "rock")
+                return "You"
+            if (playerChoice == "paper" && aiChoice == "scissors")
+                return "Computer"
+            if (playerChoice == "rock" && aiChoice == "scissors")
+                return "You"
+            if (playerChoice == "rock" && aiChoice == "paper")
+                return "Computer"
+            if (playerChoice == "scissors" && aiChoice == "rock")
+                return "Computer"
+            if (playerChoice == "scissors" && aiChoice == "paper")
+                return "You"
+        }
+
+        //VIEW
+        let appObject = document.getElementById('app');
+        showStartScreen();
+
+        function showStartScreen() {
+            appObject.innerHTML =  /*HTML*/ `
+                <p> Hei og velkommen til stein, saks papir! trykk for å starte!</p>
+                <button onclick="onClickStartScreen()">Trykk her</button>
+            `;
+        }
+
+        function showGame() {
+            appObject.innerHTML =  /*HTML*/ `
+            <img onclick="onClickItem('rock')" src="./images/rock.png">
+            <img onclick="onClickItem('paper')" src="./images/paper.png">
+            <img onclick="onClickItem('scissors')" src="./images/scissors.png">
+            `;
+        }
+
+
+        function showEndScreen(aiChoice, playerChoice, winner) {
+            appObject.innerHTML =  /*HTML*/ `
+            <div>Computer valgte</div>
+            <img src="./images/${aiChoice}.png">
+            <div>Du valgte</div>
+            <img src="./images/${playerChoice}.png">
+            <button onclick="restart()">Restart</button>
+            <div>Winner is ${winner ?? ""}!</div>
+            `;
+        }
+
+        function showComputerChoosing(){
+            appObject.innerHTML =  /*HTML*/ `
+            <div>Computer is choosing ...</div>
+            
+            `;
+        }
+
+        //CONTROLLER
+        function onClickStartScreen() {
+            showGame();
+        }
+
+        function onClickItem(playerChoice) {
+            if (!gameStarted) {
+                startGame();
+                let aiChoice = chooseItemAi();
+                let winner = checkWinner(playerChoice, aiChoice);
+                showComputerChoosing();
+                setTimeout(showEndScreen, Math.floor((Math.random() * 1000 * 5) + 1) , aiChoice, playerChoice, winner);
+            }
+
+        }
+
+        function restart() {
+            restartGame();
+            showGame();
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
