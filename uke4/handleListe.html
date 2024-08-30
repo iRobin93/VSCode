@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <style>
+        img {
+            cursor: pointer;
+        }
+    </style>
+
+    <div id="app">
+
+    </div>
+
+<table>
+<td></td>
+</table>
+
+    <script>
+
+        //Model
+        let shoppingCart = [];
+        function pushToShoppingCart(fruitString) {
+            shoppingCart.push(fruitString);
+
+        }
+
+        function clearItemsModel(){ 
+            shoppingCart.length = 0;
+        }
+        //View
+
+        let appObject = document.getElementById('app');
+
+        function showItems() {
+            appObject.innerHTML = /*HTML*/ `
+                <img onclick="showShoppingCartOnclick()" src="../uke3/images/shoppingCart.png " alt="">
+                <img onclick="itemOnclick('avocado')" src="../uke3/images/avocado.jpg " alt="">
+                <img onclick="itemOnclick('lime')" src="../uke3/images/lime.jpg " alt="">
+                <img onclick="itemOnclick('pineapple')" src="../uke3/images/pineapple.jpg " alt="">
+                <div id="spanId"></div>
+                <button onclick="onClickClearItems()">Clear Items</button>
+                `;
+
+        }
+
+
+        function showShoppingCartOnclick() {
+
+
+
+            if (shoppingCart.length == 0)
+                return;
+            appObject.innerHTML = "Du har kjøpt:";
+
+
+            for (let i = 0; i < shoppingCart.length; i++) {
+                appObject.innerHTML += "<br>" + /*HTML*/ `
+                <table>
+                    
+                        <tr>
+                            <td>
+                            Hei
+                            </td>
+                            <td>
+                                <button onclick="editItem()">Edit</button>
+                            </td>
+
+
+                        </tr>
+                    
+                </table>
+                `;
+
+            }
+        }
+
+
+
+
+        //Controller
+        showItems();
+        function editItems() {
+        }
+
+        function onClickClearItems() {
+            clearItemsModel();
+            showItems();
+        }
+
+        function itemOnclick(fruitString) {
+            pushToShoppingCart(fruitString);
+        }
+
+    </script>
+</body>
+
+</html>
