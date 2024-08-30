@@ -5,34 +5,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
-
-<body>
-
     <style>
         img {
             cursor: pointer;
         }
+
+        table,
+        tr,
+        td,
+        th {
+            border: 1px solid lightgray;
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            padding: 4px;
+        }
+
+        th {
+            background-color: darkblue;
+            border: 1px solid darkblue;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: antiquewhite;
+        }
     </style>
+</head>
+
+<body>
+
+
+
+
 
     <div id="app">
 
     </div>
 
-<table>
-<td></td>
-</table>
-
     <script>
 
         //Model
         let shoppingCart = [];
-        function pushToShoppingCart(fruitString) {
-            shoppingCart.push(fruitString);
+        let myObjects = [{
+            Name: "avocado",
+            Price: 30,
+        },
+        {
+            Name: "lime",
+            Price: 10,
+        },
+        {
+            Name: "pineapple",
+            Price: 50,
+        }];
+
+        let avocado = myObjects[0];
+        let lime = myObjects[1];
+        let pineapple = myObjects[2];
+
+        function pushToShoppingCart(fruitObject) {
+            shoppingCart.push({ editMode: false, fruit: fruitObject });
 
         }
 
-        function clearItemsModel(){ 
+        function clearItemsModel() {
             shoppingCart.length = 0;
         }
         //View
@@ -42,9 +81,9 @@
         function showItems() {
             appObject.innerHTML = /*HTML*/ `
                 <img onclick="showShoppingCartOnclick()" src="../uke3/images/shoppingCart.png " alt="">
-                <img onclick="itemOnclick('avocado')" src="../uke3/images/avocado.jpg " alt="">
-                <img onclick="itemOnclick('lime')" src="../uke3/images/lime.jpg " alt="">
-                <img onclick="itemOnclick('pineapple')" src="../uke3/images/pineapple.jpg " alt="">
+                <img onclick="itemOnclick(avocado)" src="../uke3/images/avocado.jpg " alt="">
+                <img onclick="itemOnclick(lime)" src="../uke3/images/lime.jpg " alt="">
+                <img onclick="itemOnclick(pineapple)" src="../uke3/images/pineapple.jpg " alt="">
                 <div id="spanId"></div>
                 <button onclick="onClickClearItems()">Clear Items</button>
                 `;
@@ -54,40 +93,69 @@
 
         function showShoppingCartOnclick() {
 
-
-
             if (shoppingCart.length == 0)
                 return;
-            appObject.innerHTML = "Du har kjøpt:";
+            appObject.innerHTML = "Du vil kjøpe:";
+            appObject.innerHTML += /*HTML*/ `
+            <table id="shoppingCartTable">
+            
+
+            </table>
+            
+            `;
+            shoppingCartTableObject = document.getElementById('shoppingCartTable')
+            html = `
+                 <tr>
+                    <th>
+                        Varenavn
+                    </th>
+                    <th>                       
+                        Pris
+                    </th>
+                    <th>
+                        Funksjoner
+                    </th>
+                </tr>
+            `;
 
 
             for (let i = 0; i < shoppingCart.length; i++) {
-                appObject.innerHTML += "<br>" + /*HTML*/ `
-                <table>
-                    
-                        <tr>
-                            <td>
-                            Hei
-                            </td>
-                            <td>
-                                <button onclick="editItem()">Edit</button>
-                            </td>
-
-
-                        </tr>
-                    
-                </table>
-                `;
-
+                html += createHtmlRow(i);
             }
+            shoppingCartTableObject.innerHTML += html;
+            appObject.innerHTML += `<button onclick="showItems()">Tilbake</button>`;
+
+
         }
 
+        function createHtmlRow(index) {
+            if (!shoppingCart[index].editMode)
+                return /*HTML*/ `           
+                <tr>
+                    
+                    <td>
+                    ${shoppingCart[index].fruit.Name}
+                    </td>
+                    <td>
+                    ${shoppingCart[index].fruit.Price}
+                    </td>
+                    <td>
+                        <button onclick="onClickEditItem(index)">Edit</button>
+                    </td>
+                </tr>
+        `;
+  
+
+
+        }
 
 
 
         //Controller
         showItems();
-        function editItems() {
+        function onClickEditItem(index) {
+            shoppingCart[index].editMode = true;
+            showShoppingCartOnclick();
         }
 
         function onClickClearItems() {
@@ -95,8 +163,8 @@
             showItems();
         }
 
-        function itemOnclick(fruitString) {
-            pushToShoppingCart(fruitString);
+        function itemOnclick(fruitObject) {
+            pushToShoppingCart(fruitObject);
         }
 
     </script>
