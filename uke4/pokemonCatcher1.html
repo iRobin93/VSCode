@@ -75,8 +75,10 @@
             
             `;
             if (pokemonCatched == 'catched')
-            appObject.innerHTML += /*HTML*/ `
-            You catched a pokemon!
+            appObject.innerHTML += /*HTML*/ `<div>
+            You catched a pokemon! <br> It was a ${randomPokemon.Name}
+            <img src=${randomPokemon.img}>
+            </div>
             `;
             else if (pokemonCatched == 'escaped')
             appObject.innerHTML += /*HTML*/ `
