@@ -37,6 +37,14 @@
             img: "./images/bulbasaur.png"
         }
 
+        Charmander = {
+            Name: "Charmander",
+            HP: 100,
+            Attack: 20,
+            Defense: 10,
+            img: "./images/charmander.png"
+        }
+
         //View
         appObject = document.getElementById('app');
         function showFirstScren() {
@@ -45,7 +53,7 @@
             
             <img onclick="chooseStarter(Pikachu)" src=${Pikachu.img}>
             <img onclick="chooseStarter(Bulbasaur)" src=${Bulbasaur.img}>
-            
+            <img onclick="chooseStarter(Charmander)" src=${Charmander.img}>
             
             `;
         }

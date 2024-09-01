@@ -85,6 +85,7 @@ let textArray4 = [
     "Guess the Number!",
     "Stein, Saks, Papir",
     "shoppingList2",
+    "PokemonCatcher1",
 ];
 
 let hrefArray4 = [
@@ -97,6 +98,7 @@ let hrefArray4 = [
     "https://irobin93.github.io/VSCode/uke4/guessTheNumber.html",
     "https://irobin93.github.io/VSCode/uke4/steinSaksPapir.html",
     "https://irobin93.github.io/VSCode/uke4/handleListe.html",
+    "https://irobin93.github.io/VSCode/uke4/pokemonCatcher1.html",
 ];
 
 

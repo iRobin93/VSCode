@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        img {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+
+    <div id="app"></div>
+
+
+    <script>
+        //Model
+        yourPokemons = []
+
+
+        Pikachu = {
+            Name: "Pikachu",
+            HP: 100,
+            Attack: 20,
+            Defense: 10,
+            img: "./images/pikachu.png"
+        }
+
+        Bulbasaur = {
+            Name: "Bulbasaur",
+            HP: 100,
+            Attack: 20,
+            Defense: 10,
+            img: "./images/bulbasaur.png"
+        }
+
+        Charmander = {
+            Name: "Charmander",
+            HP: 100,
+            Attack: 20,
+            Defense: 10,
+            img: "./images/charmander.png"
+        }
+
+        allPokemons = [
+            Pikachu, Bulbasaur, Charmander
+
+        ]
+        let randomPokemon = {}
+
+        function setRandomPokemon() {
+            let RandomNr = Math.floor(Math.random() * allPokemons.length)
+            randomPokemon = allPokemons[RandomNr];
+
+        }
+
+        function releasePokemonModel(index){
+            yourPokemons.splice(index, 1);
+
+        }
+
+        //View
+        appObject = document.getElementById('app');
+        function showFirstScren(pokemonCatched) {
+            appObject.innerHTML = /*HTML*/ `
+            <button onclick="onClickMeetAPokemon()">Meet a pokemon!</button>
+            <button onclick="onClickShowPokedex()">Show pokedex</button>
+            
+            
+            
+            `;
+            if (pokemonCatched == 'catched')
+            appObject.innerHTML += /*HTML*/ `
+            You catched a pokemon!
+            `;
+            else if (pokemonCatched == 'escaped')
+            appObject.innerHTML += /*HTML*/ `
+            Pokemon escaped
+            `;
+        }
+        function showPokemon() {
+            appObject.innerHTML = /*HTML*/ `
+            <img src=${randomPokemon.img}><br>
+            <img onclick="catchPokemon()" src="./images/pokeball.png">
+            <button onclick="showFirstScren()">Run away!</button>
+            
+            
+            `;
+        }
+
+        function showPokedexScreen() {
+            appObject.innerHTML = "";
+            for (let i = 0; i < yourPokemons.length; i++) {
+                appObject.innerHTML += /*HTML*/ `
+            <div>
+            <img src=${yourPokemons[i].img}><br>
+            <div>${yourPokemons[i].Name}</div>
+            <div>${yourPokemons[i].HP}HP</div>
+            <button onclick="releasePokemon(${i})"> Release!</button>
+            </div>
+            `;
+
+            }
+
+            appObject.innerHTML += /*HTML*/`
+            <button onclick="showFirstScren()">Go back!</button>
+            `;
+
+        }
+
+
+        //Controller
+        showFirstScren();
+
+        function releasePokemon(index){
+            releasePokemonModel(index);
+            showPokedexScreen();
+        }
+        function catchPokemon() {
+            randomNr = Math.floor(Math.random() * 3)
+            if (randomNr == 0){
+                yourPokemons.push(randomPokemon);
+            showFirstScren('catched');
+            }
+            else showFirstScren('escaped');
+        }
+
+        function onClickMeetAPokemon() {
+            setRandomPokemon();
+            showPokemon();
+        }
+        function chooseStarter(starter) {
+            yourPokemons.push(starter);
+            showSecondScreen();
+        }
+        function onClickShowPokedex() {
+            showPokedexScreen();
+        }
+
+    </script>
+</body>
+
+</html>
