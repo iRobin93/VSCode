@@ -73,12 +73,12 @@
 
         function pushToShoppingCart(fruitObject) {
             for (let i = 0; i < shoppingCart.length; i++)
-                if (shoppingCart[i].fruitName == fruitObject.Name){
+                if (shoppingCart[i].fruitName == fruitObject.Name) {
                     shoppingCart[i].fruitQuantity++;
                     return;
                 }
 
-                shoppingCart.push({ editMode: false, fruitName: fruitObject.Name, fruitPrice: fruitObject.Price, fruitQuantity: 1 });
+            shoppingCart.push({ editMode: false, fruitName: fruitObject.Name, fruitPrice: fruitObject.Price, fruitQuantity: 1 });
 
         }
 
@@ -102,15 +102,7 @@
         function showShoppingCartOnclick() {
 
 
-            appObject.innerHTML = "Du vil kjøpe:";
-            appObject.innerHTML += /*HTML*/ `
-            <table id="shoppingCartTable">
-            
 
-            </table>
-            
-            `;
-            shoppingCartTableObject = document.getElementById('shoppingCartTable')
             html = `
                  <tr>
                     <th>
@@ -132,14 +124,27 @@
             for (let i = 0; i < shoppingCart.length; i++) {
                 html += createHtmlRow(i);
             }
+
+            appObject.innerHTML = "Du vil kjøpe:";
+            appObject.innerHTML += /*HTML*/ `
+            <table id="shoppingCartTable">
+            
+
+            </table>
+            
+            `;
+            shoppingCartTableObject = document.getElementById('shoppingCartTable')
+
             shoppingCartTableObject.innerHTML += html;
             appObject.innerHTML += `<button onclick="showItems()">Tilbake</button>`;
             appObject.innerHTML += `<button onclick="onClickShowCheckOut()">Til Checkout</button>`;
 
 
+
         }
 
         function createHtmlRow(index) {
+
             if (!shoppingCart[index].editMode)
                 return /*HTML*/ `           
                 <tr>
@@ -159,18 +164,38 @@
                 </tr>
                 `;
 
-            else
-                return /*HTML*/ `           
+            else {
+
+                let inputfieldVarenavnObject = document.getElementById('inputField' + index)
+                let inputfieldPriceObject = document.getElementById('inputField2' + index)
+                let inputfieldQuantityObject = document.getElementById('inputField3' + index)
+                if (inputfieldVarenavnObject == null)
+                    inputfieldVarenavn = shoppingCart[index].fruitName;
+                else
+                    inputfieldVarenavn = inputfieldVarenavnObject.value;
+
+                if (inputfieldPriceObject == null)
+                    inputfieldPrice = shoppingCart[index].fruitPrice;
+                else
+                    inputfieldPrice = inputfieldPriceObject.value;
+
+                if (inputfieldQuantityObject == null)
+                    inputfieldQuantity = shoppingCart[index].fruitQuantity;
+                else
+                    inputfieldQuantity = inputfieldQuantityObject.value;
+
+                    
+                    return /*HTML*/ `           
                 <tr>
                     
                     <td>
-                        <input id="inputField${index}" value="${shoppingCart[index].fruitName}" type="text">
+                        <input id="inputField${index}" value="${inputfieldVarenavn}" type="text">
                     </td>
                     <td>
-                        <input id="inputField2${index}" value="${shoppingCart[index].fruitPrice}" type="text">
+                        <input id="inputField2${index}" value="${inputfieldPrice}" type="text">
                     </td>
                     <td>
-                        <input id="inputField3${index}" value="${shoppingCart[index].fruitQuantity}" type="text">
+                        <input id="inputField3${index}" value="${inputfieldQuantity}" type="text">
                     </td>
                     <td>
                         <button onclick="onClickSaveItem(${index})">Save</button>
@@ -178,10 +203,12 @@
                     </td>
                 </tr>
                 `;
+            }
+
 
         }
 
-        function createHtmlCheckoutRow(index){
+        function createHtmlCheckoutRow(index) {
             return /*HTML*/ `           
                 <tr>
                     
@@ -201,7 +228,7 @@
                 `;
         }
 
-        function onClickShowCheckOut(){
+        function onClickShowCheckOut() {
             appObject.innerHTML = "";
             appObject.innerHTML += /*HTML*/ `
             <table id="shoppingCartTable">
@@ -210,11 +237,11 @@
                 </table>
                 
                 `;
-                
-                shoppingCartTableObject = document.getElementById('shoppingCartTable')
-                
-                
-            
+
+            shoppingCartTableObject = document.getElementById('shoppingCartTable')
+
+
+
             let sum = 0;
             html = `
                  <tr>
@@ -237,12 +264,12 @@
             }
 
 
-             for(let i = 0; i < shoppingCart.length; i++){
+            for (let i = 0; i < shoppingCart.length; i++) {
                 sum += shoppingCart[i].fruitPrice * shoppingCart[i].fruitQuantity;
-             }
+            }
 
             shoppingCartTableObject.innerHTML += html;
-            
+
             appObject.innerHTML += `<button onclick="showItems()">Tilbake</button>`;
             appObject.innerHTML += " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Summen er: " + sum;
 

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        img{
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+
+    <div id="app"></div>
+
+    <script>
+        //Model
+        yourPokemons = []
+
+        Pikachu = {
+            Name: "Pikachu",
+            HP: 100,
+            Attack: 20,
+            Defense: 10,
+            img: "./images/pikachu.png"
+        }
+
+        Bulbasaur = {
+            Name: "Bulbasaur",
+            HP: 100,
+            Attack: 20,
+            Defense: 10,
+            img: "./images/bulbasaur.png"
+        }
+
+        //View
+        appObject = document.getElementById('app');
+        function showFirstScren() {
+            appObject.innerHTML = /*HTML*/ `
+            <div>Choose your starter!</div>
+            
+            <img onclick="chooseStarter(Pikachu)" src=${Pikachu.img}>
+            <img onclick="chooseStarter(Bulbasaur)" src=${Bulbasaur.img}>
+            
+            
+            `;
+        }
+
+        function showSecondScreen(){
+            appObject.innerHTML = /*HTML*/ `
+            
+            
+            <img src=${yourPokemons[0].img}>
+           
+            <button>Find a pokemon!</button>
+            
+            `;
+        }
+
+
+
+        //Controller
+        showFirstScren();
+
+        function chooseStarter(starter){
+            yourPokemons.push(starter);
+            showSecondScreen();
+        }
+
+    </script>
+</body>
+
+</html>
