@@ -47,10 +47,16 @@
                                 } */
 
                 myIndex = alphabet.indexOf(text.charAt(i))
-                if (myIndex == -1)
-                    newText += "?"
-                else
+                if (myIndex == -1) {
+                    newText += "?";
+                    newText += " ";
+                }
+
+                else {
                     newText += morseCodeArray[myIndex]
+                    newText += " ";
+                }
+
 
 
             }
