@@ -83,7 +83,7 @@
         let blinks = 1;
         let gameStarted = "";
         let blinksShowing = false;
-        function setRandomNr() {
+        function getRandomNr() {
             return Math.floor(Math.random() * 4)
         }
 
@@ -120,22 +120,22 @@
         function showBlinks() {
             blinksShowing = true;
             if (myArray.length == 0) {
-                randomNr = setRandomNr();
+                randomNr = getRandomNr();
                 myArray.push(randomNr);
             }
-
             else
                 randomNr = myArray[0];
+
             remainingBlinks = blinks - 1;
             eval('div' + randomNr).classList.toggle('circle' + randomNr);
 
-            setTimeout(showBlinksOff, 1000);
+            setTimeout(showBlinksOff, 600);
         }
 
         function showBlinksOff() {
             eval('div' + randomNr).classList.toggle('circle' + randomNr);
             if (remainingBlinks > 0) {
-                setTimeout(showBlinksOn, 1000);
+                setTimeout(showBlinksOn, 600);
                 remainingBlinks--;
             }
             else
@@ -143,10 +143,10 @@
         }
 
         function showBlinksOn() {
-            setTimeout(showBlinksOff, 1000);
+            setTimeout(showBlinksOff, 700);
 
             if (remainingBlinks == 0) {
-                randomNr = setRandomNr();
+                randomNr = getRandomNr();
                 myArray.push(randomNr);
             }
 
