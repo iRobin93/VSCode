@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        .circle00 {
+            background-color: rgb(249, 249, 150);
+        }
+
+        .circle0 {
+            background-color: yellow;
+        }
+
+        .circle01 {
+            background-color: rgb(116, 116, 251);
+        }
+
+        .circle1 {
+            background-color: blue;
+        }
+
+        .circle02 {
+            background-color: rgb(108, 246, 108);
+        }
+
+        .circle2 {
+            background-color: green;
+        }
+
+        .circle03 {
+            background-color: rgb(245, 105, 105);
+        }
+
+        .circle3 {
+            background-color: red;
+        }
+    </style>
+
+    <div id="app"></div>
+
+    <script>
+
+        //Model
+        let randomNr;
+        let myArray = []
+        let blinks = 5;
+        let gameStarted = "";
+        function setRandomNr() {
+            return Math.floor(Math.random() * 4)
+        }
+
+        //View
+        let div0;
+        let div1;
+        let div2;
+        let div3;
+        let appObject = document.getElementById('app')
+        let remainingBlinks;
+        function showView() {
+
+            appObject.innerHTML = /*HTML*/ `
+             <div onclick="onClickCircle(this)" class="circle0 circle00" id="div0"></div>
+             <div onclick="onClickCircle(this)" class="circle1 circle01" id="div1"></div>
+             <div onclick="onClickCircle(this)" class="circle2 circle02" id="div2"></div>
+             <div onclick="onClickCircle(this)" class="circle3 circle03" id="div3"></div>
+        
+             <button ${gameStarted} onclick="onClickStartGame()">Start game</button>
+        `;
+            div0 = document.getElementById('div0')
+            div1 = document.getElementById('div1')
+            div2 = document.getElementById('div2')
+            div3 = document.getElementById('div3')
+        }
+        function showBlinks() {
+            remainingBlinks = blinks - 1
+            eval('div' + randomNr).classList.toggle('circle' + randomNr);
+            myArray.push(randomNr);
+            setTimeout(showBlinksOff, 1500);
+        }
+
+        function showBlinksOff(){
+            eval('div' + randomNr).classList.toggle('circle' + randomNr);
+            if (remainingBlinks > 0) {
+                setTimeout(showBlinksOn, 1500);
+                remainingBlinks--;
+            }
+        }
+
+        function showBlinksOn() {
+            setTimeout(showBlinksOff, 1500);
+
+            if (remainingBlinks > 1) {
+                randomNr = setRandomNr();
+                myArray.push(randomNr);
+                eval('div' + randomNr).classList.toggle('circle' + randomNr);
+            }
+
+        }
+        //Controller
+
+
+        showView();
+
+        function onClickStartGame() {
+            gameStarted = "Hidden"
+            showView();
+            randomNr = setRandomNr();
+            showBlinks();
+            blinks++
+
+        }
+
+        function onClickCircle() {
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

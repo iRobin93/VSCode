@@ -17,7 +17,7 @@
             '.--.', '--.-', '.-.', '...', '-', '..-', '...-', '.--', '-..-', '-.--', '--..', '/', '·−·−', '−−−·', '·−−·−'];
 
         const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
-         "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "æ", "ø", "å"];
+            "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "æ", "ø", "å"];
         let newString;
         let outputField = document.getElementById('outputField');
         function keydown(keyPressedEvent) {
@@ -38,15 +38,20 @@
 
 
             for (let i = 0; i < text.length; i++) {
-                for (let j = 0; j < alphabet.length; j++) {
-                    if (text.charAt(i) == alphabet[j]){
-                        newText += morseCodeArray[j];
-                        newText += " ";
-                        break;
-                    }
-                }
-                
-                        
+                /*                 for (let j = 0; j < alphabet.length; j++) {
+                                    if (text.charAt(i) == alphabet[j]) {
+                                        newText += morseCodeArray[j];
+                                        newText += " ";
+                                        break;
+                                    }
+                                } */
+
+                myIndex = alphabet.indexOf(text.charAt(i))
+                if (myIndex == -1)
+                    newText += "?"
+                else
+                    newText += morseCodeArray[myIndex]
+
 
             }
 
