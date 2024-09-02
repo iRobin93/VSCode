@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input id="inputField" onkeydown="return keydown(event)" type="text">
+    <div id="outputField"></div>
+    <script>
+
+        const morseCodeArray = ['.-', '-...', '-.-.', '-..', '.', '..-.', '--.', '....', '..', '.---', '-.-', '.-..', '--', '-.', '---',
+            '.--.', '--.-', '.-.', '...', '-', '..-', '...-', '.--', '-..-', '-.--', '--..', ' ', '·−·−', '−−−·', '·−−·−'];
+
+        const alphabet = ["a", "b", "c", "d"];
+        let newString;
+        let outputField = document.getElementById('outputField');
+        function keydown(keyPressedEvent) {
+
+            let inputFieldObject = document.getElementById('inputField');
+            if (keyPressedEvent.key == "Enter") {
+                newString = inputFieldObject.value;
+                inputFieldObject.value = "";
+
+                outputField.innerHTML = newString;
+                outputField.innerHTML += "<br>" + translate(newString);
+            }
+        }
+
+
+        function translate(text) {
+            let newText = ""
+
+
+            for (let i = 0; i < text.length; i++) {
+                for (let j = 0; j < alphabet.length; j++) {
+                    if (text.charAt(i) == alphabet[j]){
+                        newText += morseCodeArray[j];
+                        newText += " ";
+                        break;
+                    }
+                }
+                
+                        
+
+            }
+
+
+
+            return newText;
+        }
+
+    </script>
+
+</body>
+
+</html>
