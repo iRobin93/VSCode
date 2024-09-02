@@ -100,6 +100,16 @@ let hrefArray4 = [
     "https://irobin93.github.io/VSCode/uke4/handleListe.html",
     "https://irobin93.github.io/VSCode/uke4/pokemonCatcher1.html",
 ];
+let textArray5 = [
+    "Morse oversetting",
+];
+
+let hrefArray5 = [
+    "https://irobin93.github.io/VSCode/uke5/morseTranslate.html",
+];
+
+
+
 
 
 
