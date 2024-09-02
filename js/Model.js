@@ -1,4 +1,4 @@
-let numberWeeks = 4;
+let numberWeeks = 5;
 let rgbArray = [];
 let targetBlank = "_blank"
 
