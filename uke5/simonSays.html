@@ -11,17 +11,22 @@
 
     <style>
         div {
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
+            background-color: black
         }
 
+        #app{
+            background-color: white;
+        }
+        
         .circle00 {
-            background-color: rgb(249, 249, 150);
+            background-color: rgb(244, 207, 137);
         }
 
         .circle0 {
-            background-color: yellow;
+            background-color: orange;
         }
 
         .circle01 {
@@ -47,6 +52,25 @@
         .circle3 {
             background-color: red;
         }
+
+        #div0{
+            position: absolute;
+            top: 105px;
+        }
+        #div1{
+            position: absolute;
+            left: 130px;
+        }
+        #div2{
+            position: absolute;
+            left: 250px;
+            top: 105px;
+        }
+        #div3{
+            position: absolute;
+            left: 130px;
+            top: 200px;
+        }
     </style>
 
     <div id="app"></div>
@@ -56,8 +80,9 @@
         //Model
         let randomNr;
         let myArray = []
-        let blinks = 5;
+        let blinks = 1;
         let gameStarted = "";
+        let blinksShowing = false;
         function setRandomNr() {
             return Math.floor(Math.random() * 4)
         }
@@ -69,62 +94,135 @@
         let div3;
         let appObject = document.getElementById('app')
         let remainingBlinks;
-        function showView() {
+        let nrOfCirclesClicked = 0
+        gameOver1 = 'hidden';
+
+        function showView(showColors) {
 
             appObject.innerHTML = /*HTML*/ `
-             <div onclick="onClickCircle(this)" class="circle0 circle00" id="div0"></div>
-             <div onclick="onClickCircle(this)" class="circle1 circle01" id="div1"></div>
-             <div onclick="onClickCircle(this)" class="circle2 circle02" id="div2"></div>
-             <div onclick="onClickCircle(this)" class="circle3 circle03" id="div3"></div>
+             <div onclick="onClickCircle('0')" id="div0"></div>
+             <div onclick="onClickCircle('1')" id="div1"></div>
+             <div onclick="onClickCircle('2')" id="div2"></div>
+             <div onclick="onClickCircle('3')" id="div3"></div>
         
              <button ${gameStarted} onclick="onClickStartGame()">Start game</button>
+             <button ${gameOver1} onclick="onClickStartGame()">Restart</button>
+             <p ${gameOver1}>Du klarte: ${blinks - 1} runder!</p>
         `;
             div0 = document.getElementById('div0')
             div1 = document.getElementById('div1')
             div2 = document.getElementById('div2')
             div3 = document.getElementById('div3')
+            if (showColors)
+                toggleAllCircles();
+
         }
         function showBlinks() {
-            remainingBlinks = blinks - 1
+            blinksShowing = true;
+            if (myArray.length == 0) {
+                randomNr = setRandomNr();
+                myArray.push(randomNr);
+            }
+
+            else
+                randomNr = myArray[0];
+            remainingBlinks = blinks - 1;
             eval('div' + randomNr).classList.toggle('circle' + randomNr);
-            myArray.push(randomNr);
-            setTimeout(showBlinksOff, 1500);
+
+            setTimeout(showBlinksOff, 1000);
         }
 
-        function showBlinksOff(){
+        function showBlinksOff() {
             eval('div' + randomNr).classList.toggle('circle' + randomNr);
             if (remainingBlinks > 0) {
-                setTimeout(showBlinksOn, 1500);
+                setTimeout(showBlinksOn, 1000);
                 remainingBlinks--;
             }
+            else
+                blinksShowing = false;
         }
 
         function showBlinksOn() {
-            setTimeout(showBlinksOff, 1500);
+            setTimeout(showBlinksOff, 1000);
 
-            if (remainingBlinks > 1) {
+            if (remainingBlinks == 0) {
                 randomNr = setRandomNr();
                 myArray.push(randomNr);
-                eval('div' + randomNr).classList.toggle('circle' + randomNr);
             }
 
+            else
+                randomNr = myArray[blinks - remainingBlinks - 1];
+            eval('div' + randomNr).classList.toggle('circle' + randomNr);
+
+
+        }
+
+        function blinkOffAndCheckFinished(circleNr) {
+            eval('div' + circleNr).classList.toggle('circle' + circleNr)
+            if (nrOfCirclesClicked == myArray.length) {
+
+                setTimeout(showBlinks, 1000);
+                blinks++;
+                nrOfCirclesClicked = 0;
+
+            }
+
+        }
+        function gameOver(blinkTimes) {
+            
+
+
+            
+            if (blinkTimes > 0) {
+                toggleAllCircles();
+            }
+            blinkTimes--;
+            setTimeout(gameOver, 500, blinkTimes);
+
+            if (blinkTimes == 0) {  
+                gameOver1 = "";
+                nrOfCirclesClicked = 0;
+                showView(false);
+                myArray = [];
+                blinks = 1;
+            }
+
+        }
+
+        function toggleAllCircles() {
+            for (let circleNr = 0; circleNr < 4; circleNr++) {
+                eval('div' + circleNr).classList.toggle('circle0' + circleNr);
+                eval('div' + circleNr).classList.toggle('circle' + circleNr);
+            }
         }
         //Controller
 
 
-        showView();
+        showView(true);
 
         function onClickStartGame() {
-            gameStarted = "Hidden"
-            showView();
-            randomNr = setRandomNr();
+            
+            
+            gameStarted = "Hidden";
+            gameOver1 = "Hidden";
+            showView(true);
             showBlinks();
-            blinks++
+
 
         }
 
-        function onClickCircle() {
+        function onClickCircle(circleNr) {
+            if (blinksShowing)
+                return;
+            if (myArray[nrOfCirclesClicked] == circleNr) {
+                eval('div' + circleNr).classList.toggle('circle' + circleNr);
+                setTimeout(blinkOffAndCheckFinished, 500, circleNr);
 
+            }
+            else {
+                gameOver(5);
+            }
+            nrOfCirclesClicked++
         }
 
     </script>
