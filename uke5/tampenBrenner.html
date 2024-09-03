@@ -17,17 +17,17 @@
         }
 
         #done {
-            width: 5px;
-            height: 5px;
+            width: 8px;
+            height: 8px;
             position: absolute;
             background-color: black;
         }
-        img{
+
+        img {
             position: absolute;
             width: 100px;
             height: 100px;
         }
-
     </style>
 
     <div id="div1">
@@ -44,9 +44,11 @@
         let div1 = document.getElementById('div1');
         let doneDiv = document.getElementById('done');
         let img = document.getElementById('img');
+        let presicion = 4;
+        let onMobile;
         function mouseMove(event) {
             let mouseCoords = getMousePos(event);
-            if (mouseCoords.x >= xPos - 3 && mouseCoords.x <= xPos + 3 && mouseCoords.y >= yPos - 3 && mouseCoords.y <= yPos + 3) {
+            if (mouseCoords.x >= xPos - presicion && mouseCoords.x <= xPos + presicion && mouseCoords.y >= yPos - presicion && mouseCoords.y <= yPos + presicion) {
                 div1.style.backgroundColor = "white";
                 div1.onmousemove = "";
                 doneDiv.style.top = yPos + "px";
@@ -59,6 +61,7 @@
                 return;
 
             }
+
 
 
             closenessX = 255 - Math.abs(mouseCoords.x - xPos);
@@ -75,7 +78,10 @@
 
 
         function getRandomNr() {
-            return Math.floor(Math.random() * 485 + 15);
+            if (!onMobile)
+                return Math.floor(Math.random() * 475 + 15);
+            else 
+                return Math.floor(Math.random() * 365 + 15);
         }
 
 
@@ -90,6 +96,19 @@
             img.hidden = true;
 
         }
+
+        function isMobile() {
+            const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+            onMobile = regex.test(navigator.userAgent);
+
+            if (onMobile) {
+                presicion = 10;
+                div1.style.width = "400px";
+                div1.style.height = "400px";
+            }
+
+        }
+        isMobile();
     </script>
 
 </body>
