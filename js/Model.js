@@ -2,7 +2,6 @@ let numberWeeks = 5;
 let rgbArray = [];
 let targetBlank = "_blank"
 
-
 let textArray1 =
     ["Introduksjon tekst",
         "Enkle knapper",
@@ -109,9 +108,6 @@ let hrefArray5 = [
     "https://irobin93.github.io/VSCode/uke5/morseTranslate.html",
     "https://irobin93.github.io/VSCode/uke5/simonSays.html",
 ];
-
-
-
 
 
 
