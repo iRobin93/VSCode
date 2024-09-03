@@ -20,13 +20,14 @@
             width: 5px;
             height: 5px;
             position: absolute;
-
             background-color: black;
         }
+
     </style>
 
     <div id="div1">
         <div hidden id="done"></div>
+        <img id="img" hidden src="./images/lit.jpg">
     </div>
     <button onclick="onClickgetPoint()">Trykk meg for ett hemmelig punkt</button>
 
@@ -37,6 +38,7 @@
         let closenessY = 255;
         let div1 = document.getElementById('div1');
         let doneDiv = document.getElementById('done');
+        let img = document.getElementById('img');
         function mouseMove(event) {
             let mouseCoords = getMousePos(event);
             if (mouseCoords.x >= xPos - 3 && mouseCoords.x <= xPos + 3 && mouseCoords.y >= yPos - 3 && mouseCoords.y <= yPos + 3) {
@@ -45,6 +47,7 @@
                 doneDiv.style.top = yPos + "px";
                 doneDiv.style.left = xPos + "px";
                 doneDiv.hidden = false;
+                img.hidden = false;
                 alert('Du klarte det!');
                 return;
 
