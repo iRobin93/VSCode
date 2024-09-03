@@ -13,10 +13,21 @@
             width: 500px;
             height: 500px;
             background-color: rgb(255, 255, 255);
+            border: solid 1px grey;
+        }
+
+        #done {
+            width: 5px;
+            height: 5px;
+            position: absolute;
+
+            background-color: black;
         }
     </style>
 
-    <div id="div1" onmousemove="mouseMove(event)"></div>
+    <div id="div1">
+        <div hidden id="done"></div>
+    </div>
     <button onclick="onClickgetPoint()">Trykk meg for ett hemmelig punkt</button>
 
     <script>
@@ -24,16 +35,27 @@
         let yPos;
         let closenessX = 255;
         let closenessY = 255;
-        
+        let div1 = document.getElementById('div1');
+        let doneDiv = document.getElementById('done');
         function mouseMove(event) {
             let mouseCoords = getMousePos(event);
-            if (mouseCoords.x >= xPos - 3 && mouseCoords.x <= xPos +3 && mouseCoords.y >= yPos -3 && mouseCoords.y <= yPos +3)
-                alert('Du klarte det!')
-                closenessX = 255 - Math.abs(mouseCoords.x - xPos)
-                closenessY = 255 - Math.abs(mouseCoords.y - yPos)
-                div1 = document.getElementById('div1')
-                div1.style.backgroundColor = "rgb(" + (closenessX + closenessY) / 2 +" , 0 , 0)"
-                
+            if (mouseCoords.x >= xPos - 3 && mouseCoords.x <= xPos + 3 && mouseCoords.y >= yPos - 3 && mouseCoords.y <= yPos + 3) {
+                div1.style.backgroundColor = "white";
+                div1.onmousemove = "";
+                doneDiv.style.top = yPos + "px";
+                doneDiv.style.left = xPos + "px";
+                doneDiv.hidden = false;
+                alert('Du klarte det!');
+                return;
+
+            }
+
+
+            closenessX = 255 - Math.abs(mouseCoords.x - xPos);
+            closenessY = 255 - Math.abs(mouseCoords.y - yPos);
+
+            div1.style.backgroundColor = "rgb(" + (closenessX + closenessY) / 2 + " , 0 , 0)";
+
         }
 
 
@@ -42,16 +64,21 @@
         }
 
 
-        function getRandomNr(){
-            return Math.floor(Math.random()*485+15)
+        function getRandomNr() {
+            return Math.floor(Math.random() * 485 + 15);
         }
 
 
-        function onClickgetPoint(){
+        function onClickgetPoint() {
+
             xPos = getRandomNr();
             yPos = getRandomNr();
-            console.log(xPos)
-            console.log(yPos)
+            console.log(xPos);
+            console.log(yPos);
+            div1.onmousemove = mouseMove;
+            doneDiv.hidden = true;
+
+
         }
     </script>
 
