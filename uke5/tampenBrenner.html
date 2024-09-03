@@ -22,6 +22,11 @@
             position: absolute;
             background-color: black;
         }
+        img{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+        }
 
     </style>
 
@@ -47,6 +52,8 @@
                 doneDiv.style.top = yPos + "px";
                 doneDiv.style.left = xPos + "px";
                 doneDiv.hidden = false;
+                img.style.top = yPos - 100 + "px";
+                img.style.left = xPos + "px";
                 img.hidden = false;
                 alert('Du klarte det!');
                 return;
@@ -80,7 +87,7 @@
             console.log(yPos);
             div1.onmousemove = mouseMove;
             doneDiv.hidden = true;
-
+            img.hidden = true;
 
         }
     </script>
