@@ -2,7 +2,7 @@
 let boardCells = 64;
 let rows = 8;
 let columns = 8;
-
+let pieceChosen = undefined;
 
 function getBoard() {
 
@@ -28,7 +28,7 @@ function placePieces() {
     placePiece('H1', 'whitePiece', '♜');
 
     placePawns('whitePiece', "2");
-    placePawns('blackPiece', "7")
+    placePawns('blackPiece', "7");
 
     placePiece('A8', 'blackPiece', '♜');
     placePiece('B8', 'blackPiece', '♞');
@@ -46,8 +46,44 @@ function placePawns(Color, row) {
 
 }
 
+function movePiece(element) {
+    if (!pieceChosen) {
+        if (element.innerHTML != "") {
+            element.style = "border: dashed, 3px, orange; user-select: none;";
+            pieceChosen = element;
+        }
 
+    }
+    else {
+        if (pieceChosen == element) {
+            pieceChosen.style = "user-select: none;"
+            pieceChosen = undefined;
+            return;
+        }
+        allowedMove = checkAllowedMove(element, pieceChosen);
+        if (allowedMove){
+            pieceChosen.classList.contains('whitePiece') ? element.classList.add('whitePiece') : element.classList.add('blackPiece')
 
+        element.innerHTML = pieceChosen.innerHTML;
+        pieceChosen.style = "user-select: none;"
+        pieceChosen.innerHTML = "";
+        pieceChosen = undefined;
+        }
+
+        
+    }
+
+}
+
+function checkAllowedMove(element, pieceChosen) {
+    let allowedMove = false;
+    if (pieceChosen.innerHTML == "♙")
+        if (pieceChosen.classList.contains('whitePiece'))
+            availableMove = pieceChosen.id.slice(1, 2)
+            if( 2+ Number(availableMove) == 4 )
+                allowedMove = true;
+            return allowedMove;
+}
 
 //View
 boardObject = document.getElementById('board')
@@ -58,7 +94,7 @@ function showBoard() {
 
 function createSquares(squareColorClass, letter, rowNumber) {
     let allSquares;
-    allSquares = `<div id="${letter}${rowNumber}" class="${squareColorClass}"></div>`;
+    allSquares = `<div style="user-select: none;" onclick="movePiece(this)" id="${letter}${rowNumber}" class="${squareColorClass}"></div>`;
     if (letter != "H")
         allSquares += createSquares((squareColorClass == "darkSquare") ? "lightSquare" : "darkSquare", String.fromCharCode(letter.charCodeAt(0) + 1), rowNumber);
 
