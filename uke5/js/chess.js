@@ -42,7 +42,7 @@ function placePieces() {
 
 function placePawns(Color, row) {
     for (let i = 0; i < 8; i++)
-        placePiece(String.fromCharCode("A".charCodeAt(0) + i) + row, Color, "♟")
+        placePiece(String.fromCharCode("A".charCodeAt(0) + i) + row, Color, "♙")
 
 }
 
