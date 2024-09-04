@@ -103,12 +103,16 @@ let textArray5 = [
     "Morse oversetting",
     "Simon Says",
     "Tampen Brenner",
+    "Norske flagg",
+    "Chess",
 ];
 
 let hrefArray5 = [
     "https://irobin93.github.io/VSCode/uke5/morseTranslate.html",
     "https://irobin93.github.io/VSCode/uke5/simonSays.html",
     "https://irobin93.github.io/VSCode/uke5/tampenBrenner.html",
+    "https://irobin93.github.io/VSCode/uke5/norskFlagg.html",
+    "https://irobin93.github.io/VSCode/uke5/chess.html",
 ];
 
 

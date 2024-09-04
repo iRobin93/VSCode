@@ -7,7 +7,7 @@ fifthRow = 6;
 
 
 function createFlag() {
-    for (let i = 0; i < firstRow; i++)
+/*     for (let i = 0; i < firstRow; i++)
         createRowRedWhiteBlueWhiteRed();
     for (i = 0; i <secondRow; i++)
         createRowWhiteBlueWhite();
@@ -16,56 +16,58 @@ function createFlag() {
     for (i = 0; i <fourthRow; i++)
         createRowWhiteBlueWhite();
     for (let i = 0; i < fifthRow; i++)
-        createRowRedWhiteBlueWhiteRed();
+        createRowRedWhiteBlueWhiteRed(); */
+    
+    flagg.innerHTML = createRowRedWhiteBlueWhiteRed().repeat(firstRow)+
+    createRowWhiteBlueWhite()+
+    createRowBlue().repeat(thirdRow)+
+    createRowWhiteBlueWhite()+
+    createRowRedWhiteBlueWhiteRed().repeat(fifthRow);
 }
 
 //View
 flagg = document.getElementById('flagg')
 
 function oneDiv(cssClass){
-    flagg.innerHTML += /*HTML*/ `
+    return /*HTML*/ `
     <div class="${cssClass}"> </div>
     `;
 }
+
 function twoDivS(cssClass){
-    oneDiv(cssClass);
+    return oneDiv(cssClass)+ 
     oneDiv(cssClass);
 }
 
 function sixDivs(cssClass){
-    twoDivS(cssClass);
-    twoDivS(cssClass);
+    return twoDivS(cssClass)+
+    twoDivS(cssClass)+
     twoDivS(cssClass);
 }
 
 function createRow(cssClass1, cssClass2){
-    sixDivs(cssClass1)
-    oneDiv(cssClass2);
-    twoDivS('blue');
-    oneDiv(cssClass2);
-    sixDivs(cssClass1);
+    return sixDivs(cssClass1)+
+    oneDiv(cssClass2)+
+    twoDivS('blue')+
+    oneDiv(cssClass2)+
+    sixDivs(cssClass1)+
     sixDivs(cssClass1);
 }
 
 function createRowRedWhiteBlueWhiteRed() {
-createRow('red', "");
+return createRow('red', "");
 
 }
 
 function createRowWhiteBlueWhite() {
-createRow("", "");
+return createRow("", "");
 }
 
 
 function createRowBlue() {
-createRow('blue', 'blue')
+return createRow('blue', 'blue')
 
 }
 
 //Controller
-
-
-
-
-
 createFlag()
