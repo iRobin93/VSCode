@@ -34,7 +34,7 @@
         <div hidden id="done"></div>
         <img id="img" hidden src="./images/lit.jpg">
     </div>
-    <button onclick="onClickgetPoint()">Trykk meg for ett hemmelig punkt</button>
+    <button id="button" onclick="onClickgetPoint()">Trykk meg for ett hemmelig punkt</button>
 
     <script>
         let xPos;
@@ -46,6 +46,7 @@
         let img = document.getElementById('img');
         let presicion = 4;
         let onMobile;
+        btn = document.getElementById('button');
         function mouseMove(event) {
             let mouseCoords = getMousePos(event);
             if (mouseCoords.x >= xPos - presicion && mouseCoords.x <= xPos + presicion && mouseCoords.y >= yPos - presicion && mouseCoords.y <= yPos + presicion) {
@@ -57,6 +58,8 @@
                 img.style.top = yPos - 100 + "px";
                 img.style.left = xPos + "px";
                 img.hidden = false;
+                btn.innerHTML = "Trykk meg for ett nytt hemmelig punkt";
+                btn.onclick = onClickgetPoint;
                 return;
 
             }
@@ -77,7 +80,7 @@
         function getRandomNr() {
             if (!onMobile)
                 return Math.floor(Math.random() * 475 + 15);
-            else 
+            else
                 return Math.floor(Math.random() * 365 + 15);
         }
 
@@ -91,7 +94,11 @@
             div1.onmousemove = mouseMove;
             doneDiv.hidden = true;
             img.hidden = true;
-
+            btn.onclick = "";
+            if (!onMobile)
+                btn.innerHTML = "Finn det hemmelige punktet!";
+            else
+                btn.innerHTML = "Trykk på skjermen for å finne det hemmelige punktet!";
         }
 
         function isMobile() {
