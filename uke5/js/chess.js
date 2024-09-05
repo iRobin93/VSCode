@@ -61,28 +61,44 @@ function movePiece(element) {
             return;
         }
         allowedMove = checkAllowedMove(element, pieceChosen);
-        if (allowedMove){
+        if (allowedMove) {
             pieceChosen.classList.contains('whitePiece') ? element.classList.add('whitePiece') : element.classList.add('blackPiece')
 
-        element.innerHTML = pieceChosen.innerHTML;
-        pieceChosen.style = "user-select: none;"
-        pieceChosen.innerHTML = "";
-        pieceChosen = undefined;
+            element.innerHTML = pieceChosen.innerHTML;
+            pieceChosen.style = "user-select: none;"
+            pieceChosen.innerHTML = "";
+            pieceChosen = undefined;
         }
 
-        
+
     }
 
 }
+function checkPiece() {
+    return "♙";
+}
+
+function checkPieceMoves() {
+    if(pieceChosen.innerHTML == "♙")
+
+    myArray = ["B3", "B4"]
+    return myArray;
+}
 
 function checkAllowedMove(element, pieceChosen) {
-    let allowedMove = false;
-    if (pieceChosen.innerHTML == "♙")
-        if (pieceChosen.classList.contains('whitePiece'))
-            availableMove = pieceChosen.id.slice(1, 2)
-            if( 2+ Number(availableMove) == 4 )
-                allowedMove = true;
-            return allowedMove;
+
+    
+    possibleSquares = checkPieceMoves(element, pieceChosen);
+
+
+    /*     let allowedMove = false;
+        if (pieceChosen.innerHTML == "♙")
+            if (pieceChosen.classList.contains('whitePiece'))
+                currentRowNumber = pieceChosen.id.slice(1, 2)
+                newRowNumber = element.id.slice(1,2)
+                if( newRowNumber == Number(currentRowNumber) + 2   || newRowNumber  == Number(currentRowNumber) + 1 )
+                    allowedMove = true; */
+    return allowedMove;
 }
 
 //View
