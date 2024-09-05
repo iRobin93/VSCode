@@ -3,6 +3,8 @@
     display: grid;
     grid-template-columns: repeat(8, 100px);
     grid-template-rows: repeat(8, 100px);
+    user-select: none;
+    
 }
 
 .whitePiece {
@@ -23,8 +25,14 @@
 
 .lightSquare {
     background-color: rgb(229, 219, 191);
+
 }
 
 .darkSquare {
     background-color: rgb(5, 137, 43);
+ 
+}
+.dashedLine{
+    border: 3px dashed orange;
+    
 }

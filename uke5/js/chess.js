@@ -49,14 +49,14 @@ function placePawns(Color, row) {
 function movePiece(element) {
     if (!pieceChosen) {
         if (element.innerHTML != "") {
-            element.style = "border: dashed, 3px, orange; user-select: none;";
+            element.classList.add('dashedLine')
             pieceChosen = element;
         }
 
     }
     else {
         if (pieceChosen == element) {
-            pieceChosen.style = "user-select: none;"
+            pieceChosen.classList.remove('dashedLine')
             pieceChosen = undefined;
             return;
         }
@@ -65,7 +65,7 @@ function movePiece(element) {
             pieceChosen.classList.contains('whitePiece') ? element.classList.add('whitePiece') : element.classList.add('blackPiece')
 
             element.innerHTML = pieceChosen.innerHTML;
-            pieceChosen.style = "user-select: none;"
+            pieceChosen.classList.remove('dashedLine')
             pieceChosen.innerHTML = "";
             pieceChosen = undefined;
         }
@@ -110,7 +110,7 @@ function showBoard() {
 
 function createSquares(squareColorClass, letter, rowNumber) {
     let allSquares;
-    allSquares = `<div style="user-select: none;" onclick="movePiece(this)" id="${letter}${rowNumber}" class="${squareColorClass}"></div>`;
+    allSquares = `<div onclick="movePiece(this)" id="${letter}${rowNumber}" class="${squareColorClass}"></div>`;
     if (letter != "H")
         allSquares += createSquares((squareColorClass == "darkSquare") ? "lightSquare" : "darkSquare", String.fromCharCode(letter.charCodeAt(0) + 1), rowNumber);
 
