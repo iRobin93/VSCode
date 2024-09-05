@@ -74,22 +74,88 @@ function movePiece(element) {
     }
 
 }
-function checkPiece() {
-    return "♙";
+
+function splitId(pieceChosen) {
+    return { column: pieceChosen.id.slice(0, 1), row: pieceChosen.id.slice(1, 2) };
 }
 
-function checkPieceMoves() {
-    if(pieceChosen.innerHTML == "♙")
+function checkPieceColor(pieceChosen, pieceColor) {
+    return pieceChosen.classList.contains(pieceColor)
+}
 
-    myArray = ["B3", "B4"]
-    return myArray;
+
+function getNextVerticalRow(pieceChosen, fromRow) {
+    let isWhitePiece = checkPieceColor(pieceChosen, 'whitePiece');
+    if (isWhitePiece)
+        return Number(fromRow) + 1
+    else
+        return Number(fromRow) - 1
+}
+function getDiagonalColumn(fromColumn, direction) {
+    if (direction == "left")
+        return String.fromCharCode(fromColumn.charCodeAt(0) - 1)
+    else
+        return String.fromCharCode(fromColumn.charCodeAt(0) + 1)
+
+}
+
+function containsChessPiece(element){
+return element.innerHTML != ""
+}
+
+function checkPawnmoves(pieceChosen, element) {
+    let allowedSquares = [];
+    let currentPawnSquare = splitId(pieceChosen);
+    let selectedSquare = splitId(element);
+    let selectedSquareHasChessPiece = containsChessPiece(element);
+    console.log(selectedSquareHasChessPiece)
+    console.log(element.innerHTML)
+
+    if (currentPawnSquare.row == "2" || currentPawnSquare.row == "7") {
+        nextRow = getNextVerticalRow(pieceChosen, currentPawnSquare.row)
+        allowedSquares.push(currentPawnSquare.column + nextRow)
+        allowedSquares.push(currentPawnSquare.column + getNextVerticalRow(pieceChosen, nextRow))
+        if (currentPawnSquare.column != "A"){
+            let leftColumn = getDiagonalColumn(currentPawnSquare.column, "left");
+            if (selectedSquareHasChessPiece && selectedSquare.column == leftColumn){
+                allowedSquares.push(leftColumn + nextRow);
+            }
+            
+        }
+            
+        if (currentPawnSquare.column != "H"){
+            let rightColumn = getDiagonalColumn(currentPawnSquare.column, "right")
+            if (selectedSquareHasChessPiece && selectedSquare.column == rightColumn){
+                allowedSquares.push(rightColumn + nextRow)
+            }
+            
+        }
+            
+    }
+
+    /*  if (Square.column == "A")
+         allowedSquares.push('A3', 'A4', 'B3'); */
+    console.log(allowedSquares)
+
+    return allowedSquares
+}
+
+function checkPieceMoves(pieceChosen, element) {
+    let allowedSquares;
+    if (pieceChosen.innerHTML == "♙")
+        allowedSquares = checkPawnmoves(pieceChosen, element);
+
+
+
+    return allowedSquares;
 }
 
 function checkAllowedMove(element, pieceChosen) {
 
-    
-    possibleSquares = checkPieceMoves(element, pieceChosen);
 
+    possibleSquares = checkPieceMoves(pieceChosen, element);
+
+    let allowedMove = true;
 
     /*     let allowedMove = false;
         if (pieceChosen.innerHTML == "♙")
