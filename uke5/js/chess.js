@@ -3,6 +3,7 @@ let boardCells = 64;
 let rows = 8;
 let columns = 8;
 let pieceChosen = undefined;
+let allowedMoves = [];
 
 function getBoard() {
 
@@ -46,11 +47,18 @@ function placePawns(Color, row) {
 
 }
 
+function changePieceColor(element, fromColor, toColor) {
+    element.classList.add(toColor)
+    element.classList.remove(fromColor)
+}
+
 function movePiece(element) {
+
     if (!pieceChosen) {
         if (element.innerHTML != "") {
             element.classList.add('dashedLine')
             pieceChosen = element;
+            allowedMoves = checkPieceMoves(pieceChosen);
         }
 
     }
@@ -58,21 +66,22 @@ function movePiece(element) {
         if (pieceChosen == element) {
             pieceChosen.classList.remove('dashedLine')
             pieceChosen = undefined;
+            allowedMoves = [];
             return;
         }
-        allowedMove = checkAllowedMove(element, pieceChosen);
+        allowedMove = checkAllowedMove(element);
         if (allowedMove) {
-            pieceChosen.classList.contains('whitePiece') ? element.classList.add('whitePiece') : element.classList.add('blackPiece')
+            pieceChosen.classList.contains('whitePiece') ? changePieceColor(element, 'blackPiece', 'whitePiece') : changePieceColor(element, 'whitePiece', 'blackPiece')
 
             element.innerHTML = pieceChosen.innerHTML;
             pieceChosen.classList.remove('dashedLine')
+
             pieceChosen.innerHTML = "";
             pieceChosen = undefined;
         }
 
 
     }
-
 }
 
 function splitId(pieceChosen) {
@@ -99,72 +108,79 @@ function getDiagonalColumn(fromColumn, direction) {
 
 }
 
-function containsChessPiece(element){
-return element.innerHTML != ""
+function containsChessPiece(id) {
+    return document.getElementById(id).innerHTML != "";
 }
 
-function checkPawnmoves(pieceChosen, element) {
+function getDiagonalSquareIdIfAllowed(column, direction, nextRow) {
+    let diagonalColumn = getDiagonalColumn(column, direction);
+    let diagonalSquareId = diagonalColumn + nextRow;
+    let hasChessPiece = containsChessPiece(diagonalSquareId);
+    if (hasChessPiece) {
+        return diagonalSquareId;
+    }
+    return undefined;
+}
+
+function checkPawnmoves(pieceChosen) {
     let allowedSquares = [];
     let currentPawnSquare = splitId(pieceChosen);
-    let selectedSquare = splitId(element);
-    let selectedSquareHasChessPiece = containsChessPiece(element);
-    console.log(selectedSquareHasChessPiece)
-    console.log(element.innerHTML)
 
-    if (currentPawnSquare.row == "2" || currentPawnSquare.row == "7") {
-        nextRow = getNextVerticalRow(pieceChosen, currentPawnSquare.row)
-        allowedSquares.push(currentPawnSquare.column + nextRow)
-        allowedSquares.push(currentPawnSquare.column + getNextVerticalRow(pieceChosen, nextRow))
-        if (currentPawnSquare.column != "A"){
-            let leftColumn = getDiagonalColumn(currentPawnSquare.column, "left");
-            if (selectedSquareHasChessPiece && selectedSquare.column == leftColumn){
-                allowedSquares.push(leftColumn + nextRow);
-            }
-            
-        }
-            
-        if (currentPawnSquare.column != "H"){
-            let rightColumn = getDiagonalColumn(currentPawnSquare.column, "right")
-            if (selectedSquareHasChessPiece && selectedSquare.column == rightColumn){
-                allowedSquares.push(rightColumn + nextRow)
-            }
-            
-        }
-            
+
+
+    let nextRow = getNextVerticalRow(pieceChosen, currentPawnSquare.row)
+    if (nextRow == 9 || nextRow == 0){
+        return [];
+    }
+    let nextVerticalSquareId = currentPawnSquare.column + nextRow;
+    let nextVerticalSquareHasChessPiece = containsChessPiece(nextVerticalSquareId);
+    if (!nextVerticalSquareHasChessPiece) {
+        allowedSquares.push(nextVerticalSquareId);
     }
 
-    /*  if (Square.column == "A")
-         allowedSquares.push('A3', 'A4', 'B3'); */
+
+    if (currentPawnSquare.column != "A") {
+        let leftNextSquareId = getDiagonalSquareIdIfAllowed(currentPawnSquare.column, "left", nextRow)
+        if (leftNextSquareId) {
+            allowedSquares.push(leftNextSquareId);
+        }
+    }
+
+    if (currentPawnSquare.column != "H") {
+        let rightNextSquareId = getDiagonalSquareIdIfAllowed(currentPawnSquare.column, "right", nextRow)
+        if (rightNextSquareId) {
+            allowedSquares.push(rightNextSquareId)
+        }
+    }
+
+    let isWhitePiece = checkPieceColor(pieceChosen, 'whitePiece')
+    if ((currentPawnSquare.row == "2" && isWhitePiece) || (currentPawnSquare.row == "7" && !isWhitePiece)) {
+        let twoRowsForwardSquareId = currentPawnSquare.column + getNextVerticalRow(pieceChosen, nextRow);
+        let twoRowsForwardSquareHasChesspiece = containsChessPiece(twoRowsForwardSquareId);
+        if (!nextVerticalSquareHasChessPiece && !twoRowsForwardSquareHasChesspiece) {
+            allowedSquares.push(currentPawnSquare.column + getNextVerticalRow(pieceChosen, nextRow));
+        }
+
+    }
+
+    //TODO: Add rule for en passant
     console.log(allowedSquares)
 
     return allowedSquares
 }
 
-function checkPieceMoves(pieceChosen, element) {
-    let allowedSquares;
+function checkPieceMoves(pieceChosen) {
+    let allowedSquares = [];
     if (pieceChosen.innerHTML == "♙")
-        allowedSquares = checkPawnmoves(pieceChosen, element);
+        allowedSquares = checkPawnmoves(pieceChosen);
 
 
 
     return allowedSquares;
 }
 
-function checkAllowedMove(element, pieceChosen) {
-
-
-    possibleSquares = checkPieceMoves(pieceChosen, element);
-
-    let allowedMove = true;
-
-    /*     let allowedMove = false;
-        if (pieceChosen.innerHTML == "♙")
-            if (pieceChosen.classList.contains('whitePiece'))
-                currentRowNumber = pieceChosen.id.slice(1, 2)
-                newRowNumber = element.id.slice(1,2)
-                if( newRowNumber == Number(currentRowNumber) + 2   || newRowNumber  == Number(currentRowNumber) + 1 )
-                    allowedMove = true; */
-    return allowedMove;
+function checkAllowedMove(destinationSquare) {
+    return allowedMoves.includes(destinationSquare.id);
 }
 
 //View
