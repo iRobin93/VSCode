@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .cell{
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border: 2px dashed orange;
+        }
+        .gridContainer{
+            display: grid;
+            grid-template-columns: repeat(4, 50px);
+        }
+        .btn{
+            width: 60px;
+        }
+        
+    </style>
+
+    <div id="app"></div>
+    <button onclick="onClickToggleFargeOrX()" class="btn" id="button">Farge</button>
+
+    <script>
+//Model
+let farge = true;
+let boardSize = 4
+let btn = document.getElementById('button')
+
+function changeButtonModel(){
+    if (farge){
+        farge = false;
+    }  
+    else{
+        farge = true;
+    }
+}
+//View
+appObject = document.getElementById('app')
+function showView(){
+    let html = "";
+    appObject.innerHTML = /*HTML*/`
+    <div id="gridContainer1" class="gridContainer">
+    `;
+    gridDiv = document.getElementById('gridContainer1')
+    
+        html = getBoard(boardSize);
+        gridDiv.innerHTML = html;
+}
+
+
+
+function changeButtonView(){
+    if (btn.innerHTML == "Farge"){
+        btn.innerHTML = "X"
+    }  
+    else{
+        btn.innerHTML = "Farge"
+    }
+}
+
+function getBoard(boardSize){
+    let html = "";
+    for (i = 0; i < boardSize * boardSize; i++)
+    html +=/*HTML*/ `
+    <div id="div${i}" class="cell"></div>
+    `;
+    return html;
+}
+
+//Controller
+showView();
+
+function onClickToggleFargeOrX(){
+    changeButtonModel();
+    changeButtonView();
+}
+
+    </script>
+</body>
+
+</html>
