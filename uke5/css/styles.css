@@ -36,3 +36,17 @@
     border: 3px dashed orange;
     
 }
+
+.promotePiece{
+    font-size: 100px;
+    user-select: none;
+
+}
+
+.promotePiece span{
+    cursor: pointer;
+}
+.gridContainer1{
+    display: grid;
+    grid-template-columns: repeat(4, 230px);
+}

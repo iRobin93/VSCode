@@ -4,6 +4,8 @@ let rows = 8;
 let columns = 8;
 let pieceChosen = undefined;
 let allowedMoves = [];
+let newSquare = undefined;
+let lastSquare = undefined;
 
 function getBoard() {
 
@@ -72,9 +74,11 @@ function movePiece(element) {
         allowedMove = checkAllowedMove(element);
         if (allowedMove) {
             pieceChosen.classList.contains('whitePiece') ? changePieceColor(element, 'blackPiece', 'whitePiece') : changePieceColor(element, 'whitePiece', 'blackPiece')
-
+            newSquare = element.id;
+            lastSquare = pieceChosen.id;
             element.innerHTML = pieceChosen.innerHTML;
-            pieceChosen.classList.remove('dashedLine')
+            pieceChosen.classList.remove('dashedLine');
+            checkPawnPromote(element);
 
             pieceChosen.innerHTML = "";
             pieceChosen = undefined;
@@ -82,6 +86,30 @@ function movePiece(element) {
 
 
     }
+}
+
+function checkPawnPromote(element){
+    let newPawnSquare = splitId(element)
+    let isWhitePiece = checkPieceColor(pieceChosen, 'whitePiece')
+    let newPiecePromote = document.getElementById('selectNewPiece')
+    if (newPawnSquare.row == 8 && isWhitePiece)
+        newPiecePromote.innerHTML = /*HTML*/`
+    <div class="promotePiece" onclick="promotePiece('♜')"><span>♜</span></div>
+    <div class="promotePiece" onclick="promotePiece('♞')"><span>♞</span></div>
+    <div class="promotePiece" onclick="promotePiece('♝')"><span>♝</span></div>
+    <div class="promotePiece" onclick="promotePiece('♛')"><span>♛</span></div>
+    
+    `;
+
+
+}
+
+function promotePiece(piece){
+  let newPawnSquareHtmlObject =  document.getElementById(newSquare)
+  let newPiecePromote = document.getElementById('selectNewPiece')
+  newPawnSquareHtmlObject.innerHTML = piece
+  newPiecePromote.innerHTML = "";
+
 }
 
 function splitId(pieceChosen) {
@@ -100,6 +128,7 @@ function getNextVerticalRow(pieceChosen, fromRow) {
     else
         return Number(fromRow) - 1
 }
+
 function getDiagonalColumn(fromColumn, direction) {
     if (direction == "left")
         return String.fromCharCode(fromColumn.charCodeAt(0) - 1)
@@ -125,7 +154,7 @@ function getDiagonalSquareIdIfAllowed(column, direction, nextRow) {
 function checkPawnmoves(pieceChosen) {
     let allowedSquares = [];
     let currentPawnSquare = splitId(pieceChosen);
-
+    let isWhitePiece = checkPieceColor(pieceChosen, 'whitePiece')
 
 
     let nextRow = getNextVerticalRow(pieceChosen, currentPawnSquare.row)
@@ -153,7 +182,7 @@ function checkPawnmoves(pieceChosen) {
         }
     }
 
-    let isWhitePiece = checkPieceColor(pieceChosen, 'whitePiece')
+    
     if ((currentPawnSquare.row == "2" && isWhitePiece) || (currentPawnSquare.row == "7" && !isWhitePiece)) {
         let twoRowsForwardSquareId = currentPawnSquare.column + getNextVerticalRow(pieceChosen, nextRow);
         let twoRowsForwardSquareHasChesspiece = containsChessPiece(twoRowsForwardSquareId);
@@ -173,9 +202,6 @@ function checkPieceMoves(pieceChosen) {
     let allowedSquares = [];
     if (pieceChosen.innerHTML == "♙")
         allowedSquares = checkPawnmoves(pieceChosen);
-
-
-
     return allowedSquares;
 }
 
