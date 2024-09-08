@@ -55,18 +55,36 @@ function changePieceColor(element, fromColor, toColor) {
     element.classList.remove(fromColor)
 }
 
-function movePiece(element) {
+function highlightAvailableSquares(allowedMoves) {
+    let myObject
+    for (x in allowedMoves) {
+        myObject = document.getElementById(allowedMoves[x])
+        myObject.classList.add('availableMoves')
+    }
 
+}
+
+function removeAvailableSquaresHighlight(allowedMoves){
+    let myObject
+    for (x in allowedMoves) {
+        myObject = document.getElementById(allowedMoves[x])
+        myObject.classList.remove('availableMoves')
+    }
+}
+
+function movePiece(element) {
     if (!pieceChosen) {//A piece is chosen
         if (element.innerHTML != "") {
             element.classList.add('dashedLine')
             pieceChosen = element;
             allowedMoves = checkPieceMoves(pieceChosen);
+            highlightAvailableSquares(allowedMoves);
         }
 
     }
 
     else {
+        removeAvailableSquaresHighlight(allowedMoves);
         if (pieceChosen == element) {// A piece is unchosen
             pieceChosen.classList.remove('dashedLine')
             pieceChosen = undefined;
@@ -77,13 +95,19 @@ function movePiece(element) {
         if (allowedMove) {// A piece is moved
             pieceChosen.classList.contains('whitePiece') ? changePieceColor(element, 'blackPiece', 'whitePiece') : changePieceColor(element, 'whitePiece', 'blackPiece')
             if (lastSquare != undefined)
-                removeHighlightedSquares();
-            newSquare = element.id;
+                removeHighlightedSquaresLastMove();
+
+                newSquare = element.id;
             lastSquare = pieceChosen.id;
+            if (pieceChosen.innerHTML == "♙") {
+                checkPawnPromote(element);
+                checkEnPassantMove();
+            }
+
+
             lastPieceMoved = pieceChosen.innerHTML;
             element.innerHTML = pieceChosen.innerHTML;
             pieceChosen.classList.remove('dashedLine');
-            checkPawnPromote(element);
 
             highlightSquaresLastMove();
             pieceChosen.innerHTML = "";
@@ -91,12 +115,32 @@ function movePiece(element) {
 
 
         }
-
+       
 
     }
 }
 
-function removeHighlightedSquares() {
+function checkEnPassantMove() {
+    let lastSquareSplitId = splitId(lastSquare);
+    let newSquareSplitID = splitId(newSquare);
+    let enPassantPawnObject;
+    let isWhitePiece = checkPieceColor(pieceChosen, 'whitePiece')
+    if (!isWhitePiece)
+        enPassantPawnObject = document.getElementById(newSquareSplitID.column + (Number(newSquareSplitID.row) + 1).toString())
+    else
+        enPassantPawnObject = document.getElementById(newSquareSplitID.column + (Number(newSquareSplitID.row) - 1).toString())
+    checkIfDiagonalMoved = checkDiagonalMove(lastSquareSplitId, newSquareSplitID);
+    if (checkIfDiagonalMoved)
+        enPassantPawnObject.innerHTML = "";
+}
+function checkDiagonalMove(lastSquareSplitId, newSquareSplitID) {
+    if (lastSquareSplitId.column == newSquareSplitID.column)
+        return false;
+    else
+        return true;
+}
+
+function removeHighlightedSquaresLastMove() {
     let lastSquareHighlightHtml = document.getElementById(lastSquare)
     let newSquareHighlightHtml = document.getElementById(newSquare)
     lastSquareHighlightHtml.classList.remove('lastMove')
@@ -111,7 +155,7 @@ function highlightSquaresLastMove() {
 }
 
 function checkPawnPromote(element) {
-    let newPawnSquare = splitId(element)
+    let newPawnSquare = splitId(element.id)
     let isWhitePiece = checkPieceColor(pieceChosen, 'whitePiece')
     let newPiecePromote = document.getElementById('selectNewPiece')
     newPiecePromote.innerHTML = "";
@@ -120,8 +164,6 @@ function checkPawnPromote(element) {
             newPiecePromote.innerHTML += /*HTML*/`
     <div class="promotePiece" onclick="promotePiece('${pieceCharacters[x]}')"><span>${pieceCharacters[x]}</span></div>
     `;
-
-
 }
 
 function promotePiece(piece) {
@@ -132,8 +174,8 @@ function promotePiece(piece) {
 
 }
 
-function splitId(pieceChosen) {
-    return { column: pieceChosen.id.slice(0, 1), row: pieceChosen.id.slice(1, 2) };
+function splitId(squareId) {
+    return { column: squareId.slice(0, 1), row: squareId.slice(1, 2) };
 }
 
 function checkPieceColor(pieceChosen, pieceColor) {
@@ -173,60 +215,71 @@ function getDiagonalSquareIdIfAllowed(column, direction, nextRow) {
 
 function checkPawnmoves(pieceChosen) {
     let allowedSquares = [];
-    let currentPawnSquare = splitId(pieceChosen);
+    let currentPawnSquareSplitId = splitId(pieceChosen.id);
     let isWhitePiece = checkPieceColor(pieceChosen, 'whitePiece')
 
 
-    let nextRow = getNextVerticalRow(pieceChosen, currentPawnSquare.row)
+    let nextRow = getNextVerticalRow(pieceChosen, currentPawnSquareSplitId.row)
     if (nextRow == 9 || nextRow == 0) {
         return [];
     }
-    let nextVerticalSquareId = currentPawnSquare.column + nextRow;
+    let nextVerticalSquareId = currentPawnSquareSplitId.column + nextRow;
     let nextVerticalSquareHasChessPiece = containsChessPiece(nextVerticalSquareId);
     if (!nextVerticalSquareHasChessPiece) {
         allowedSquares.push(nextVerticalSquareId);
     }
 
 
-    if (currentPawnSquare.column != "A") {
-        let leftNextSquareId = getDiagonalSquareIdIfAllowed(currentPawnSquare.column, "left", nextRow)
+    if (currentPawnSquareSplitId.column != "A") {
+        let leftNextSquareId = getDiagonalSquareIdIfAllowed(currentPawnSquareSplitId.column, "left", nextRow)
         if (leftNextSquareId) {
             allowedSquares.push(leftNextSquareId);
         }
     }
 
-    if (currentPawnSquare.column != "H") {
-        let rightNextSquareId = getDiagonalSquareIdIfAllowed(currentPawnSquare.column, "right", nextRow)
+    if (currentPawnSquareSplitId.column != "H") {
+        let rightNextSquareId = getDiagonalSquareIdIfAllowed(currentPawnSquareSplitId.column, "right", nextRow)
         if (rightNextSquareId) {
             allowedSquares.push(rightNextSquareId)
         }
     }
 
 
-    if ((currentPawnSquare.row == "2" && isWhitePiece) || (currentPawnSquare.row == "7" && !isWhitePiece)) {
-        let twoRowsForwardSquareId = currentPawnSquare.column + getNextVerticalRow(pieceChosen, nextRow);
+    if ((currentPawnSquareSplitId.row == "2" && isWhitePiece) || (currentPawnSquareSplitId.row == "7" && !isWhitePiece)) {
+        let twoRowsForwardSquareId = currentPawnSquareSplitId.column + getNextVerticalRow(pieceChosen, nextRow);
         let twoRowsForwardSquareHasChesspiece = containsChessPiece(twoRowsForwardSquareId);
         if (!nextVerticalSquareHasChessPiece && !twoRowsForwardSquareHasChesspiece) {
-            allowedSquares.push(currentPawnSquare.column + getNextVerticalRow(pieceChosen, nextRow));
+            allowedSquares.push(currentPawnSquareSplitId.column + getNextVerticalRow(pieceChosen, nextRow));
         }
     }
 
     //TODO: Add rule for en passant
+
     if (newSquare != undefined) {
-        if (currentPawnSquare.row == "4" && lastPieceMoved == "♙")
-            allowedSquares.push(getDiagonalColumn('B' ,'right'))
+        let newSquareSplitId = splitId(newSquare);
+        let lastSquareSplitId = splitId(lastSquare)
+        let isColumnNextTo = checkColumnNextTo(currentPawnSquareSplitId.column, newSquareSplitId.column);
+        if (currentPawnSquareSplitId.row == "4" && lastPieceMoved == "♙" && newSquareSplitId.row == 4 && isColumnNextTo && lastSquareSplitId.row == "2")
+            allowedSquares.push(newSquareSplitId.column + (newSquareSplitId.row - 1))
+        else if (currentPawnSquareSplitId.row == "5" && lastPieceMoved == "♙" && newSquareSplitId.row == 5 && isColumnNextTo && lastSquareSplitId.row == "7")
+            allowedSquares.push(newSquareSplitId.column + (Number(newSquareSplitId.row) + 1).toString())
     }
-
-
-    console.log(allowedSquares)
-
     return allowedSquares
+}
+
+function checkColumnNextTo(currentPawnColumn, newPawnColumn) {
+    if ((String.fromCharCode(currentPawnColumn.charCodeAt(0) - 1) == newPawnColumn) || String.fromCharCode(currentPawnColumn.charCodeAt(0) + 1) == newPawnColumn)
+        return true;
+    else return false;
 }
 
 function checkPieceMoves(pieceChosen) {
     let allowedSquares = [];
     if (pieceChosen.innerHTML == "♙")
         allowedSquares = checkPawnmoves(pieceChosen);
+
+
+    console.log(allowedSquares)
     return allowedSquares;
 }
 
@@ -243,7 +296,7 @@ function showBoard() {
 
 function createSquares(squareColorClass, letter, rowNumber) {
     let allSquares;
-    allSquares = `<div onclick="movePiece(this)" id="${letter}${rowNumber}" class="${squareColorClass}"></div>`;
+    allSquares =/*HTML*/ `<div onclick="movePiece(this)" id="${letter}${rowNumber}" class="${squareColorClass}"></div>`;
     if (letter != "H")
         allSquares += createSquares((squareColorClass == "darkSquare") ? "lightSquare" : "darkSquare", String.fromCharCode(letter.charCodeAt(0) + 1), rowNumber);
 
