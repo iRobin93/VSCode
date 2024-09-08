@@ -6,6 +6,7 @@ let pieceChosen = undefined;
 let allowedMoves = [];
 let newSquare = undefined;
 let lastSquare = undefined;
+let lastPieceMoved = undefined;
 
 function getBoard() {
 
@@ -56,7 +57,7 @@ function changePieceColor(element, fromColor, toColor) {
 
 function movePiece(element) {
 
-    if (!pieceChosen) {
+    if (!pieceChosen) {//A piece is chosen
         if (element.innerHTML != "") {
             element.classList.add('dashedLine')
             pieceChosen = element;
@@ -64,51 +65,70 @@ function movePiece(element) {
         }
 
     }
+
     else {
-        if (pieceChosen == element) {
+        if (pieceChosen == element) {// A piece is unchosen
             pieceChosen.classList.remove('dashedLine')
             pieceChosen = undefined;
             allowedMoves = [];
             return;
         }
         allowedMove = checkAllowedMove(element);
-        if (allowedMove) {
+        if (allowedMove) {// A piece is moved
             pieceChosen.classList.contains('whitePiece') ? changePieceColor(element, 'blackPiece', 'whitePiece') : changePieceColor(element, 'whitePiece', 'blackPiece')
+            if (lastSquare != undefined)
+                removeHighlightedSquares();
             newSquare = element.id;
             lastSquare = pieceChosen.id;
+            lastPieceMoved = pieceChosen.innerHTML;
             element.innerHTML = pieceChosen.innerHTML;
             pieceChosen.classList.remove('dashedLine');
             checkPawnPromote(element);
 
+            highlightSquaresLastMove();
             pieceChosen.innerHTML = "";
             pieceChosen = undefined;
+
+
         }
 
 
     }
 }
 
-function checkPawnPromote(element){
+function removeHighlightedSquares() {
+    let lastSquareHighlightHtml = document.getElementById(lastSquare)
+    let newSquareHighlightHtml = document.getElementById(newSquare)
+    lastSquareHighlightHtml.classList.remove('lastMove')
+    newSquareHighlightHtml.classList.remove('lastMove')
+}
+
+function highlightSquaresLastMove() {
+    let lastSquareHighlightHtml = document.getElementById(lastSquare)
+    let newSquareHighlightHtml = document.getElementById(newSquare)
+    lastSquareHighlightHtml.classList.add('lastMove')
+    newSquareHighlightHtml.classList.add('lastMove')
+}
+
+function checkPawnPromote(element) {
     let newPawnSquare = splitId(element)
     let isWhitePiece = checkPieceColor(pieceChosen, 'whitePiece')
     let newPiecePromote = document.getElementById('selectNewPiece')
-    if (newPawnSquare.row == 8 && isWhitePiece)
-        newPiecePromote.innerHTML = /*HTML*/`
-    <div class="promotePiece" onclick="promotePiece('♜')"><span>♜</span></div>
-    <div class="promotePiece" onclick="promotePiece('♞')"><span>♞</span></div>
-    <div class="promotePiece" onclick="promotePiece('♝')"><span>♝</span></div>
-    <div class="promotePiece" onclick="promotePiece('♛')"><span>♛</span></div>
-    
+    newPiecePromote.innerHTML = "";
+    if (newPawnSquare.row == 8 && isWhitePiece || newPawnSquare.row == 1 && !isWhitePiece)
+        for (let x in pieceCharacters = ["♜", "♞", "♝", "♛"])
+            newPiecePromote.innerHTML += /*HTML*/`
+    <div class="promotePiece" onclick="promotePiece('${pieceCharacters[x]}')"><span>${pieceCharacters[x]}</span></div>
     `;
 
 
 }
 
-function promotePiece(piece){
-  let newPawnSquareHtmlObject =  document.getElementById(newSquare)
-  let newPiecePromote = document.getElementById('selectNewPiece')
-  newPawnSquareHtmlObject.innerHTML = piece
-  newPiecePromote.innerHTML = "";
+function promotePiece(piece) {
+    let newPawnSquareHtmlObject = document.getElementById(newSquare)
+    let newPiecePromote = document.getElementById('selectNewPiece')
+    newPawnSquareHtmlObject.innerHTML = piece
+    newPiecePromote.innerHTML = "";
 
 }
 
@@ -158,7 +178,7 @@ function checkPawnmoves(pieceChosen) {
 
 
     let nextRow = getNextVerticalRow(pieceChosen, currentPawnSquare.row)
-    if (nextRow == 9 || nextRow == 0){
+    if (nextRow == 9 || nextRow == 0) {
         return [];
     }
     let nextVerticalSquareId = currentPawnSquare.column + nextRow;
@@ -182,17 +202,22 @@ function checkPawnmoves(pieceChosen) {
         }
     }
 
-    
+
     if ((currentPawnSquare.row == "2" && isWhitePiece) || (currentPawnSquare.row == "7" && !isWhitePiece)) {
         let twoRowsForwardSquareId = currentPawnSquare.column + getNextVerticalRow(pieceChosen, nextRow);
         let twoRowsForwardSquareHasChesspiece = containsChessPiece(twoRowsForwardSquareId);
         if (!nextVerticalSquareHasChessPiece && !twoRowsForwardSquareHasChesspiece) {
             allowedSquares.push(currentPawnSquare.column + getNextVerticalRow(pieceChosen, nextRow));
         }
-
     }
 
     //TODO: Add rule for en passant
+    if (newSquare != undefined) {
+        if (currentPawnSquare.row == "4" && lastPieceMoved == "♙")
+            allowedSquares.push(getDiagonalColumn('B' ,'right'))
+    }
+
+
     console.log(allowedSquares)
 
     return allowedSquares

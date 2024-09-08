@@ -50,3 +50,8 @@
     display: grid;
     grid-template-columns: repeat(4, 230px);
 }
+
+.lastMove{
+    background-color: aquamarine;
+    border: grey solid 1px;
+}
