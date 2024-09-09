@@ -1,4 +1,4 @@
-let numberWeeks = 5;
+let numberWeeks = 7;
 let rgbArray = [];
 let targetBlank = "_blank"
 
@@ -103,8 +103,7 @@ let textArray5 = [
     "Morse oversetting",
     "Simon Says",
     "Tampen Brenner",
-    "Norske flagg",
-    "Chess",
+    "Det Norske flagg",
 ];
 
 let hrefArray5 = [
@@ -112,7 +111,21 @@ let hrefArray5 = [
     "https://irobin93.github.io/VSCode/uke5/simonSays.html",
     "https://irobin93.github.io/VSCode/uke5/tampenBrenner.html",
     "https://irobin93.github.io/VSCode/uke5/norskFlagg.html",
-    "https://irobin93.github.io/VSCode/uke5/chess.html",
+];
+let textArray6 = [
+    "Chess",
+];
+
+let hrefArray6 = [
+    "https://irobin93.github.io/VSCode/uke6/chess.html",
+];
+
+let textArray7 = [
+    "Kommer...",
+];
+
+let hrefArray7 = [
+    "https://irobin93.github.io/VSCode/",
 ];
 
 
