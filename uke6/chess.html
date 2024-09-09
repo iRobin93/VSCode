@@ -13,10 +13,15 @@
         DRY-prinsippet (Don't repeat yourself)        
         Implementering <-> Refactoring 
     -->
-    <div id="board">
+    <div class="gridContainer2">
+    <div class="settings" id="settingsDisplay">
+    <div class="board" id="board"></div>
+    </div>
+    <img onclick="onClickSettings()" src="./images/cog.png" id="settingsIcon"/>
     </div>
     <div class="gridContainer1" id="selectNewPiece"></div>
 
     <script src="./js/chess.js"></script>
+    <script src="./js/settings.js"></script>
 </body>
 </html>

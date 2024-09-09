@@ -1,19 +1,24 @@
 
-#board {
+.board {
     display: grid;
     grid-template-columns: repeat(8, 100px);
     grid-template-rows: repeat(8, 100px);
     user-select: none;
-    
+}
+
+.hideBoard{
+    display: none;
 }
 
 .whitePiece {
     color: white;
     text-shadow: 1px 1px gray;
+    cursor: pointer;
 }
 
 .blackPiece {
     color: black;
+    cursor: pointer;
 }
 
 .lightSquare,
@@ -46,6 +51,7 @@
 .promotePiece span{
     cursor: pointer;
 }
+
 .gridContainer1{
     display: grid;
     grid-template-columns: repeat(4, 230px);
@@ -59,5 +65,23 @@
 .availableMoves{
     background-color: aqua;
     border: 1px solid grey;
+    cursor: pointer;
 
+}
+.gridContainer2{
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: left;
+}
+
+#settingsIcon{
+    width: 100px;
+    cursor: pointer;
+}
+
+.settings{
+    width: 800px;
+    height: 800px;
+    background-color: white;
+    border: solid grey 2px;
 }
