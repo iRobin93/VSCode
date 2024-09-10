@@ -1,9 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="stylesheet" href="./css/styles.css">
 </head>
+
 <body>
     <!--
         Måte å jobbe på 
@@ -14,14 +15,16 @@
         Implementering <-> Refactoring 
     -->
     <div class="gridContainer2">
-    <div class="settings" id="settingsDisplay">
-    <div class="board" id="board"></div>
-    </div>
-    <img onclick="onClickSettings()" src="./images/cog.png" id="settingsIcon"/>
+        <div class="settings" id="settingsDisplayGrid">
+            <div hidden class="settings" id="settingsDisplay"><input class="checkbox" type="checkbox">Show previous move</div>
+            <div class="board" id="board"></div>
+        </div>
+        <img onclick="onClickSettings()" src="./images/cog.png" id="settingsIcon" />
     </div>
     <div class="gridContainer1" id="selectNewPiece"></div>
 
     <script src="./js/chess.js"></script>
     <script src="./js/settings.js"></script>
 </body>
+
 </html>

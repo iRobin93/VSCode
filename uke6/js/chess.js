@@ -78,7 +78,8 @@ function movePiece(element) {
             element.classList.add('dashedLine')
             pieceChosen = element;
             allowedMoves = checkPieceMoves(pieceChosen);
-            highlightAvailableSquares(allowedMoves);
+            if (availableMovesBool)
+                highlightAvailableSquares(allowedMoves);
         }
 
     }
@@ -110,8 +111,8 @@ function movePiece(element) {
             lastPieceMoved = pieceChosen.innerHTML;
             element.innerHTML = pieceChosen.innerHTML;
             pieceChosen.classList.remove('dashedLine');
-
-            highlightSquaresLastMove();
+            if (previousMoveBool)
+                highlightSquaresLastMove();
             pieceChosen.innerHTML = "";
             pieceChosen = undefined;
 
@@ -330,9 +331,9 @@ function checkKingMoves(pieceChosen) {
         let nextSquareHtmlObject = document.getElementById(currentKingSquareSplitId.column + nextRow)
         let otherSquareIsWhite = checkPieceColor(nextSquareHtmlObject, 'whitePiece')
         let nextVerticalSquareId = currentKingSquareSplitId.column + nextRow;
-        if(otherSquareIsWhite == undefined)
+        if (otherSquareIsWhite == undefined)
             allowedSquares.push(nextVerticalSquareId);
-        
+
         else if (isWhitePiece != otherSquareIsWhite)
             allowedSquares.push(nextVerticalSquareId);
     }
@@ -340,9 +341,9 @@ function checkKingMoves(pieceChosen) {
         let nextSquareHtmlObject = document.getElementById(currentKingSquareSplitId.column + previousRow)
         let otherSquareIsWhite = checkPieceColor(nextSquareHtmlObject, 'whitePiece')
         let nextVerticalSquareId = currentKingSquareSplitId.column + previousRow;
-        if(otherSquareIsWhite == undefined)
+        if (otherSquareIsWhite == undefined)
             allowedSquares.push(nextVerticalSquareId);
-        
+
         else if (isWhitePiece != otherSquareIsWhite)
             allowedSquares.push(nextVerticalSquareId);
     }
