@@ -114,10 +114,12 @@ let hrefArray5 = [
 ];
 let textArray6 = [
     "Chess",
+    "Ikke Mujaffas BMW",
 ];
 
 let hrefArray6 = [
     "https://irobin93.github.io/VSCode/uke6/chess.html",
+    "https://irobin93.github.io/ikkeMujaffasBMW/",
 ];
 
 let textArray7 = [
