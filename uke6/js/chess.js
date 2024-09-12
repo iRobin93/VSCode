@@ -391,7 +391,6 @@ function checkKingMoves(pieceChosen) {
 
     }
 
-
     if (currentKingSquareSplitId.column != "A") {
         let columnLeft = getColumnNextTo(currentKingSquareSplitId.column, 'left')
         let otherSquareIsWhite = checkPieceColor(document.getElementById(columnLeft + currentKingSquareSplitId.row), 'whitePiece')
@@ -401,11 +400,6 @@ function checkKingMoves(pieceChosen) {
         else if (isWhitePiece != otherSquareIsWhite)
             allowedSquares.push(columnLeft + currentKingSquareSplitId.row);
     }
-
-
-
-
-
     return allowedSquares;
 }
 
@@ -414,7 +408,6 @@ function checkAndPushDiagonalsMove(currentPieceSquareSplitIdColumn, currentPiece
     let allowedSquares = [];
     let iteratedSquareSplitIdColumn;
     let iteratedSquareSplitIdRow;
-
 
     iteratedSquareSplitIdColumn = currentPieceSquareSplitIdColumn
     iteratedSquareSplitIdRow = currentPieceSquareSplitIdRow
@@ -432,7 +425,6 @@ function checkAndPushDiagonalsMove(currentPieceSquareSplitIdColumn, currentPiece
 
     }
 
-
     iteratedSquareSplitIdColumn = currentPieceSquareSplitIdColumn
     iteratedSquareSplitIdRow = currentPieceSquareSplitIdRow
     while (iteratedSquareSplitIdColumn != "H" && iteratedSquareSplitIdRow != 8) {// Checking diagonal up and right
@@ -445,12 +437,10 @@ function checkAndPushDiagonalsMove(currentPieceSquareSplitIdColumn, currentPiece
         }
         else
             break;
-
         iteratedSquareSplitIdColumn = getColumnNextTo(iteratedSquareSplitIdColumn, "right")
         iteratedSquareSplitIdRow = (Number(iteratedSquareSplitIdRow) + 1).toString();
 
     }
-
 
     iteratedSquareSplitIdColumn = currentPieceSquareSplitIdColumn
     iteratedSquareSplitIdRow = currentPieceSquareSplitIdRow
@@ -468,7 +458,6 @@ function checkAndPushDiagonalsMove(currentPieceSquareSplitIdColumn, currentPiece
 
     }
 
-
     iteratedSquareSplitIdColumn = currentPieceSquareSplitIdColumn
     iteratedSquareSplitIdRow = currentPieceSquareSplitIdRow
     while (iteratedSquareSplitIdColumn != "H" && iteratedSquareSplitIdRow != 1) {// Checking diagonal down and right
@@ -481,14 +470,9 @@ function checkAndPushDiagonalsMove(currentPieceSquareSplitIdColumn, currentPiece
         }
         else
             break;
-
         iteratedSquareSplitIdColumn = getColumnNextTo(iteratedSquareSplitIdColumn, "right")
         iteratedSquareSplitIdRow = (Number(iteratedSquareSplitIdRow) - 1).toString();
-
     }
-
-
-
     return allowedSquares;
 }
 
@@ -543,7 +527,7 @@ function checkAndPushHorizontalMoves(currentPieceSquareSplitIdColumn, currentPie
 
     iteratedSquareSplitIdColumn = currentPieceSquareSplitIdColumn
     iteratedSquareSplitIdRow = currentPieceSquareSplitIdRow
-    while(iteratedSquareSplitIdColumn != "A"){
+    while (iteratedSquareSplitIdColumn != "A") {
         //Check horizantel left
         let nextSquareHtmlObject = document.getElementById(getColumnNextTo(iteratedSquareSplitIdColumn, 'left') + iteratedSquareSplitIdRow)
         let otherSquareIsWhite = checkPieceColor(nextSquareHtmlObject, 'whitePiece')
@@ -560,7 +544,7 @@ function checkAndPushHorizontalMoves(currentPieceSquareSplitIdColumn, currentPie
 
     iteratedSquareSplitIdColumn = currentPieceSquareSplitIdColumn
     iteratedSquareSplitIdRow = currentPieceSquareSplitIdRow
-    while(iteratedSquareSplitIdColumn != "H"){
+    while (iteratedSquareSplitIdColumn != "H") {
         //Check horizantel left
         let nextSquareHtmlObject = document.getElementById(getColumnNextTo(iteratedSquareSplitIdColumn, 'right') + iteratedSquareSplitIdRow)
         let otherSquareIsWhite = checkPieceColor(nextSquareHtmlObject, 'whitePiece')
@@ -574,8 +558,8 @@ function checkAndPushHorizontalMoves(currentPieceSquareSplitIdColumn, currentPie
 
         iteratedSquareSplitIdColumn = getColumnNextTo(iteratedSquareSplitIdColumn, 'right');
     }
-     
-    
+
+
 
     return allowedSquares;
 }
@@ -604,7 +588,7 @@ function checkBishopMoves(pieceChosen) {
     return allowedSquares;
 }
 
-function checkRookMoves(pieceChosen){
+function checkRookMoves(pieceChosen) {
     let allowedSquares = [];
     let currentRookSquareSplitId = splitId(pieceChosen.id);
     allowedSquares = checkAndPushHorizontalMoves(currentRookSquareSplitId.column, currentRookSquareSplitId.row, pieceChosen);
@@ -616,6 +600,69 @@ function checkColumnNextToEnPassant(currentPawnColumn, newPawnColumn) {
     if ((String.fromCharCode(currentPawnColumn.charCodeAt(0) - 1) == newPawnColumn) || String.fromCharCode(currentPawnColumn.charCodeAt(0) + 1) == newPawnColumn)
         return true;
     else return false;
+}
+
+function checkAndPushKnightNextSquareId(nextSquareId, isWhitePiece){
+    let allowedSquares = [];
+    let otherSquareIsWhite = checkPieceColor(document.getElementById(nextSquareId), "whitePiece")
+    if (isWhitePiece != otherSquareIsWhite)
+        allowedSquares.push(nextSquareId)
+
+    return allowedSquares
+}
+
+function checkKnightMoves(pieceChosen) {
+    let allowedSquares = []
+    let currentKnightSquareSplitId = splitId(pieceChosen.id);
+    let isWhitePiece = checkPieceColor(pieceChosen, "whitePiece")
+    
+    if (currentKnightSquareSplitId.row < 7 && currentKnightSquareSplitId.column != "A") {
+        let nextSquareId = getColumnNextTo(currentKnightSquareSplitId.column, 'left') + (Number(currentKnightSquareSplitId.row) + 2).toString()
+        allowedSquares = allowedSquares.concat(checkAndPushKnightNextSquareId(nextSquareId, isWhitePiece));
+    }
+
+    if (currentKnightSquareSplitId.row < 7 && currentKnightSquareSplitId.column != "H") {
+        let nextSquareId = getColumnNextTo(currentKnightSquareSplitId.column, 'right') + (Number(currentKnightSquareSplitId.row) + 2).toString()
+        allowedSquares = allowedSquares.concat(checkAndPushKnightNextSquareId(nextSquareId, isWhitePiece));
+    }
+
+    if (currentKnightSquareSplitId.row < 8 && currentKnightSquareSplitId.column != "G" && currentKnightSquareSplitId.column != "H") {
+        let nextSquareId = getColumnNextTo(getColumnNextTo(currentKnightSquareSplitId.column, "right"), "right") + (Number(currentKnightSquareSplitId.row) + 1).toString()
+        allowedSquares = allowedSquares.concat(checkAndPushKnightNextSquareId(nextSquareId, isWhitePiece));
+    }
+
+    if (currentKnightSquareSplitId.row > 1 && currentKnightSquareSplitId.column != "G" && currentKnightSquareSplitId.column != "H") {
+        let nextSquareId = getColumnNextTo(getColumnNextTo(currentKnightSquareSplitId.column, "right"), "right") + (Number(currentKnightSquareSplitId.row) - 1).toString()
+        allowedSquares = allowedSquares.concat(checkAndPushKnightNextSquareId(nextSquareId, isWhitePiece));
+    }
+
+    if (currentKnightSquareSplitId.row > 2 && currentKnightSquareSplitId.column != "H") {
+        let nextSquareId = getColumnNextTo(currentKnightSquareSplitId.column, 'right') + (Number(currentKnightSquareSplitId.row) - 2).toString()
+        allowedSquares = allowedSquares.concat(checkAndPushKnightNextSquareId(nextSquareId, isWhitePiece));
+    }
+
+    if (currentKnightSquareSplitId.row > 2 && currentKnightSquareSplitId.column != "A") {
+        let nextSquareId = getColumnNextTo(currentKnightSquareSplitId.column, 'left') + (Number(currentKnightSquareSplitId.row) - 2).toString()
+        allowedSquares = allowedSquares.concat(checkAndPushKnightNextSquareId(nextSquareId, isWhitePiece));
+    }
+
+    if (currentKnightSquareSplitId.row > 1 && currentKnightSquareSplitId.column != "A" && currentKnightSquareSplitId.column != "B") {
+        let nextSquareId = getColumnNextTo(getColumnNextTo(currentKnightSquareSplitId.column, "left"), "left") + (Number(currentKnightSquareSplitId.row) - 1).toString()
+        allowedSquares = allowedSquares.concat(checkAndPushKnightNextSquareId(nextSquareId, isWhitePiece));
+    }
+    
+    if (currentKnightSquareSplitId.row < 8 && currentKnightSquareSplitId.column != "A" && currentKnightSquareSplitId.column != "B") {
+        let nextSquareId = getColumnNextTo(getColumnNextTo(currentKnightSquareSplitId.column, "left"), "left") + (Number(currentKnightSquareSplitId.row) + 1).toString()
+        allowedSquares = allowedSquares.concat(checkAndPushKnightNextSquareId(nextSquareId, isWhitePiece));
+    }
+
+
+
+
+
+
+
+    return allowedSquares;
 }
 
 function checkPieceMoves(pieceChosen) {
@@ -630,7 +677,8 @@ function checkPieceMoves(pieceChosen) {
         allowedSquares = checkBishopMoves(pieceChosen);
     if (pieceChosen.innerHTML == "♜")
         allowedSquares = checkRookMoves(pieceChosen);
-
+    if (pieceChosen.innerHTML == "♞")
+        allowedSquares = checkKnightMoves(pieceChosen);
 
     console.log(allowedSquares)
     return allowedSquares;
