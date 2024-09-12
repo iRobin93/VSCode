@@ -114,7 +114,7 @@ let hrefArray5 = [
 ];
 let textArray6 = [
     "Chess",
-    "Ikke Mujaffas BMW",
+    "Teamoppgave 3: Ikke Mujaffas BMW",
 ];
 
 let hrefArray6 = [
