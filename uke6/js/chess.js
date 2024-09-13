@@ -9,6 +9,7 @@ let lastSquare = undefined;
 let lastPieceMoved = undefined;
 let enPassantMove = undefined;
 let whiteTurn = true;
+let kingCheckedObject = undefined;
 
 function getBoard() {
 
@@ -86,6 +87,41 @@ function movePiece(element) {
             element.classList.add('dashedLine')
             pieceChosen = element;
             allowedMoves = checkPieceMoves(pieceChosen);
+
+
+            let pieceChosenInnerHTML = pieceChosen.innerHTML;
+
+            for (i = 0; i < allowedMoves.length; i++) {
+                simulatedMovesHtmlObject = document.getElementById(allowedMoves[i])
+                let simulatedMovesHtmlObjectWhitePiece = checkPieceColor(simulatedMovesHtmlObject, "whitePiece")
+                let simulatedMovesHtmlObjectInnerHTML = simulatedMovesHtmlObject.innerHTML;
+
+                simulatedMovesHtmlObject.innerHTML = pieceChosen.innerHTML;
+                pieceChosen.innerHTML = "";
+
+                pieceChosen.classList.contains('whitePiece') ? changePieceColor(simulatedMovesHtmlObject, 'blackPiece', 'whitePiece') : changePieceColor(simulatedMovesHtmlObject, 'whitePiece', 'blackPiece');
+
+                let ownKingChecked = checkIfKingIsChecked(!isWhitePiece)
+                if (ownKingChecked) {
+                    allowedMoves.splice(i, 1);
+                    i--
+                }
+                pieceChosen.innerHTML = pieceChosenInnerHTML;
+                simulatedMovesHtmlObject.innerHTML = simulatedMovesHtmlObjectInnerHTML;
+                if (simulatedMovesHtmlObjectWhitePiece == undefined) {
+                    simulatedMovesHtmlObject.classList.remove('whitePiece');
+                    simulatedMovesHtmlObject.classList.remove('blackPiece');
+                }
+                else {
+                    simulatedMovesHtmlObjectWhitePiece ? changePieceColor(simulatedMovesHtmlObject, 'blackPiece', 'whitePiece') : changePieceColor(simulatedMovesHtmlObject, 'whitePiece', 'blackPiece');
+
+                }
+
+                isWhitePiece ? changePieceColor(pieceChosen, 'blackPiece', 'whitePiece') : changePieceColor(pieceChosen, 'whitePiece', 'blackPiece');
+
+            }
+
+
             if (availableMovesBool)
                 highlightAvailableSquares(allowedMoves);
         }
@@ -106,7 +142,6 @@ function movePiece(element) {
 
 
 
-
             let isWhitePiece = checkPieceColor(pieceChosen, "whitePiece")
             let elementId = element.id;
             let pieceChosenId = pieceChosen.id
@@ -115,21 +150,28 @@ function movePiece(element) {
             element.innerHTML = pieceChosen.innerHTML;
             pieceChosen.innerHTML = "";
 
+            pieceChosen.classList.contains('whitePiece') ? changePieceColor(element, 'blackPiece', 'whitePiece') : changePieceColor(element, 'whitePiece', 'blackPiece');
 
+            
+            if (kingCheckedObject != undefined)
+                kingCheckedObject.classList.remove('checked');
             let kingchecked = checkIfKingIsChecked(isWhitePiece);
-            if (kingchecked)
+            if (kingchecked) {
                 kingchecked.classList.add('checked')
+                kingCheckedObject = kingchecked;
+            }
+
+
 
             if (pieceChosenInnerHTML == "♙") {
                 checkPawnPromote(elementId, isWhitePiece);
                 if (enPassantMove != undefined)
                     checkEnPassantMove(isWhitePiece, elementId, pieceChosenId);
             }
-            pieceChosen.classList.contains('whitePiece') ? changePieceColor(element, 'blackPiece', 'whitePiece') : changePieceColor(element, 'whitePiece', 'blackPiece')
+
             pieceChosen.classList.remove('dashedLine');
             pieceChosen.classList.remove('whitePiece');
             pieceChosen.classList.remove('blackPiece');
-
             removeAvailableSquaresHighlight(allowedMoves);
             if (lastSquare != undefined)
                 removeHighlightedSquaresLastMove();
@@ -143,10 +185,7 @@ function movePiece(element) {
             whiteTurn = !whiteTurn;
             document.getElementById('turn').innerHTML = whiteTurn ? "It's white's turn!" : "It's black's turn!"
 
-
         }
-
-
     }
 }
 
