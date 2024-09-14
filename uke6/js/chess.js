@@ -155,15 +155,102 @@ function movePiece(element) {
             enPassantMove = undefined;
             whiteTurn = !whiteTurn;
             document.getElementById('turn').innerHTML = whiteTurn ? "It's white's turn!" : "It's black's turn!"
-            if (kingchecked){
+            if (kingchecked) {
                 mated = checkIfMate(!isWhitePiece);
             }
-            if(mated)
+            if (mated)
                 document.getElementById('turn').innerHTML = "Check Mate"
-                
-
+            if (blackComputer && !whiteTurn)
+                computerMove(false);
+            if (whiteComputer && whiteTurn)
+                computerMove(true);
         }
     }
+}
+
+function computerMove(whiteTurnBool) {
+    turn = whiteTurnBool ? "w": "b";
+    let fenmove2 = getFenString();
+    let fenmove = {
+        fen: fenmove2 + ' ' + turn +   ' - - 0 1',
+    }
+    getComputerMove(fenmove)
+
+}
+
+function getFenString() {
+    let fenstring = "";
+
+    for (let row = 8; row > 0; row--) {
+        let intEmptySquare = 0;
+        for (let column = "A"; column != "I"; column = getColumnNextTo(column, 'right')) {
+            let currentSquare = document.getElementById(column + row);
+            let isWhitePieceSquare = checkPieceColor(currentSquare, "whitePiece");
+            if (currentSquare.innerHTML == "") {
+                intEmptySquare++;
+            }
+            else {
+                if (intEmptySquare > 0) {
+                    fenstring += intEmptySquare.toString();
+                    intEmptySquare = 0;
+                }
+            }
+            switch (currentSquare.innerHTML) {
+                case "♙":
+                    isWhitePieceSquare ? fenstring += "P" : fenstring += "p"
+                    break;
+                case "♜":
+                    isWhitePieceSquare ? fenstring += "R" : fenstring += "r"
+                    break;
+                case "♞":
+                    isWhitePieceSquare ? fenstring += "N" : fenstring += "n"
+                    break;
+                case "♛":
+                    isWhitePieceSquare ? fenstring += "Q" : fenstring += "q"
+                    break;
+                case "♚":
+                    isWhitePieceSquare ? fenstring += "K" : fenstring += "k"
+                    break;
+                case "♝":
+                    isWhitePieceSquare ? fenstring += "B" : fenstring += "b"
+                    break;
+            }
+            
+        }
+        if (intEmptySquare > 0) {
+            fenstring += intEmptySquare.toString();
+            intEmptySquare = 0;
+        }
+        fenstring += "/"
+    }
+
+    fenstring = fenstring.slice(0, -1)
+
+
+
+
+    return fenstring
+}
+
+
+
+async function getComputerMove(fenmove) {
+    try {
+
+        let result = await axios.post("https://chess-api.com/v1", fenmove);
+        if (result.status == 200) moveObject = result.data;
+        else alert("Error in Axios get: " + result.status);
+    }
+
+    catch (error) {
+        alert(error);
+    }
+
+    let elementFrom = document.getElementById(moveObject.from.toUpperCase())
+    let elementTo = document.getElementById(moveObject.to.toUpperCase())
+    setTimeout(movePiece, 1000, elementFrom);
+    setTimeout(movePiece, 2000, elementTo);
+    
 }
 
 function checkIfMate(isWhitePiece) {
@@ -175,7 +262,7 @@ function checkIfMate(isWhitePiece) {
         for (let row = 1; row < 9; row++) {
             row = row.toString();
             currentSquare = document.getElementById(column + row);
-            let isWhitePieceSquare = checkPieceColor(currentSquare, "whitePiece")
+            let isWhitePieceSquare = checkPieceColor(currentSquare, "whitePiece");
             if (currentSquare.innerHTML != "" && isWhitePiece == isWhitePieceSquare) {
                 let tmparray = checkPieceMoves(currentSquare);
                 tmparray = removeNotPossibleSquares(tmparray, currentSquare);
