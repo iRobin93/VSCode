@@ -11,6 +11,13 @@ let enPassantMove = undefined;
 let whiteTurn = true;
 let kingCheckedObject = undefined;
 let mated = false;
+let enPassantMoveComputer = undefined;
+let castleQueenWhite = "Q";
+let castleKingWhite = "K";
+let castleQueenBlack = "q";
+let castleKingBlack = "k";
+let promoteInProgress = false;
+
 
 function getBoard() {
 
@@ -135,11 +142,13 @@ function movePiece(element) {
 
 
             if (pieceChosenInnerHTML == "♙") {
-                checkPawnPromote(elementId, isWhitePiece);
+                if ((whiteTurn && !whiteComputer) || (!whiteTurn && !blackComputer))
+                    checkPawnPromote(elementId, isWhitePiece, !whiteTurn, blackComputer, whiteComputer);
                 if (enPassantMove != undefined)
                     checkEnPassantMove(isWhitePiece, elementId, pieceChosenId);
             }
-
+            if (pieceChosenInnerHTML == "♙")
+                checkComputerEnPassant(element.id, pieceChosen.id);
             pieceChosen.classList.remove('dashedLine');
             pieceChosen.classList.remove('whitePiece');
             pieceChosen.classList.remove('blackPiece');
@@ -160,22 +169,43 @@ function movePiece(element) {
             }
             if (mated)
                 document.getElementById('turn').innerHTML = "Check Mate"
-            if (blackComputer && !whiteTurn)
-                computerMove(false);
-            if (whiteComputer && whiteTurn)
-                computerMove(true);
+            if (!promoteInProgress) {
+                if (blackComputer && !whiteTurn)
+                    computerMove(false);
+                if (whiteComputer && whiteTurn)
+                    computerMove(true);
+            }
+
+
         }
     }
 }
 
+function checkComputerEnPassant(elementId, pieceChosenId) {
+    let firstSquareSplitId = splitId(pieceChosenId);
+    let secondSquareSplitId = splitId(elementId);
+    if (firstSquareSplitId.row == 2 && secondSquareSplitId.row == 4)
+        enPassantMoveComputer = firstSquareSplitId.column + (Number(firstSquareSplitId.row) + 1).toString();
+    else if (firstSquareSplitId.row == 7 && secondSquareSplitId.row == 5)
+        enPassantMoveComputer = firstSquareSplitId.column + (Number(firstSquareSplitId.row) - 1).toString();
+}
+
 function computerMove(whiteTurnBool) {
-    turn = whiteTurnBool ? "w": "b";
+    turn = whiteTurnBool ? "w" : "b";
+    enPassantMoveComputer = enPassantMoveComputer ?? "-"
+    enPassantMoveComputer = enPassantMoveComputer.toLowerCase();
     let fenmove2 = getFenString();
     let fenmove = {
-        fen: fenmove2 + ' ' + turn +   ' - - 0 1',
+        fen: fenmove2 + ' ' + turn + ' - ' + enPassantMoveComputer + ' 0 1',
+        depth: range
     }
+    if (chessEngine == "chessApi.com")
+        fenmove = {
+            fen: fenmove2 + ' ' + turn + ' - ' + "-" + ' 0 1',
+            depth: range
+        }
     getComputerMove(fenmove)
-
+    enPassantMoveComputer = undefined;
 }
 
 function getFenString() {
@@ -215,7 +245,7 @@ function getFenString() {
                     isWhitePieceSquare ? fenstring += "B" : fenstring += "b"
                     break;
             }
-            
+
         }
         if (intEmptySquare > 0) {
             fenstring += intEmptySquare.toString();
@@ -234,10 +264,11 @@ function getFenString() {
 
 
 
-async function getComputerMove(fenmove) {
+async function chessApiMove(fenmove) {
+    let result
     try {
 
-        let result = await axios.post("https://chess-api.com/v1", fenmove);
+        result = await axios.post("https://chess-api.com/v1", fenmove);
         if (result.status == 200) moveObject = result.data;
         else alert("Error in Axios get: " + result.status);
     }
@@ -250,7 +281,80 @@ async function getComputerMove(fenmove) {
     let elementTo = document.getElementById(moveObject.to.toUpperCase())
     setTimeout(movePiece, 1000, elementFrom);
     setTimeout(movePiece, 2000, elementTo);
-    
+}
+
+async function getComputerMove(fenmove) {
+
+    if (chessEngine == "chessApi.com") {
+        chessApiMove(fenmove);
+    }
+    else if (chessEngine == "chessDB")
+        chessDbMove(fenmove);
+    else if (chessEngine == "chessApi.online")
+        chessApiOnlineMove(fenmove);
+
+
+}
+
+async function chessApiOnlineMove(fenmove) {
+    let promoteTo = undefined;
+    let result
+    try {
+
+        result = await axios.post("http://ws.chess-api.online", fenmove);
+        if (result.status == 200) moveObject = result.data;
+        else alert("Error in Axios get: " + result.status);
+    }
+
+    catch (error) {
+        alert(error);
+    }
+
+    if (moveObject.bestMove.length == 5)
+        promoteTo = moveObject.bestMove.slice(-1);
+    let elementFrom = document.getElementById(moveObject.bestMove.toUpperCase().slice(0, 2));
+    let elementTo = document.getElementById(moveObject.bestMove.toUpperCase().slice(2, 4));
+
+    setTimeout(movePiece, 1000, elementFrom);
+    setTimeout(movePiece, 2000, elementTo);
+
+    if (promoteTo) {
+        switch (promoteTo) {
+            case "q": promoteTo = "♛";
+                break;
+            case "r": promoteTo = "♜";
+                break;
+            case "n": promoteTo = "♞";
+                break;
+            case "b": promoteTo = "♝";
+                break;
+            default: promoteTo = "♛";
+                break;
+
+        }
+
+        setTimeout(promotePiece, 2500, promoteTo, elementTo.id);
+    }
+
+}
+
+async function chessDbMove(fenmove) {
+    let result;
+    try {
+
+        result = await axios.post("https://www.chessdb.cn/cdb.php?action=querypv&board=" + fenmove.fen + "&json=1");
+        if (result.status == 200) moveObject = result.data.pv;
+        else alert("Error in Axios get: " + result.status);
+    }
+
+    catch (error) {
+        alert(error);
+    }
+
+    let elementFrom = document.getElementById(moveObject[0].toUpperCase().slice(0, 2))
+    let elementTo = document.getElementById(moveObject[0].toUpperCase().slice(-2))
+    setTimeout(movePiece, 1000, elementFrom);
+    setTimeout(movePiece, 2000, elementTo);
 }
 
 function checkIfMate(isWhitePiece) {
@@ -345,20 +449,36 @@ function highlightSquaresLastMove() {
     newSquareHighlightHtml.classList.add('lastMove')
 }
 
-function checkPawnPromote(elementId, isWhitePiece) {
+function checkPawnPromote(elementId, isWhitePiece, whiteTurn, blackComputer, whiteComputer) {
     let newPawnSquare = splitId(elementId)
     let newPiecePromote = document.getElementById('selectNewPiece')
     newPiecePromote.innerHTML = "";
     if (newPawnSquare.row == 8 && isWhitePiece || newPawnSquare.row == 1 && !isWhitePiece)
         for (let x in pieceCharacters = ["♜", "♞", "♝", "♛"])
             newPiecePromote.innerHTML += /*HTML*/`
-    <div class="promotePiece" onclick="promotePiece('${pieceCharacters[x]}')"><span>${pieceCharacters[x]}</span></div>
+    <div class="promotePiece" onclick="onClickPromotePiece('${pieceCharacters[x]}', '${elementId}', ${whiteTurn}, ${blackComputer}, ${whiteComputer})"><span>${pieceCharacters[x]}</span></div>
     `;
+    promoteInProgress = true;
 }
 
-function promotePiece(piece) {
-    let newPawnSquareHtmlObject = document.getElementById(newSquare)
+function onClickPromotePiece(piece, elementId, whiteTurn, blackComputer, whiteComputer){
+    promotePiece(piece, elementId);
+    if (promoteInProgress) {
+        if (blackComputer && !whiteTurn){
+            computerMove(false);
+        }
+        if (whiteComputer && whiteTurn){
+            computerMove(true);
+        }
+    }
+
+    promoteInProgress = false;
+}
+
+function promotePiece(piece, elementId) {
+    let newPawnSquareHtmlObject = document.getElementById(elementId)
     let newPiecePromote = document.getElementById('selectNewPiece')
+
     newPawnSquareHtmlObject.innerHTML = piece
     newPiecePromote.innerHTML = "";
 
@@ -574,6 +694,11 @@ function checkKingMoves(pieceChosen) {
         else if (isWhitePiece != otherSquareIsWhite)
             allowedSquares.push(columnLeft + currentKingSquareSplitId.row);
     }
+
+    if (castleQueenWhite == "Q" && isWhitePiece) {
+        allowedSquares.push("C1")
+    }
+
     return allowedSquares;
 }
 
