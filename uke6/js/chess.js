@@ -32,7 +32,8 @@ function createRow(startClass, rowsRemaining) {
     return allRows;
 
 }
-function placePieces() {
+
+ function placePieces() {
     placePiece('A1', 'whitePiece', '♜');
     placePiece('B1', 'whitePiece', '♞');
     placePiece('C1', 'whitePiece', '♝');
@@ -53,7 +54,7 @@ function placePieces() {
     placePiece('F8', 'blackPiece', '♝');
     placePiece('G8', 'blackPiece', '♞');
     placePiece('H8', 'blackPiece', '♜');
-}
+} 
 
 function placePawns(Color, row) {
     for (let i = 0; i < 8; i++)
@@ -147,7 +148,9 @@ function movePiece(element) {
                 if (enPassantMove != undefined)
                     checkEnPassantMove(isWhitePiece, elementId, pieceChosenId);
             }
-
+            if (pieceChosenInnerHTML == "♚") {
+                checkCastleMove(isWhitePiece, elementId, pieceChosenId);
+            }
 
             updateCastlingRights(pieceChosenInnerHTML, isWhitePiece, pieceChosenId);
 
@@ -182,6 +185,32 @@ function movePiece(element) {
 
 
         }
+    }
+}
+
+function movePieceFreely(fromSquareId, toSquareId, isWhitePiece) {
+    let piece = document.getElementById(fromSquareId);
+    let newPiece = document.getElementById(toSquareId);
+    newPiece.innerHTML = piece.innerHTML;
+    if (isWhitePiece)
+        newPiece.classList.add('whitePiece')
+    else
+        newPiece.classList.add('blackPiece')
+    piece.innerHTML = "";
+    piece.classList.remove('whitePiece');
+    piece.classList.remove('blackPiece');
+}
+
+function checkCastleMove(isWhitePiece, elementId, pieceChosenId) {
+    if (pieceChosenId == "E1" || pieceChosenId == "E8") {
+        if (elementId == "C1")
+            movePieceFreely("A1", "D1", isWhitePiece);
+        else if (elementId == "C8")
+            movePieceFreely("A8", "D8", isWhitePiece)
+        else if (elementId == "G1")
+            movePieceFreely("H1", "F1", isWhitePiece);
+        else if (elementId == "G8")
+            movePieceFreely("H8", "F8", isWhitePiece);
     }
 }
 
@@ -729,42 +758,45 @@ function checkKingMoves(pieceChosen) {
             allowedSquares.push(columnLeft + currentKingSquareSplitId.row);
     }
 
-    if (castleQueenWhite == "Q" && isWhitePiece) {
+
+    if (castleQueenWhite == "Q" && isWhitePiece && whiteTurn && !kingCheckedObject) {
         d1 = document.getElementById("D1")
         c1 = document.getElementById("C1")
         b1 = document.getElementById("B1")
 
 
         if (b1.innerHTML == "" && c1.innerHTML == "" && d1.innerHTML == "")
-            
-        if (!checkIfOwnKingChecked(isWhitePiece, pieceChosen.innerHTML, 'E1', pieceChosen))
-            allowedSquares.push("C1");
+            if (!checkIfOwnKingChecked(isWhitePiece, pieceChosen.innerHTML, 'D1', pieceChosen))
+                allowedSquares.push("C1");
     }
 
-    if (castleQueenBlack == "q" && !isWhitePiece) {
+    if (castleQueenBlack == "q" && !isWhitePiece && !whiteTurn && !kingCheckedObject) {
         d8 = document.getElementById("D8")
         c8 = document.getElementById("C8")
         b8 = document.getElementById("B8")
 
         if (b8.innerHTML == "" && c8.innerHTML == "" && d8.innerHTML == "")
-            allowedSquares.push("C8");
+            if (!checkIfOwnKingChecked(isWhitePiece, pieceChosen.innerHTML, 'D8', pieceChosen))
+                allowedSquares.push("C8");
     }
 
 
-    if (castleKingWhite == "K" && isWhitePiece) {
+    if (castleKingWhite == "K" && isWhitePiece && whiteTurn && !kingCheckedObject) {
         f1 = document.getElementById("F1")
         g1 = document.getElementById("G1")
 
         if (f1.innerHTML == "" && g1.innerHTML == "")
-            allowedSquares.push("G1");
+            if (!checkIfOwnKingChecked(isWhitePiece, pieceChosen.innerHTML, 'F1', pieceChosen))
+                allowedSquares.push("G1");
     }
 
-    if (castleKingBlack == "k" && !isWhitePiece) {
+    if (castleKingBlack == "k" && !isWhitePiece && !whiteTurn && !kingCheckedObject) {
         f8 = document.getElementById("F8")
         g8 = document.getElementById("G8")
 
         if (f8.innerHTML == "" && g8.innerHTML == "")
-            allowedSquares.push("G8");
+            if (!checkIfOwnKingChecked(isWhitePiece, pieceChosen.innerHTML, 'F8', pieceChosen))
+                allowedSquares.push("G8");
     }
 
     return allowedSquares;
@@ -1084,7 +1116,7 @@ function checkIfOwnKingChecked(isWhitePiece, pieceChosenInnerHTML, kingSquareId,
 
     let ownKingCheckedObject = checkIfKingIsChecked(!isWhitePiece)
     if (ownKingCheckedObject) {
-       ownKingChecked = true;
+        ownKingChecked = true;
     }
     pieceChosen.innerHTML = pieceChosenInnerHTML;
     simulatedMovesHtmlObject.innerHTML = simulatedMovesHtmlObjectInnerHTML;
