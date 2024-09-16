@@ -12,11 +12,11 @@ let whiteTurn = true;
 let kingCheckedObject = undefined;
 let mated = false;
 let enPassantMoveComputer = undefined;
+let promoteInProgress = false;
 let castleQueenWhite = "Q";
 let castleKingWhite = "K";
 let castleQueenBlack = "q";
 let castleKingBlack = "k";
-let promoteInProgress = false;
 
 
 function getBoard() {
@@ -147,6 +147,10 @@ function movePiece(element) {
                 if (enPassantMove != undefined)
                     checkEnPassantMove(isWhitePiece, elementId, pieceChosenId);
             }
+
+
+            updateCastlingRights(pieceChosenInnerHTML, isWhitePiece, pieceChosenId);
+
             if (pieceChosenInnerHTML == "♙")
                 checkComputerEnPassant(element.id, pieceChosen.id);
             pieceChosen.classList.remove('dashedLine');
@@ -181,6 +185,28 @@ function movePiece(element) {
     }
 }
 
+function updateCastlingRights(pieceChosenInnerHTML, isWhitePiece, pieceChosenId) {
+    if (pieceChosenInnerHTML == "♚" && isWhitePiece) {
+        castleKingWhite = "";
+        castleQueenWhite = "";
+    }
+    if (pieceChosenInnerHTML == "♚" && !isWhitePiece) {
+        castleKingBlack = "";
+        castleQueenBlack = "";
+    }
+    if (pieceChosenInnerHTML == "♜" && pieceChosenId == "A1")
+        castleQueenWhite = "";
+
+    if (pieceChosenInnerHTML == "♜" && pieceChosenId == "H1")
+        castleKingWhite = "";
+
+    if (pieceChosenInnerHTML == "♜" && pieceChosenId == "A8")
+        castleQueenBlack = "";
+
+    if (pieceChosenInnerHTML == "♜" && pieceChosenId == "H8")
+        castleKingBlack = "";
+}
+
 function checkComputerEnPassant(elementId, pieceChosenId) {
     let firstSquareSplitId = splitId(pieceChosenId);
     let secondSquareSplitId = splitId(elementId);
@@ -194,9 +220,14 @@ function computerMove(whiteTurnBool) {
     turn = whiteTurnBool ? "w" : "b";
     enPassantMoveComputer = enPassantMoveComputer ?? "-"
     enPassantMoveComputer = enPassantMoveComputer.toLowerCase();
+    let castlingRights = castleKingWhite + castleQueenWhite + castleKingBlack + castleQueenBlack;
+
+    if (castlingRights == "")
+        castlingRights = "-";
+
     let fenmove2 = getFenString();
     let fenmove = {
-        fen: fenmove2 + ' ' + turn + ' - ' + enPassantMoveComputer + ' 0 1',
+        fen: fenmove2 + ' ' + turn + ' ' + castlingRights + ' ' + enPassantMoveComputer + ' 0 1',
         depth: range
     }
     if (chessEngine == "chessApi.com")
@@ -333,7 +364,7 @@ async function chessApiOnlineMove(fenmove) {
 
         }
 
-        setTimeout(promotePiece, 2500, promoteTo, elementTo.id);
+        setTimeout(promotePiece, 1900, promoteTo, elementFrom.id);
     }
 
 }
@@ -453,21 +484,24 @@ function checkPawnPromote(elementId, isWhitePiece, whiteTurn, blackComputer, whi
     let newPawnSquare = splitId(elementId)
     let newPiecePromote = document.getElementById('selectNewPiece')
     newPiecePromote.innerHTML = "";
-    if (newPawnSquare.row == 8 && isWhitePiece || newPawnSquare.row == 1 && !isWhitePiece)
+    if (newPawnSquare.row == 8 && isWhitePiece || newPawnSquare.row == 1 && !isWhitePiece) {
         for (let x in pieceCharacters = ["♜", "♞", "♝", "♛"])
             newPiecePromote.innerHTML += /*HTML*/`
     <div class="promotePiece" onclick="onClickPromotePiece('${pieceCharacters[x]}', '${elementId}', ${whiteTurn}, ${blackComputer}, ${whiteComputer})"><span>${pieceCharacters[x]}</span></div>
     `;
-    promoteInProgress = true;
+
+        promoteInProgress = true;
+    }
 }
 
-function onClickPromotePiece(piece, elementId, whiteTurn, blackComputer, whiteComputer){
+
+function onClickPromotePiece(piece, elementId, whiteTurn, blackComputer, whiteComputer) {
     promotePiece(piece, elementId);
     if (promoteInProgress) {
-        if (blackComputer && !whiteTurn){
+        if (blackComputer && !whiteTurn) {
             computerMove(false);
         }
-        if (whiteComputer && whiteTurn){
+        if (whiteComputer && whiteTurn) {
             computerMove(true);
         }
     }
@@ -696,7 +730,41 @@ function checkKingMoves(pieceChosen) {
     }
 
     if (castleQueenWhite == "Q" && isWhitePiece) {
-        allowedSquares.push("C1")
+        d1 = document.getElementById("D1")
+        c1 = document.getElementById("C1")
+        b1 = document.getElementById("B1")
+
+
+        if (b1.innerHTML == "" && c1.innerHTML == "" && d1.innerHTML == "")
+            
+        if (!checkIfOwnKingChecked(isWhitePiece, pieceChosen.innerHTML, 'E1', pieceChosen))
+            allowedSquares.push("C1");
+    }
+
+    if (castleQueenBlack == "q" && !isWhitePiece) {
+        d8 = document.getElementById("D8")
+        c8 = document.getElementById("C8")
+        b8 = document.getElementById("B8")
+
+        if (b8.innerHTML == "" && c8.innerHTML == "" && d8.innerHTML == "")
+            allowedSquares.push("C8");
+    }
+
+
+    if (castleKingWhite == "K" && isWhitePiece) {
+        f1 = document.getElementById("F1")
+        g1 = document.getElementById("G1")
+
+        if (f1.innerHTML == "" && g1.innerHTML == "")
+            allowedSquares.push("G1");
+    }
+
+    if (castleKingBlack == "k" && !isWhitePiece) {
+        f8 = document.getElementById("F8")
+        g8 = document.getElementById("G8")
+
+        if (f8.innerHTML == "" && g8.innerHTML == "")
+            allowedSquares.push("G8");
     }
 
     return allowedSquares;
@@ -994,36 +1062,44 @@ function removeNotPossibleSquares(allowedSquares, pieceChosen) {
 
 
     for (i = 0; i < allowedSquares.length; i++) {
-        simulatedMovesHtmlObject = document.getElementById(allowedSquares[i])
-        let simulatedMovesHtmlObjectWhitePiece = checkPieceColor(simulatedMovesHtmlObject, "whitePiece")
-        let simulatedMovesHtmlObjectInnerHTML = simulatedMovesHtmlObject.innerHTML;
-
-        simulatedMovesHtmlObject.innerHTML = pieceChosen.innerHTML;
-        pieceChosen.innerHTML = "";
-
-        pieceChosen.classList.contains('whitePiece') ? changePieceColor(simulatedMovesHtmlObject, 'blackPiece', 'whitePiece') : changePieceColor(simulatedMovesHtmlObject, 'whitePiece', 'blackPiece');
-
-        let ownKingChecked = checkIfKingIsChecked(!isWhitePiece)
+        ownKingChecked = checkIfOwnKingChecked(isWhitePiece, pieceChosenInnerHTML, allowedSquares[i], pieceChosen)
         if (ownKingChecked) {
             allowedSquares.splice(i, 1);
             i--
         }
-        pieceChosen.innerHTML = pieceChosenInnerHTML;
-        simulatedMovesHtmlObject.innerHTML = simulatedMovesHtmlObjectInnerHTML;
-        if (simulatedMovesHtmlObjectWhitePiece == undefined) {
-            simulatedMovesHtmlObject.classList.remove('whitePiece');
-            simulatedMovesHtmlObject.classList.remove('blackPiece');
-        }
-        else {
-            simulatedMovesHtmlObjectWhitePiece ? changePieceColor(simulatedMovesHtmlObject, 'blackPiece', 'whitePiece') : changePieceColor(simulatedMovesHtmlObject, 'whitePiece', 'blackPiece');
-
-        }
-
-        isWhitePiece ? changePieceColor(pieceChosen, 'blackPiece', 'whitePiece') : changePieceColor(pieceChosen, 'whitePiece', 'blackPiece');
     }
     return allowedSquares;
 }
 
+function checkIfOwnKingChecked(isWhitePiece, pieceChosenInnerHTML, kingSquareId, pieceChosen) {
+    simulatedMovesHtmlObject = document.getElementById(kingSquareId)
+    let simulatedMovesHtmlObjectWhitePiece = checkPieceColor(simulatedMovesHtmlObject, "whitePiece")
+    let simulatedMovesHtmlObjectInnerHTML = simulatedMovesHtmlObject.innerHTML;
+    let ownKingChecked = false;
+
+    simulatedMovesHtmlObject.innerHTML = pieceChosen.innerHTML;
+    pieceChosen.innerHTML = "";
+
+    pieceChosen.classList.contains('whitePiece') ? changePieceColor(simulatedMovesHtmlObject, 'blackPiece', 'whitePiece') : changePieceColor(simulatedMovesHtmlObject, 'whitePiece', 'blackPiece');
+
+    let ownKingCheckedObject = checkIfKingIsChecked(!isWhitePiece)
+    if (ownKingCheckedObject) {
+       ownKingChecked = true;
+    }
+    pieceChosen.innerHTML = pieceChosenInnerHTML;
+    simulatedMovesHtmlObject.innerHTML = simulatedMovesHtmlObjectInnerHTML;
+    if (simulatedMovesHtmlObjectWhitePiece == undefined) {
+        simulatedMovesHtmlObject.classList.remove('whitePiece');
+        simulatedMovesHtmlObject.classList.remove('blackPiece');
+    }
+    else {
+        simulatedMovesHtmlObjectWhitePiece ? changePieceColor(simulatedMovesHtmlObject, 'blackPiece', 'whitePiece') : changePieceColor(simulatedMovesHtmlObject, 'whitePiece', 'blackPiece');
+
+    }
+
+    isWhitePiece ? changePieceColor(pieceChosen, 'blackPiece', 'whitePiece') : changePieceColor(pieceChosen, 'whitePiece', 'blackPiece');
+    return ownKingChecked;
+}
 
 function checkAllowedMove(destinationSquare) {
     return allowedMoves.includes(destinationSquare.id);

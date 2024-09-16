@@ -68,6 +68,13 @@ function onClickSettings() {
         settingsClicked = false;
         settingsDisplayObject.hidden = true;
         settingsDisplayObject.innerHTML = /*HTML*/ ``;
+        if (!promoteInProgress) {
+            if (blackComputer && !whiteTurn)
+                computerMove(false);
+            if (whiteComputer && whiteTurn)
+                computerMove(true);
+        }
+            
     }
 
 
