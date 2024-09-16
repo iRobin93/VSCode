@@ -5,7 +5,7 @@ let previousMoveBool = true;
 let availableMovesBool = true;
 let blackComputer = false;
 let whiteComputer = false;
-let chessEngine = "chessApi.online";
+let chessEngine = "chessApi.com";
 let range = 1;
 
 
