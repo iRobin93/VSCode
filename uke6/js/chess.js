@@ -33,7 +33,7 @@ function createRow(startClass, rowsRemaining) {
 
 }
 
- function placePieces() {
+function placePieces() {
     placePiece('A1', 'whitePiece', '♜');
     placePiece('B1', 'whitePiece', '♞');
     placePiece('C1', 'whitePiece', '♝');
@@ -54,7 +54,7 @@ function createRow(startClass, rowsRemaining) {
     placePiece('F8', 'blackPiece', '♝');
     placePiece('G8', 'blackPiece', '♞');
     placePiece('H8', 'blackPiece', '♜');
-} 
+}
 
 function placePawns(Color, row) {
     for (let i = 0; i < 8; i++)
@@ -132,8 +132,11 @@ function movePiece(element) {
             pieceChosen.classList.contains('whitePiece') ? changePieceColor(element, 'blackPiece', 'whitePiece') : changePieceColor(element, 'whitePiece', 'blackPiece');
 
 
-            if (kingCheckedObject != undefined)
+            if (kingCheckedObject != undefined) {
                 kingCheckedObject.classList.remove('checked');
+                kingCheckedObject = undefined;
+            }
+
             let kingchecked = checkIfKingIsChecked(isWhitePiece);
             if (kingchecked) {
                 kingchecked.classList.add('checked')
@@ -151,6 +154,14 @@ function movePiece(element) {
             if (pieceChosenInnerHTML == "♚") {
                 checkCastleMove(isWhitePiece, elementId, pieceChosenId);
             }
+            if(elementId == "A1")
+                castleQueenWhite = "";
+            if(elementId == "A8")
+                castleQueenBlack = "";
+            if(elementId == "H1")
+                castleKingWhite = "";
+            if(elementId == "H8")
+                castleKingBlack = "";
 
             updateCastlingRights(pieceChosenInnerHTML, isWhitePiece, pieceChosenId);
 
@@ -261,8 +272,8 @@ function computerMove(whiteTurnBool) {
     }
     if (chessEngine == "chessApi.com")
         fenmove = {
-            fen: fenmove2 + ' ' + turn + ' - ' + "-" + ' 0 1',
-            depth: range
+            fen: fenmove2 + ' ' + turn + ' ' + castlingRights + ' ' + "-" + ' 0 1',
+            depth: Number(range)
         }
     getComputerMove(fenmove)
     enPassantMoveComputer = undefined;
@@ -326,6 +337,7 @@ function getFenString() {
 
 async function chessApiMove(fenmove) {
     let result
+    let promoteTo = undefined;
     try {
 
         result = await axios.post("https://chess-api.com/v1", fenmove);
@@ -337,10 +349,38 @@ async function chessApiMove(fenmove) {
         alert(error);
     }
 
+    if (moveObject.isPromotion) {
+        if (moveObject.move.length == 5)
+            promoteTo = moveObject.move.slice(-1);
+    }
+
     let elementFrom = document.getElementById(moveObject.from.toUpperCase())
     let elementTo = document.getElementById(moveObject.to.toUpperCase())
     setTimeout(movePiece, 1000, elementFrom);
     setTimeout(movePiece, 2000, elementTo);
+    if (promoteTo) {
+        switch (promoteTo) {
+            case "q": promoteTo = "♛";
+                break;
+            case "r": promoteTo = "♜";
+                break;
+            case "n": promoteTo = "♞";
+                break;
+            case "b": promoteTo = "♝";
+                break;
+            default: promoteTo = "♛";
+                break;
+
+        }
+        setTimeout(promotePiece, 1900, promoteTo, elementFrom.id);
+    }
+
+        
+
+    let pila = document.getElementById('pila')
+    pila.style.width = moveObject.winChance * 4 + "px"
+
+
 }
 
 async function getComputerMove(fenmove) {

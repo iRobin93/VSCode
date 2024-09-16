@@ -103,3 +103,14 @@
     width: 150px;
     height: 40px;
 }
+
+#pila{
+    width: 0px;
+    height: 30px;
+    background-color: red;
+}
+#pilContainer{
+    width: 400px;
+    height: 30px;
+    border: 2px solid grey;
+}
