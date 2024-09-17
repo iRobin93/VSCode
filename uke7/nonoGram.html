@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .cell {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border: 2px dashed orange;
+        }
+
+        .gridContainerBoard {
+            display: grid;
+            grid-template-columns: repeat(3, 50px);
+            margin-left: 100px;
+
+        }
+
+        .gridContainerTop {
+            display: grid;
+            grid-template-columns: repeat(3, 50px);
+            margin-left: 100px;
+        }
+
+
+        .btn {
+            width: 60px;
+            margin-left: 100px;
+        }
+
+        .topInfo {
+            background-color: red;
+            width: 50px;
+            height: 100px;
+            border: 2px dashed orange;
+        }
+
+        .leftInfo {
+            background-color: red;
+            width: 100px;
+            height: 50px;
+            border: 2px dashed orange;
+        }
+
+        .gridContainerLeftAndBoard {
+            display: grid;
+            grid-template-columns: repeat(2, 0px);
+
+        }
+    </style>
+
+    <div id="app"></div>
+
+
+    <script>
+        //Model
+        let farge = true;
+        let boardSize = 3;
+        let btn = document.getElementById('button')
+
+        function changeButtonModel() {
+            if (farge) {
+                farge = false;
+            }
+            else {
+                farge = true;
+            }
+        }
+
+        //View
+        let appObject = document.getElementById('app');
+        function showView() {
+            appObject.innerHTML = /*HTML*/`
+            <button onclick="onClickChooseBoard(3)" id="button">3x3</button>
+            <button onclick="onClickChooseBoard(5)" id="button">5x5</button>
+            <button onclick="onClickChooseBoard(10)" id="button">10x10</button>
+            <button onclick="onClickChooseBoard(15)" id="button">15x15</button>
+            <div> Choose a board size!</div>
+            `;
+        }
+
+    
+
+        function showView2(chosenSize) {
+            let html = "";
+            appObject.innerHTML = /*HTML*/`
+    <div id="gridContainerTop" class="gridContainerTop"></div>
+    <div class="gridContainerLeftAndBoard">
+    <div id="gridContainerLeft" class="gridContainerLeft"></div>
+    <div id="gridContainerBoard" class="gridContainerBoard"></div>
+    </div>
+    <button onclick="onClickToggleFargeOrX()" class="btn" id="button">Farge</button>
+    `;
+            let gridDivBoard = document.getElementById('gridContainerBoard')
+            let gridDivTop = document.getElementById('gridContainerTop')
+            let gridDivLeft = document.getElementById('gridContainerLeft')
+
+
+            gridDivTop.style.gridTemplateColumns = "repeat("+ chosenSize +", 50px)";
+            gridDivBoard.style.gridTemplateColumns = "repeat("+ chosenSize +", 50px)";
+            
+
+            html = getBoard(boardSize);
+            gridDivBoard.innerHTML = html;
+
+            html = getTopInfo(boardSize);
+            gridDivTop.innerHTML = html;
+
+            html = getLeftInfo(boardSize);
+            gridDivLeft.innerHTML = html;
+        }
+
+        function getTopInfo() {
+            let html = "";
+            for (i = 0; i < boardSize; i++)
+                html += /*HTML*/ `
+                <div class="topInfo"></div>
+            
+            `;
+            return html
+        }
+        function getLeftInfo() {
+            let html = "";
+            for (i = 0; i < boardSize; i++)
+                html += /*HTML*/ `
+                <div class="leftInfo"></div>
+            
+            `;
+            return html
+        }
+
+
+        function changeButtonView() {
+            if (btn.innerHTML == "Farge") {
+                btn.innerHTML = "X"
+            }
+            else {
+                btn.innerHTML = "Farge"
+            }
+        }
+
+        function getBoard(boardSize) {
+            let html = "";
+            for (i = 0; i < boardSize * boardSize; i++)
+                html +=/*HTML*/ `
+    <div id="div${i}" class="cell"></div>
+    `;
+            return html;
+        }
+
+        //Controller
+        showView();
+
+        function onClickChooseBoard(chosenSize){
+            boardSize = chosenSize;
+
+
+
+            showView2(chosenSize);
+        }
+
+        function onClickToggleFargeOrX() {
+            changeButtonModel();
+            changeButtonView();
+        }
+
+    </script>
+</body>
+
+</html>

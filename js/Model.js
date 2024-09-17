@@ -123,11 +123,11 @@ let hrefArray6 = [
 ];
 
 let textArray7 = [
-    "Kommer...",
+    "NonoGram",
 ];
 
 let hrefArray7 = [
-    "https://irobin93.github.io/VSCode/",
+    "https://irobin93.github.io/VSCode/uke7/nonoGram.html",
 ];
 
 
