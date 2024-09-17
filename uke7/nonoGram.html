@@ -63,7 +63,8 @@
         //Model
         let farge = true;
         let boardSize = 3;
-        let btn = document.getElementById('button')
+        let boardArray = [0, 1, 0, 0, 1, 1, 0, 1, 1];
+        let labelArrayLeft = [];
 
         function changeButtonModel() {
             if (farge) {
@@ -72,6 +73,34 @@
             else {
                 farge = true;
             }
+        }
+
+        function createLabels() {
+            let colorsInARow = 0;
+            let labelText = "";
+            for (row = 0; row < boardSize; row++) {
+                for (column = 0; column < boardSize; column++) {
+                    if (boardArray[column + (row * boardSize)] == "1") {
+                        colorsInARow++
+                    }
+                    else {
+                        if (colorsInARow > 0)
+                            labelText += colorsInARow + " ";
+                        colorsInARow = 0;
+                    }
+                }
+                if(colorsInARow > 0){
+                    labelText += colorsInARow + " ";
+                    colorsInARow = 0;
+                }
+                    
+                labelArrayLeft.push(labelText)
+                labelText = "";
+
+
+            }
+
+
         }
 
         //View
@@ -86,7 +115,7 @@
             `;
         }
 
-    
+
 
         function showView2(chosenSize) {
             let html = "";
@@ -103,9 +132,9 @@
             let gridDivLeft = document.getElementById('gridContainerLeft')
 
 
-            gridDivTop.style.gridTemplateColumns = "repeat("+ chosenSize +", 50px)";
-            gridDivBoard.style.gridTemplateColumns = "repeat("+ chosenSize +", 50px)";
-            
+            gridDivTop.style.gridTemplateColumns = "repeat(" + chosenSize + ", 50px)";
+            gridDivBoard.style.gridTemplateColumns = "repeat(" + chosenSize + ", 50px)";
+
 
             html = getBoard(boardSize);
             gridDivBoard.innerHTML = html;
@@ -130,19 +159,20 @@
             let html = "";
             for (i = 0; i < boardSize; i++)
                 html += /*HTML*/ `
-                <div class="leftInfo"></div>
+                <div class="leftInfo">${labelArrayLeft[i]}</div>
             
             `;
-            return html
+            return html;
         }
 
 
         function changeButtonView() {
+            let btn = document.getElementById('button');
             if (btn.innerHTML == "Farge") {
-                btn.innerHTML = "X"
+                btn.innerHTML = "X";
             }
             else {
-                btn.innerHTML = "Farge"
+                btn.innerHTML = "Farge";
             }
         }
 
@@ -150,15 +180,22 @@
             let html = "";
             for (i = 0; i < boardSize * boardSize; i++)
                 html +=/*HTML*/ `
-    <div id="div${i}" class="cell"></div>
+    <div id="div${i}" onclick="onclickCell(this.id)" class="cell"></div>
     `;
             return html;
         }
 
-        //Controller
-        showView();
 
-        function onClickChooseBoard(chosenSize){
+        function updateCell(elementId) {
+            let div = document.getElementById(elementId);
+            let btn = document.getElementById('button');
+            div.innerHTML = btn.innerHTML
+        }
+
+        //Controller
+        createLabels();
+        showView();
+        function onClickChooseBoard(chosenSize) {
             boardSize = chosenSize;
 
 
@@ -169,6 +206,10 @@
         function onClickToggleFargeOrX() {
             changeButtonModel();
             changeButtonView();
+        }
+
+        function onclickCell(elementId) {
+            updateCell(elementId);
         }
 
     </script>
