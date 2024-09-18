@@ -14,6 +14,11 @@
             height: 50px;
             background-color: white;
             border: 2px solid orange;
+            text-align: center;
+            color: red;
+            line-height: 50px;
+            font-size: 20px;
+            cursor: pointer;
         }
 
         .gridContainerBoard {
@@ -79,6 +84,7 @@
 
 
         function createBoardArray(chosenSize) {
+            boardArray = [];
             boardArray.length = chosenSize * chosenSize;
             for (i = 0; i < boardArray.length; i++)
                 boardArray[i] = Math.round(Math.random())
@@ -88,6 +94,8 @@
             let colorsInARow = 0;
             let labelTextRow = "";
             let labelTextColumn = "";
+            labelArrayLeft = [];
+            labelArrayColumn = [];
             for (row = 0; row < boardSize; row++) {
                 for (column = 0; column < boardSize; column++) {
                     if (boardArray[column + (row * boardSize)] == "1") {
@@ -138,6 +146,9 @@
         function checkIfCorrect(elementId) {
             if (farge && boardArray[elementId] == 1)
                 return true;
+            if (!farge && boardArray[elementId] == 0)
+                return true;
+            return false;
 
         }
 
@@ -173,6 +184,7 @@
     <div id="gridContainerBoard" class="gridContainerBoard"></div>
     </div>
     <button onclick="onClickToggleFargeOrX()" class="btn" id="button">Farge</button>
+    <button class="btn2" id="button2">lives = ${lives}</button>
     `;
             let gridDivBoard = document.getElementById('gridContainerBoard')
             let gridDivTop = document.getElementById('gridContainerTop')
@@ -234,12 +246,33 @@
         }
 
 
-        function updateCell(elementId) {
+        function updateCell(elementId, currentBoardCellValue) {
             let div = document.getElementById(elementId);
-            let btn = document.getElementById('button');
-            div.innerHTML = btn.innerHTML
-        }
+            if (currentBoardCellValue == 1) {
+                div.style.backgroundColor = "black";
+                div.innerHTML = " ";
+            }
 
+            else if (currentBoardCellValue == 0) {
+                div.innerHTML = "X";
+            }
+
+            document.getElementById(elementId).onclick = "";
+            document.getElementById(elementId).style.cursor = "initial";
+
+            document.getElementById('button2').innerHTML = "lives = " + lives;
+            for (i = 0; i < boardSize * boardSize; i++) {
+                if (document.getElementById(i).innerHTML == "") {
+                    return
+                }
+            }
+            setTimeout(showAlert, 10)
+
+        }
+        function showAlert(){
+            alert('You did it!');
+            showView();
+        }
         //Controller
 
         showView();
@@ -258,15 +291,15 @@
         }
 
         function onclickCell(elementId) {
-            updateCell(elementId);
             check = checkIfCorrect(elementId);
             dead = updateLife(check);
-            if(dead){
+            if (dead) {
                 alert('dead')
                 lives = 3;
                 showView();
             }
-            
+            updateCell(elementId, boardArray[elementId]);
+
         }
 
     </script>
