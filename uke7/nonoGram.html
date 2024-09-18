@@ -12,8 +12,8 @@
         .cell {
             width: 50px;
             height: 50px;
-            background-color: red;
-            border: 2px dashed orange;
+            background-color: white;
+            border: 2px solid orange;
         }
 
         .gridContainerBoard {
@@ -39,14 +39,14 @@
             background-color: red;
             width: 50px;
             height: 100px;
-            border: 2px dashed orange;
+            border: 2px solid orange;
         }
 
         .leftInfo {
             background-color: red;
             width: 100px;
             height: 50px;
-            border: 2px dashed orange;
+            border: 2px solid orange;
         }
 
         .gridContainerLeftAndBoard {
@@ -63,8 +63,10 @@
         //Model
         let farge = true;
         let boardSize = 3;
-        let boardArray = [0, 1, 0, 0, 1, 1, 0, 1, 1];
+        let boardArray = [];
         let labelArrayLeft = [];
+        let labelArrayColumn = [];
+        let lives = 3;
 
         function changeButtonModel() {
             if (farge) {
@@ -75,9 +77,17 @@
             }
         }
 
+
+        function createBoardArray(chosenSize) {
+            boardArray.length = chosenSize * chosenSize;
+            for (i = 0; i < boardArray.length; i++)
+                boardArray[i] = Math.round(Math.random())
+        }
+
         function createLabels() {
             let colorsInARow = 0;
-            let labelText = "";
+            let labelTextRow = "";
+            let labelTextColumn = "";
             for (row = 0; row < boardSize; row++) {
                 for (column = 0; column < boardSize; column++) {
                     if (boardArray[column + (row * boardSize)] == "1") {
@@ -85,22 +95,58 @@
                     }
                     else {
                         if (colorsInARow > 0)
-                            labelText += colorsInARow + " ";
+                            labelTextRow += colorsInARow + " ";
                         colorsInARow = 0;
                     }
                 }
-                if(colorsInARow > 0){
-                    labelText += colorsInARow + " ";
+
+                if (colorsInARow > 0) {
+                    labelTextRow += colorsInARow + " ";
                     colorsInARow = 0;
                 }
-                    
-                labelArrayLeft.push(labelText)
-                labelText = "";
 
-
+                labelArrayLeft.push(labelTextRow)
+                labelTextRow = "";
             }
 
+            for (i = 0; i < boardSize; i++) {
+                for (row = 0; row < boardSize; row++) {
+                    for (column = 0; column < boardSize; column++) {
+                        if (column == i) {
+                            if (boardArray[column + (row * boardSize)]) {
+                                colorsInARow++
+                            }
+                            else {
+                                if (colorsInARow > 0)
+                                    labelTextColumn += colorsInARow + " ";
+                                colorsInARow = 0;
+                            }
 
+                        }
+                    }
+                }
+
+                if (colorsInARow > 0) {
+                    labelTextColumn += colorsInARow + " ";
+                    colorsInARow = 0;
+                }
+                labelArrayColumn.push(labelTextColumn)
+                labelTextColumn = "";
+            }
+        }
+
+        function checkIfCorrect(elementId) {
+            if (farge && boardArray[elementId] == 1)
+                return true;
+
+        }
+
+        function updateLife(check) {
+            if (!check)
+                lives--
+            if (lives == 0)
+                return true;
+            else return false;
         }
 
         //View
@@ -118,6 +164,7 @@
 
 
         function showView2(chosenSize) {
+
             let html = "";
             appObject.innerHTML = /*HTML*/`
     <div id="gridContainerTop" class="gridContainerTop"></div>
@@ -144,13 +191,14 @@
 
             html = getLeftInfo(boardSize);
             gridDivLeft.innerHTML = html;
+
         }
 
         function getTopInfo() {
             let html = "";
             for (i = 0; i < boardSize; i++)
                 html += /*HTML*/ `
-                <div class="topInfo"></div>
+                <div class="topInfo">${labelArrayColumn[i]}</div>
             
             `;
             return html
@@ -180,7 +228,7 @@
             let html = "";
             for (i = 0; i < boardSize * boardSize; i++)
                 html +=/*HTML*/ `
-    <div id="div${i}" onclick="onclickCell(this.id)" class="cell"></div>
+    <div id="${i}" onclick="onclickCell(this.id)" class="cell"></div>
     `;
             return html;
         }
@@ -193,11 +241,12 @@
         }
 
         //Controller
-        createLabels();
+
         showView();
         function onClickChooseBoard(chosenSize) {
             boardSize = chosenSize;
-
+            createBoardArray(chosenSize);
+            createLabels();
 
 
             showView2(chosenSize);
@@ -210,6 +259,14 @@
 
         function onclickCell(elementId) {
             updateCell(elementId);
+            check = checkIfCorrect(elementId);
+            dead = updateLife(check);
+            if(dead){
+                alert('dead')
+                lives = 3;
+                showView();
+            }
+            
         }
 
     </script>
