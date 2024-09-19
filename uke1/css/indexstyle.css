@@ -7,6 +7,7 @@ text-align: center;
 line-height: 50px;
 font-size: 30px;
 margin-left: 00px;
+user-select: none;
 }
 
 .tekst{
@@ -15,4 +16,9 @@ margin-left: 00px;
     width: 380px;
     font-size: 35px;
     margin-left: 0px;
+
+}
+
+.emne{
+    user-select: none;
 }

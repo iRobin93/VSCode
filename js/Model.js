@@ -1,5 +1,7 @@
 let numberWeeks = 7;
+let numberEmner = 3;
 let rgbArray = [];
+let rgbArrayEmne = [];
 let targetBlank = "_blank"
 
 let textArray1 =
@@ -134,10 +136,22 @@ let hrefArray7 = [
 
 function pushRgbArray() {
     for (let i = 1; i <= numberWeeks; i = i + 3) {
-        rgbArray.push("rgb(163, 192, 201)")
-        rgbArray.push("rgb(176, 156, 201)")
-        rgbArray.push("rgb(104, 104, 250)")
-        rgbArray.push("rgb(144, 104, 250)")
+
+        rgbArray.push("#FF33A1")
+        rgbArray.push("#66B266")
+        rgbArray.push("#4DA6FF")
+        rgbArray.push("#FF8D00")
+        rgbArray.push("#A366FF")
+        rgbArray.push("#66D9B2")
+        rgbArray.push("#B57A3A")
 
     }
+}
+function pushRgbArrayEmne() {
+    
+    rgbArrayEmne.push("#FF5733")
+    rgbArrayEmne.push("#33FF57")
+    rgbArrayEmne.push("#33A1FF")
+
+    
 }
