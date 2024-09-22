@@ -3,9 +3,9 @@ pushRgbArrayEmne();
 showView();
 
 
-function showText(ukeNr) {
+function showText(ukeNr, emneNr) {
 
-    writeUke(ukeNr);
+    writeUke(ukeNr, emneNr);
 }
 
 function showWeeks(emneNr){

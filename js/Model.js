@@ -3,6 +3,9 @@ let numberEmner = 3;
 let rgbArray = [];
 let rgbArrayEmne = [];
 let targetBlank = "_blank"
+let weeksInEmne1 = [1, 2, 3, 4, 5, 6, 7];
+let weeksInEmne2 = [];
+let weeksInEmne3 = [];
 
 let textArray1 =
     ["Introduksjon tekst",
@@ -133,7 +136,6 @@ let hrefArray7 = [
 ];
 
 
-
 function pushRgbArray() {
     for (let i = 1; i <= numberWeeks; i = i + 3) {
 
@@ -148,10 +150,10 @@ function pushRgbArray() {
     }
 }
 function pushRgbArrayEmne() {
-    
+
     rgbArrayEmne.push("#FF5733")
     rgbArrayEmne.push("#33FF57")
     rgbArrayEmne.push("#33A1FF")
 
-    
+
 }

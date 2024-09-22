@@ -30,30 +30,17 @@ function writeEmne(emneNr) {
 
 function createWeeks(emneNr) {
     let myString = "";
-    let startPos;
-    let endPos;
-    if (emneNr == 1) {
-        startPos = 1
-        endPos = 7;
-    }
-
-    else if (emneNr == 2) {
-        startPos = 8;
-        endPos = (numberWeeks < 15) ? numberWeeks : 15
-    }
-    else {
-        startPos = 16;
-        endPos = numberWeeks;
-    }
     
-    for (let i = startPos; i <= endPos; i++) {
+    let thisWeekArray = eval("weeksInEmne" + emneNr);
 
+    for (week in thisWeekArray) {
+        
         myString += /*HTML*/ `
         
-        <div class="uke" onclick="showText('${i}')" id="uke${i}" style="background-color: ${rgbArray[i - 1]}">
-             Uke ${i}
+        <div class="uke" onclick="showText('${thisWeekArray[Number(week)]}', ${emneNr})" id="uke${thisWeekArray[Number(week)]}" style="background-color: ${rgbArray[week]}">
+             Uke ${Number(week) + 1}
         </div>
-        <div class="tekst" id="uke${i}Text"></div>
+        <div class="tekst" id="uke${thisWeekArray[Number(week)]}Text"></div>
         `
     }
     return myString;
@@ -87,10 +74,10 @@ function createLists(thisHrefArray, thisTextArray) {
     return myLists;
 }
 
-function writeUke(ukeNr) {
+function writeUke(ukeNr, emneNr) {
     let strHtml;
     let ukeTekst = document.getElementById('uke' + ukeNr + 'Text').innerHTML
-    blankUke();
+    blankUke(emneNr);
     if (ukeTekst == "") {
 
 
@@ -101,18 +88,17 @@ function writeUke(ukeNr) {
     }
 }
 
-function blankUke() {
+function blankUke(emneNr) { // Blanks list of links for each week in this subject
     let textObject;
-    let i = 1;
-    while (true) {
-        textObject = document.getElementById('uke' + i + 'Text');
+    let thisWeekArray = eval("weeksInEmne" + emneNr);
+    for(week in thisWeekArray){
+              textObject = document.getElementById('uke' + thisWeekArray[week] + 'Text');
 
         if (textObject != undefined)
             textObject.innerHTML = "";
-        else
-            break;
-        i++;
     }
+  
+    
 }
 
 function blankEmne() {

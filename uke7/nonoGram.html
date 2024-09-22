@@ -77,6 +77,7 @@
         let labelArrayLeft = [];
         let labelArrayColumn = [];
         let lives = 3;
+        let cellsPushed = [];
 
         function changeButtonModel() {
             if (farge) {
@@ -96,8 +97,13 @@
         function createBoardArray(chosenSize) {
             boardArray = [];
             boardArray.length = chosenSize * chosenSize;
-            for (i = 0; i < boardArray.length; i++)
+            cellsPushed = [];
+            cellsPushed.length = boardArray.length;
+
+            for (i = 0; i < boardArray.length; i++) {
                 boardArray[i] = Math.round(Math.random())
+                cellsPushed[i] = 0;
+            }
         }
 
         function createLabels() {
@@ -171,28 +177,31 @@
         }
 
         function checkIfComplete() {
-            document.getElementById('button2').innerHTML = "lives = " + lives;
             let blackComplete = true;
             for (i = 0; i < boardSize * boardSize; i++) {
-                if (boardArray[i] == 1 && document.getElementById(i).style.backgroundColor != "black")
+                if (boardArray[i] == 1 && cellsPushed[i] == 0)
                     blackComplete = false;
             }
 
             if (blackComplete)
                 for (i = 0; i < boardSize * boardSize; i++) {
                     if (boardArray[i] == 0)
-                        document.getElementById(i).innerHTML = "X"
+                        cellsPushed[i] = 1;
                 }
 
 
             for (i = 0; i < boardSize * boardSize; i++) {
-                if (document.getElementById(i).innerHTML == "") {
+                if (cellsPushed[i] == 0) {
                     return false;
                 }
             }
 
 
             return true;
+        }
+
+        function markCellAsOpened(elementId) {
+            cellsPushed[elementId] = 1;
         }
 
         //View
@@ -304,6 +313,16 @@
             showView();
         }
 
+        function updateLifeView() {
+            document.getElementById('button2').innerHTML = "lives = " + lives;
+        }
+
+        function updateXByComplete() {
+            for (i = 0; i < boardSize * boardSize; i++) {
+                if (boardArray[i] == 0)
+                    document.getElementById(i).innerHTML = "X";
+            }
+        }
 
         //Controller
 
@@ -320,30 +339,29 @@
             changeButtonView();
         }
 
-        function onMouseEnterCell(elementId, event){
+        function onMouseEnterCell(elementId, event) {
             if (event.buttons == 1) {
-                showCell(elementId);
+                onclickCell(elementId);
             }
         }
 
         function onclickCell(elementId) {
-                showCell(elementId);
-            
-
-
-        }
-
-        function showCell(elementId){
+            markCellAsOpened(elementId);
             check = checkIfCorrect(elementId);
-                dead = updateLife(check);
-                updateCell(elementId, boardArray[elementId]);
-                complete = checkIfComplete();
-                if (complete)
-                    setTimeout(showAlert, 10);
-                if (dead) {
-                    alert('dead')
-                    showView();
-                }
+            dead = updateLife(check);
+            complete = checkIfComplete();
+            if (complete){
+                updateXByComplete();
+                setTimeout(showAlert, 10);
+            }
+            
+            updateLifeView();
+            
+            updateCell(elementId, boardArray[elementId]);
+            if (dead) {
+                alert('dead')
+                showView();
+            }
         }
 
     </script>
