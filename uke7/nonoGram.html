@@ -284,8 +284,8 @@
             let html = "";
             for (i = 0; i < boardSize * boardSize; i++)
                 html +=/*HTML*/ `
-    <div id="${i}" onmouseenter="onMouseEnterCell(this.id, event)" onmousedown="onclickCell(this.id)" class="cell"></div>
-    `;
+             <div id="${i}" onmouseenter="onMouseEnterCell(this.id, event)" onmousedown="onclickCell(this.id)" class="cell"></div>
+             `;
             return html;
         }
 
@@ -353,10 +353,8 @@
             if (complete){
                 updateXByComplete();
                 setTimeout(showAlert, 10);
-            }
-            
-            updateLifeView();
-            
+            }          
+            updateLifeView();           
             updateCell(elementId, boardArray[elementId]);
             if (dead) {
                 alert('dead')

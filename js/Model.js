@@ -4,7 +4,7 @@ let rgbArray = [];
 let rgbArrayEmne = [];
 let targetBlank = "_blank"
 let weeksInEmne1 = [1, 2, 3, 4, 5, 6, 7];
-let weeksInEmne2 = [];
+let weeksInEmne2 = [8];
 let weeksInEmne3 = [];
 
 let textArray1 =
@@ -133,6 +133,14 @@ let textArray7 = [
 
 let hrefArray7 = [
     "https://irobin93.github.io/VSCode/uke7/nonoGram.html",
+];
+
+let textArray8 = [
+    "Kommer",
+];
+
+let hrefArray8 = [
+    "",
 ];
 
 
