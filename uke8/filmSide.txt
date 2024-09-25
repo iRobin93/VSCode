@@ -1,0 +1,29 @@
+Kaja Kortfilm
+
+brukerbasert side
+
+rating på filmer
+
+
+0-1000 rating
+
+hovedside forslag basert på preferanser av lagrede sjanger favoritter
+
+
+tittel
+årstall
+sjanger
+rating
+kommentarer
+søkemulighet (filmnavn- sjanger - årstall)
+
+filtrere basert på rating
+profilside legg inn bilde beskrivelse favoritt sjangere favoritt filmer
+se hvilke filmer seg selv har rata
+alt utenom dirty filmer
+
+kan legge inn manuelle filmer
+kan importere filmer fra imdb
+kan søke etter skuespillere kanskje
+kan  hente rating fra andre steder, men hoved rating fra egne brukere
+spørsmål
