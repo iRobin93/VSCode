@@ -142,53 +142,54 @@
             mazeModel.rows = [];
             mazeModel.size = mazeSize;
             mazeModel.rows.length = (mazeSize * 2) + 1;
-            let mazeCellSmall = { isHigh: false, isWide: false, isOpen: false };
+            let mazeWallSmall = { isHigh: false, isWide: false, isOpen: false };
             let mazeRoom = { isHigh: true, isWide: true };
-            let mazeCellWide = { isHigh: false, isWide: true, isOpen: false };
-            let mazeCellHigh = { isHigh: true, isWide: false, isOpen: false };
+            let mazeWallWide = { isHigh: false, isWide: true, isOpen: false };
+            let mazeWallHigh = { isHigh: true, isWide: false, isOpen: false };
 
             mazeModel.rows[0] = [];
-            for (let i = 0; i < (mazeSize * 2) + 1; i++) {
-                if (i % 2 == 0)
-                    mazeModel.rows[0].push(mazeCellSmall);
-                else
-                    mazeModel.rows[0].push(mazeCellWide);
+            for (let i = 0; i < (mazeSize * 2) + 1; i++) { //Pushes first row (all walls)
+                if (i % 2 == 0) // Pushes even small walls
+                    mazeModel.rows[0].push(mazeWallSmall);
+                else // Pushes odd wide walls
+                    mazeModel.rows[0].push(mazeWallWide);
             }
 
-            for (let i = 1; i < mazeModel.rows.length - 1; i++) {
+            for (let i = 1; i < mazeModel.rows.length - 1; i++) { // Pushes all rows(walls/rooms) between first and last row
                 mazeModel.rows[i] = [];
-                for (let j = 0; j < (mazeSize * 2) + 1; j++)
-                    if (j == 0 || j == (mazeSize * 2)) {
-                        if (i % 2 == 0)
-                            mazeModel.rows[i].push(mazeCellSmall);
-                        else
-                            mazeModel.rows[i].push(mazeCellHigh);
+                for (let j = 0; j < (mazeSize * 2) + 1; j++) // Pushes all columns for each row
+                    if (j == 0 || j == (mazeSize * 2)) { // Pushes first or last column (all walls)
+                        if (i % 2 == 0) // Pushes even small walls
+                            mazeModel.rows[i].push(mazeWallSmall);
+                        else // Pushes odd high walls
+                            mazeModel.rows[i].push(mazeWallHigh);
 
                     }
-                    else {
-                        if (i % 2 == 0) {
-                            if (j % 2 == 0)
-                                mazeModel.rows[i].push(mazeCellSmall);
-                            else
-                                mazeModel.rows[i].push(mazeCellWide);
+                    else { // Pushes all columns between first and last column
+                        if (i % 2 == 0) { // row is even then pushes only walls
+                            if (j % 2 == 0) // Pushes small walls on even columns
+                                mazeModel.rows[i].push(mazeWallSmall);
+                            else // Pushes wide walls on odd columns
+                                mazeModel.rows[i].push(mazeWallWide);
                         }
 
-                        else {
-                            if (j % 2 == 0)
-                                mazeModel.rows[i].push(mazeCellHigh);
-                            else
+                        else { // row is odd, pushes highwalls or rooms
+                            if (j % 2 == 0) // Walls on even columns
+                                mazeModel.rows[i].push(mazeWallHigh);
+                            else // Rooms on odd columns
                                 mazeModel.rows[i].push(mazeRoom);
                         }
 
                     }
 
             }
+
             mazeModel.rows[mazeSize * 2] = [];
-            for (let i = 0; i < (mazeSize * 2) + 1; i++) {
-                if (i % 2 == 0)
-                    mazeModel.rows[mazeSize * 2].push(mazeCellSmall);
-                else
-                    mazeModel.rows[mazeSize * 2].push(mazeCellWide);
+            for (let i = 0; i < (mazeSize * 2) + 1; i++) { // Pushes last row (all walls)
+                if (i % 2 == 0) // Even small walls
+                    mazeModel.rows[mazeSize * 2].push(mazeWallSmall);
+                else // Odd wide walls
+                    mazeModel.rows[mazeSize * 2].push(mazeWallWide);
             }
 
         }
