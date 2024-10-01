@@ -4,7 +4,7 @@ let rgbArray = [];
 let rgbArrayEmne = [];
 let targetBlank = "_blank"
 let weeksInEmne1 = [1, 2, 3, 4, 5, 6, 7];
-let weeksInEmne2 = [8];
+let weeksInEmne2 = [8, 9];
 let weeksInEmne3 = [];
 
 let textArray1 =
@@ -136,11 +136,19 @@ let hrefArray7 = [
 ];
 
 let textArray8 = [
-    "Kommer",
+    "Ingen ting å se her",
 ];
 
 let hrefArray8 = [
     "",
+];
+
+let textArray9 = [
+    "Labyrint",
+];
+
+let hrefArray9 = [
+    "https://irobin93.github.io/VSCode/uke8/labyrint.html",
 ];
 
 

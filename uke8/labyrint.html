@@ -15,7 +15,7 @@
 
         td {
             background-color: white;
-            padding: 0;
+            padding: 0px;
         }
 
         td.room {
@@ -102,26 +102,27 @@
             mazeModel.app.innerHTML = "";
             let roomClass;
             let openClass;
-            let html = "<table>";
+            let html = /*HTML*/ `<table>`;
 
-            for (let i = 0; i < (mazeModel.size * 2) + 1; i++) {
+            for (let i = 0; i < (mazeModel.size * 2) + 1; i++) { // i loops through each row
                 html += `<tr>`;
-                for (let j = 0; j < mazeModel.rows[i].length; j++) {
-                    if (mazeModel.rows[i][j].isOpen == undefined) {
+                for (let j = 0; j < mazeModel.rows[i].length; j++) { // j loops through each column
+                    if (mazeModel.rows[i][j].isOpen == undefined) {// checks if isOpen is undefined and sets roomclass to room and openclass to nowall
                         roomClass = "room";
                         openClass = "noWall";
                     }
 
-                    else {
+                    else { // isOpen is defined and sets openClass to noWall or wall depending on bool value
                         roomClass = "";
                         if (mazeModel.rows[i][j].isOpen) {
                             openClass = "noWall";
                         }
                         else openClass = "wall";
                     }
+                    // This is where we draw the elements
                     html += /*HTML*/ `
                     
-                        <td class="${mazeModel.rows[i][j].isHigh ? 'high' : 'low'} ${mazeModel.rows[i][j].isWide ? 'wide' : 'small'} ${openClass} ${roomClass} td"></td>
+                        <td class="${mazeModel.rows[i][j].isHigh ? 'high' : 'low'} ${mazeModel.rows[i][j].isWide ? 'wide' : 'small'} ${openClass} ${roomClass}"></td>
                     `;
                 }
 
@@ -131,12 +132,12 @@
             }
 
             html += "</table>";
-            mazeModel.app.innerHTML = html;
+            mazeModel.app.innerHTML = html; // Sets the innerHTML with table and all elements
 
         }
 
         //controller
-        initModel(5);
+        initModel(7);
         updateView();
         function initModel(mazeSize) {
             mazeModel.rows = [];
@@ -146,6 +147,8 @@
             let mazeRoom = { isHigh: true, isWide: true };
             let mazeWallWide = { isHigh: false, isWide: true, isOpen: false };
             let mazeWallHigh = { isHigh: true, isWide: false, isOpen: false };
+            let mazeWideOpen = { isHigh: false, isWide: true, isOpen: true };
+            let mazeHighOpen = { isHigh: true, isWide: false, isOpen: true };
 
             mazeModel.rows[0] = [];
             for (let i = 0; i < (mazeSize * 2) + 1; i++) { //Pushes first row (all walls)
@@ -170,12 +173,12 @@
                             if (j % 2 == 0) // Pushes small walls on even columns
                                 mazeModel.rows[i].push(mazeWallSmall);
                             else // Pushes wide walls on odd columns
-                                mazeModel.rows[i].push(mazeWallWide);
+                                mazeModel.rows[i].push(mazeWallWideOrOpen());
                         }
 
                         else { // row is odd, pushes highwalls or rooms
                             if (j % 2 == 0) // Walls on even columns
-                                mazeModel.rows[i].push(mazeWallHigh);
+                                mazeModel.rows[i].push(mazeWallHighOrOpen());
                             else // Rooms on odd columns
                                 mazeModel.rows[i].push(mazeRoom);
                         }
@@ -194,7 +197,22 @@
 
         }
 
+        function mazeWallWideOrOpen() {
+            randomNr = Math.round(Math.random())
+            if (randomNr == 0)
+                return { isHigh: false, isWide: true, isOpen: false };
+            else
+                return { isHigh: false, isWide: true, isOpen: true };
+        }
 
+
+        function mazeWallHighOrOpen(){
+            randomNr = Math.round(Math.random())
+            if (randomNr == 0)
+                return { isHigh: true, isWide: false, isOpen: false };
+            else
+                return { isHigh: true, isWide: false, isOpen: true };
+        }
     </script>
 
 </body>
