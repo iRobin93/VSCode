@@ -55,7 +55,7 @@
         //Model
         var mazeModel = {
             app: document.getElementById('app'),
-            size: 2,
+            size: 7,
             rows: [
                 [
                     { isHigh: false, isWide: false, isOpen: false },
@@ -92,14 +92,15 @@
                     { isHigh: false, isWide: true, isOpen: false },
                     { isHigh: false, isWide: false, isOpen: false },
                 ],
-            ]
+            ],
+            input:{inputRange: 7}
         };
 
 
         // View
 
         function updateView() {
-            mazeModel.app.innerHTML = "";
+            mazeModel.app.innerHTML = /*HTML*/ `<input onchange='initModel(this.value); updateView(); mazeModel.input.inputRange = this.value' value='${mazeModel.size}' id='inputRange' type='range' min='1' max='20' step='1'>`;
             let roomClass;
             let openClass;
             let html = /*HTML*/ `<table>`;
@@ -122,7 +123,7 @@
                     // This is where we draw the elements
                     html += /*HTML*/ `
                     
-                        <td class="${mazeModel.rows[i][j].isHigh ? 'high' : 'low'} ${mazeModel.rows[i][j].isWide ? 'wide' : 'small'} ${openClass} ${roomClass}"></td>
+                        <td onclick="changeWall(${i} , ${j})" class="${mazeModel.rows[i][j].isHigh ? 'high' : 'low'} ${mazeModel.rows[i][j].isWide ? 'wide' : 'small'} ${openClass} ${roomClass} "></td>
                     `;
                 }
 
@@ -132,13 +133,19 @@
             }
 
             html += "</table>";
-            mazeModel.app.innerHTML = html; // Sets the innerHTML with table and all elements
+            mazeModel.app.innerHTML += html; // Sets the innerHTML with table and all elements
 
         }
 
         //controller
-        initModel(7);
+        initModel(mazeModel.size);
         updateView();
+
+        function changeWall(row, column){
+            mazeModel.rows[row][column].isOpen = !mazeModel.rows[row][column].isOpen
+            updateView()
+        }
+
         function initModel(mazeSize) {
             mazeModel.rows = [];
             mazeModel.size = mazeSize;
