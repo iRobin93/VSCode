@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="app"></div>
+
+    <script>
+
+        //Modell 
+        const model = {
+            app: document.getElementById('app'),
+            product: [
+                {
+                    name: "Apple",
+                    price: 20,
+                    stock: 3,
+                },
+                {
+                    name: "Banana",
+                    price: 30,
+                    stock: 3,
+                },
+            ],
+
+            shoppingcart: []
+        }
+
+
+
+
+        //View
+
+        function showView(){
+            model.app.innerHTML = ""
+            for(let i = 0; i < model.product.length; i++)
+            model.app.innerHTML += /*HTML*/ `
+                 ${model.product[i].name}
+                 ${model.product[i].price}
+                 ${model.product[i].stock}
+                    <button id="buy" onclick="addToCart(${i})">Legg til i handlekurv </button>
+        `
+        }
+
+
+
+
+        //Controller
+        showView();
+        function addToCart(i){
+            if(model.product[i].stock > 0)
+            model.product[i].stock--
+            model.shoppingcart.push(model.product[i].name)
+            
+            if(model.product[i].stock == 0)
+                model.product.splice(i, 1)
+            showView();
+        }
+
+    </script>
+
+
+
+
+</body>
+
+</html>
