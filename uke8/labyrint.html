@@ -93,7 +93,7 @@
                     { isHigh: false, isWide: false, isOpen: false },
                 ],
             ],
-            input:{inputRange: 7}
+            input: { inputRange: 7 }
         };
 
 
@@ -141,7 +141,10 @@
         initModel(mazeModel.size);
         updateView();
 
-        function changeWall(row, column){
+        function changeWall(row, column) {
+            if ((mazeModel.rows[row][column].isHigh && mazeModel.rows[row][column].isWide) || (!mazeModel.rows[row][column].isHigh && !mazeModel.rows[row][column].isWide)) {
+                return;
+            }
             mazeModel.rows[row][column].isOpen = !mazeModel.rows[row][column].isOpen
             updateView()
         }
@@ -162,7 +165,7 @@
                 if (i % 2 == 0) // Pushes even small walls
                     mazeModel.rows[0].push(mazeWallSmall);
                 else // Pushes odd wide walls
-                    mazeModel.rows[0].push(mazeWallWide);
+                    mazeModel.rows[0].push({ isHigh: false, isWide: true, isOpen: false });
             }
 
             for (let i = 1; i < mazeModel.rows.length - 1; i++) { // Pushes all rows(walls/rooms) between first and last row
@@ -172,7 +175,7 @@
                         if (i % 2 == 0) // Pushes even small walls
                             mazeModel.rows[i].push(mazeWallSmall);
                         else // Pushes odd high walls
-                            mazeModel.rows[i].push(mazeWallHigh);
+                            mazeModel.rows[i].push({ isHigh: true, isWide: false, isOpen: false });
 
                     }
                     else { // Pushes all columns between first and last column
@@ -191,7 +194,6 @@
                         }
 
                     }
-
             }
 
             mazeModel.rows[mazeSize * 2] = [];
@@ -199,8 +201,17 @@
                 if (i % 2 == 0) // Even small walls
                     mazeModel.rows[mazeSize * 2].push(mazeWallSmall);
                 else // Odd wide walls
-                    mazeModel.rows[mazeSize * 2].push(mazeWallWide);
+                    mazeModel.rows[mazeSize * 2].push({ isHigh: false, isWide: true, isOpen: false });
             }
+
+
+            let randomNr = Math.floor(Math.random()*mazeSize+1);
+            let randomNr2 = Math.floor(Math.random()*mazeSize+1);
+            randomNr = randomNr * 2 - 1;
+            randomNr2 = randomNr2 * 2 - 1;
+            mazeModel.rows[0][randomNr].isOpen = true;
+            mazeModel.rows[mazeSize * 2][randomNr2].isOpen = true;
+            
 
         }
 
@@ -213,7 +224,7 @@
         }
 
 
-        function mazeWallHighOrOpen(){
+        function mazeWallHighOrOpen() {
             randomNr = Math.round(Math.random())
             if (randomNr == 0)
                 return { isHigh: true, isWide: false, isOpen: false };
