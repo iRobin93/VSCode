@@ -1,39 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake</title>
 </head>
-<body>
-    
-    <div id="app">
-        <div></div>
 
-    </div>
+<body>
+    <style>
+        .cell {
+            width: 10px;
+            height: 10px;
+            border: 1px solid black;
+            padding: 0px;
+        }
+
+        .container {
+            display: flex;
+        }
+        .snakeHead{
+            background-color: black;
+        }
+
+        .food{
+            background-color: aqua;
+        }
+
+    </style>
+
+    <div id="app"></div>
 
 
 
     <script>
         //Model
+        
         var snakeModel = {
-            boardSize: 30,
+            boardSize: 20,
+            snakeHead: {x:10, y:10},
+            food: {x:10, y:10},
         }
 
         //View
-
-        function showView(){
+        
+        function showView() {
             document.getElementById('app').innerHTML = /*HTML*/ `
             ${board()}
             `
+            let snakeHeadElement = document.getElementById(snakeModel.snakeHead.x.toString() + snakeModel.snakeHead.y.toString())
+            let foodElement = document.getElementById(snakeModel.food.x.toString() + snakeModel.food.y.toString())
+            snakeHeadElement.classList.add('snakeHead')
+            foodElement.classList.add('food')
         }
 
-        function board(){
-            
+        function board() {
+            let html = ""
+            for (let i = 0; i < snakeModel.boardSize; i++) {
+                html += "<div class='container'>";
+                for (let j = 0; j < snakeModel.boardSize; j++) {
+                    html += /*HTMl*/ `<div id='${i}${j}' class='cell'></div>`
+                }
+                html += "</div>"
+            }
+
+            return html;
         }
         //Controller
+        initModel();
+        showView();
+        function initModel() {
+            snakeModel.snakeHead = getRandomCell();
+            snakeModel.food = getRandomCell();
+        }
+
+        function getRandomCell() {
+            let x = Math.floor(Math.random() * snakeModel.boardSize)
+            let y = Math.floor(Math.random() * snakeModel.boardSize)
+
+            let snakeHead = { x:x, y:y };
+            return snakeHead;
+        }
 
 
     </script>
 </body>
+
 </html>

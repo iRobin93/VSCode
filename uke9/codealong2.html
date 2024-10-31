@@ -8,15 +8,27 @@
 <body>
     
     <input onchange="addFighter(this.value)" type="text">
-    <button>Klikk meg for å starte</button>
+    <button onclick="showView">Klikk meg for å starte</button>
+    <div id="app"></div>
 
     <script>
-        let fighters = []
-
+        let fighters = ['Fighter1', 'Fighter2', 'Fighter3']
         function addFighter(fighter){
             fighters.push(fighter);
         }
 
+
+        function showView(){
+            
+            let html = /*HTML*/ `
+            <div> </div>
+            `
+
+
+
+
+            document.getElementById('app').innerHTML = html;
+        }
 
 
     </script>
