@@ -15,6 +15,8 @@
 
         //Modell 
         const model = {
+            content: '',
+            totalPrice :0,
             app: document.getElementById('app'),
             product: [
                 {
@@ -37,30 +39,66 @@
 
         //View
 
-        function showView(){
-            model.app.innerHTML = ""
-            for(let i = 0; i < model.product.length; i++)
-            model.app.innerHTML += /*HTML*/ `
+        showView();
+        function showView() {
+            let html = `${showNavBar()}
+            
+                <div>${model.content}</div>
+            `
+
+
+
+           model.app.innerHTML = html;
+        }
+
+        function showProducts(){
+            let html = ''
+            for (let i = 0; i < model.product.length; i++)
+                html += /*HTML*/ `<div>
                  ${model.product[i].name}
                  ${model.product[i].price}
                  ${model.product[i].stock}
-                    <button id="buy" onclick="addToCart(${i})">Legg til i handlekurv </button>
+                    <button id="buy" onclick="addToCart(${i})">Legg til i handlekurv </button></div> <br>
         `
+        model.content = html
+        showView();
+        }
+
+        function showShoppingCart(){
+            let html = '';
+            for(let i = 0; i < model.shoppingcart.length; i++){
+                model.totalPrice += model.shoppingcart[i].price
+            html += /*HTML*/ `
+            ${model.shoppingcart[i].name} <br>
+            
+            `
+            }
+            html += `<p>totalt Pris: ${model.totalPrice}</p>`
+           
+            model.content = html
+            showView();
+
+        }
+
+        function showNavBar() {
+            let html = /*HTML*/ `
+            <button onclick="showShoppingCart()">Handlekurv</button>
+            <button onclick="showProducts()">Produkter</button>
+            `
+            return html;
         }
 
 
-
-
         //Controller
-        showView();
-        function addToCart(i){
-            if(model.product[i].stock > 0)
-            model.product[i].stock--
-            model.shoppingcart.push(model.product[i].name)
-            
-            if(model.product[i].stock == 0)
+       
+        function addToCart(i) {
+            if (model.product[i].stock > 0)
+                model.product[i].stock--
+            model.shoppingcart.push(model.product[i])
+
+            if (model.product[i].stock == 0)
                 model.product.splice(i, 1)
-            showView();
+            showProducts();
         }
 
     </script>

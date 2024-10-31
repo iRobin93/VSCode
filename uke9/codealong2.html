@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input onchange="addFighter(this.value)" type="text">
+    <button>Klikk meg for å starte</button>
+
+    <script>
+        let fighters = []
+
+        function addFighter(fighter){
+            fighters.push(fighter);
+        }
+
+
+
+    </script>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Lag to inputfelt hvor man kan plotte inn forskjellige navn, og lag så en knapp man kan trykke på for å generere en fight mellom to tilfeldig utvalgte fighters når man har lagt inn så mange deltakere/fighters i hver “bolk” som man ønsker..
+Bruk gjerne to arrays til dette.
+Vis på skjermen hvilke to som skal i ringen.
+Man kan også bruke ett input felt og ett array om man vil det - men da kan det være lurt å fjerne den som blir valgt fra arrayet, så ikke Terje må sloss mot seg selv f.eks😀
