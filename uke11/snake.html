@@ -7,7 +7,7 @@
     <title>Snake</title>
 </head>
 
-<body>
+<body onkeydown="return getKeyPress(event)">
     <style>
         .cell {
             width: 10px;
@@ -19,14 +19,16 @@
         .container {
             display: flex;
         }
-        .snakeHead{
+
+        .snake {
             background-color: black;
         }
 
-        .food{
+
+
+        .food {
             background-color: aqua;
         }
-
     </style>
 
     <div id="app"></div>
@@ -35,23 +37,32 @@
 
     <script>
         //Model
-        
+
         var snakeModel = {
             boardSize: 20,
-            snakeHead: {x:10, y:10},
-            food: {x:10, y:10},
+            snakeHead: { x: 10, y: 10, next: undefined },
+            food: { x: 10, y: 10 },
+            direction: "up",
         }
 
+
         //View
-        
+
         function showView() {
             document.getElementById('app').innerHTML = /*HTML*/ `
             ${board()}
             `
-            let snakeHeadElement = document.getElementById(snakeModel.snakeHead.x.toString() + snakeModel.snakeHead.y.toString())
-            let foodElement = document.getElementById(snakeModel.food.x.toString() + snakeModel.food.y.toString())
-            snakeHeadElement.classList.add('snakeHead')
+            let snakeHeadElement = document.getElementById("0" + snakeModel.snakeHead.x.toString() + "0" + snakeModel.snakeHead.y.toString())
+            let foodElement = document.getElementById("0" + snakeModel.food.x.toString() + "0" + snakeModel.food.y.toString())
+            snakeHeadElement.classList.add('snake')
             foodElement.classList.add('food')
+            let tmpVar = snakeModel.snakeHead;
+            while (tmpVar.next != undefined) {
+                tmpVar = tmpVar.next;
+                let newSnakeBodyElement = document.getElementById("0" + tmpVar.x.toString() + "0" + tmpVar.y.toString())
+                newSnakeBodyElement.classList.add('snake');
+                
+            }
         }
 
         function board() {
@@ -59,7 +70,7 @@
             for (let i = 0; i < snakeModel.boardSize; i++) {
                 html += "<div class='container'>";
                 for (let j = 0; j < snakeModel.boardSize; j++) {
-                    html += /*HTMl*/ `<div id='${i}${j}' class='cell'></div>`
+                    html += /*HTMl*/ `<div id='0${i}0${j}' class='cell'></div>`
                 }
                 html += "</div>"
             }
@@ -69,6 +80,7 @@
         //Controller
         initModel();
         showView();
+        setInterval(moveSnake, 150);
         function initModel() {
             snakeModel.snakeHead = getRandomCell();
             snakeModel.food = getRandomCell();
@@ -78,8 +90,52 @@
             let x = Math.floor(Math.random() * snakeModel.boardSize)
             let y = Math.floor(Math.random() * snakeModel.boardSize)
 
-            let snakeHead = { x:x, y:y };
+            let snakeHead = { x: x, y: y };
             return snakeHead;
+        }
+
+        function moveSnake() {
+            let newSnakeBody
+
+            newSnakeBody = { x: snakeModel.snakeHead.x, y: snakeModel.snakeHead.y };
+            newSnakeBody.next = snakeModel.snakeHead;
+            snakeModel.snakeHead = newSnakeBody;
+
+
+            if (snakeModel.direction == "up")
+                snakeModel.snakeHead.x--
+            else if (snakeModel.direction == "down")
+                snakeModel.snakeHead.x++
+            else if (snakeModel.direction == "left")
+                snakeModel.snakeHead.y--
+            else if (snakeModel.direction == "right")
+                snakeModel.snakeHead.y++
+
+            if ((snakeModel.snakeHead.x == snakeModel.food.x) && (snakeModel.snakeHead.y == snakeModel.food.y)) {
+                snakeModel.food = getRandomCell();
+            }
+            else {
+                newSnakeBody = snakeModel.snakeHead;
+                while (newSnakeBody.next.next != undefined) {
+                    newSnakeBody = newSnakeBody.next;                   
+                }
+                newSnakeBody.next = undefined;
+            }
+
+
+            showView();
+        }
+
+        function getKeyPress(e) {
+            console.log(e.key)
+            if (e.key == "ArrowUp")
+                snakeModel.direction = "up"
+            else if (e.key == "ArrowRight")
+                snakeModel.direction = "right"
+            else if (e.key == "ArrowDown")
+                snakeModel.direction = "down"
+            else if (e.key == "ArrowLeft")
+                snakeModel.direction = "left"
         }
 
 
