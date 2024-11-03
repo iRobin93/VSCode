@@ -43,12 +43,22 @@
             snakeHead: { x: 10, y: 10, next: undefined },
             food: { x: 10, y: 10 },
             direction: "up",
+            lastDirectionMoved: "up",
+            gameInterval: null,
+            gameEnded: false,
         }
 
 
         //View
 
         function showView() {
+            if (snakeModel.gameEnded) {
+                document.getElementById('app').innerHTML += /*HTML*/ `
+                    <button onclick="startGame()">Start på nytt</button>
+                `
+                return;
+            }
+
             document.getElementById('app').innerHTML = /*HTML*/ `
             ${board()}
             `
@@ -61,8 +71,8 @@
                 tmpVar = tmpVar.next;
                 let newSnakeBodyElement = document.getElementById("0" + tmpVar.x.toString() + "0" + tmpVar.y.toString())
                 newSnakeBodyElement.classList.add('snake');
-                
             }
+
         }
 
         function board() {
@@ -78,12 +88,12 @@
             return html;
         }
         //Controller
-        initModel();
-        showView();
-        setInterval(moveSnake, 150);
+        startGame();
         function initModel() {
-            snakeModel.snakeHead = getRandomCell();
+            snakeModel.snakeHead = { x: 19, y: 10, next: undefined };
             snakeModel.food = getRandomCell();
+            snakeModel.gameEnded = false;
+            snakeModel.direction = "up"
         }
 
         function getRandomCell() {
@@ -115,11 +125,21 @@
                 snakeModel.food = getRandomCell();
             }
             else {
-                newSnakeBody = snakeModel.snakeHead;
+
                 while (newSnakeBody.next.next != undefined) {
-                    newSnakeBody = newSnakeBody.next;                   
+                    newSnakeBody = newSnakeBody.next;
                 }
                 newSnakeBody.next = undefined;
+            }
+            snakeModel.lastDirectionMoved = snakeModel.direction;
+            if ((snakeModel.snakeHead.x == 20 || snakeModel.snakeHead.x == -1) || (snakeModel.snakeHead.y == 20 || snakeModel.snakeHead.y == -1)) {
+                endGame();
+            }
+            newSnakeBody = snakeModel.snakeHead;
+            while (newSnakeBody.next != undefined) {
+                newSnakeBody = newSnakeBody.next;
+                if (snakeModel.snakeHead.x == newSnakeBody.x && snakeModel.snakeHead.y == newSnakeBody.y)
+                    endGame();
             }
 
 
@@ -127,15 +147,39 @@
         }
 
         function getKeyPress(e) {
-            console.log(e.key)
-            if (e.key == "ArrowUp")
-                snakeModel.direction = "up"
-            else if (e.key == "ArrowRight")
-                snakeModel.direction = "right"
-            else if (e.key == "ArrowDown")
-                snakeModel.direction = "down"
-            else if (e.key == "ArrowLeft")
-                snakeModel.direction = "left"
+
+
+
+            if (e.key == "ArrowUp" && snakeModel.lastDirectionMoved != "down") {
+                snakeModel.direction = "up";
+            }
+
+            else if (e.key == "ArrowRight" && snakeModel.lastDirectionMoved != "left") {
+                snakeModel.direction = "right";
+
+            }
+
+            else if (e.key == "ArrowDown" && snakeModel.lastDirectionMoved != "up") {
+                snakeModel.direction = "down";
+
+            }
+
+            else if (e.key == "ArrowLeft" && snakeModel.lastDirectionMoved != "right") {
+                snakeModel.direction = "left";
+
+            }
+
+        }
+
+        function endGame() {
+            clearInterval(snakeModel.gameInterval);
+            snakeModel.gameEnded = true;
+        }
+
+        function startGame() {
+            initModel();
+            showView();
+            snakeModel.gameInterval = setInterval(moveSnake, 150);
         }
 
 
