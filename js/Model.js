@@ -167,6 +167,16 @@ let hrefArray11 = [
     "https://irobin93.github.io/VSCode/uke11/snake.html",
 ];
 
+let textArray12 = [
+    "Strikke Nettbutikk",
+];
+
+let hrefArray12 = [
+    "https://irobin93.github.io/Strikkebutikk/",
+];
+
+
+
 function pushRgbArray() {
     for (let i = 1; i <= numberWeeks; i = i + 3) {
 
