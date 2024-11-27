@@ -5,7 +5,7 @@ let rgbArrayEmne = [];
 let targetBlank = "_blank"
 let weeksInEmne1 = [1, 2, 3, 4, 5, 6, 7];
 let weeksInEmne2 = [8, 9, 10, 11, 12];
-let weeksInEmne3 = [];
+let weeksInEmne3 = [13, 14 ,15];
 
 let textArray1 =
     ["Introduksjon tekst",
@@ -174,6 +174,45 @@ let textArray12 = [
 let hrefArray12 = [
     "https://irobin93.github.io/Strikkebutikk/",
 ];
+
+let textArray13 = [
+    "Test",
+];
+
+let hrefArray13 = [
+    "StartProgram:Emne3/1of6/NoReturn/NoReturn/bin/Debug/net8.0/NoReturn.exe"
+]
+
+let textArray14 = [
+    "",
+];
+
+let hrefArray14 = [
+   "",
+]
+
+let textArray15 = [
+    "NoReturn",
+    "3Variabler",
+    "InitializeVariables",
+    "ReturnTwoNumbers",
+    "IfElseTask1",
+    "IsTheNumber30",
+    "TwoNumbersSumOrMultiplied",
+    "RandomHobby",
+
+];
+
+let hrefArray15 = [
+    "StartProgram:Emne3/1of6/NoReturn/NoReturn/bin/Debug/net8.0/NoReturn.exe",
+    "StartProgram:Emne3/1of6/3Variabler/3Variabler/bin/Debug/net8.0/3Variabler.exe",
+    "StartProgram:Emne3/1of6/InitializeVariables/InitializeVariables/bin/Debug/net8.0/InitializeVariables.exe",
+    "StartProgram:Emne3/1of6/ReturnTwoNumbers/ReturnTwoNumbers/bin/Debug/net8.0/ReturnTwoNumbers.exe",
+    "StartProgram:Emne3/2of6/IfElseTask1/IfElseTask1/bin/Debug/net8.0/IfElseTask1.exe",
+    "StartProgram:Emne3/2of6/IsTheNumber30/bin/Debug/net8.0/IsTheNumber30.exe",
+    "StartProgram:Emne3/2of6/TwoNumbersSumOrMultiplied/TwoNumbersSumOrMultiplied/bin/Debug/net8.0/TwoNumbersSumOrMultiplied.exe",
+    "StartProgram:Emne3/2of6/RandomHobby/bin/Debug/net8.0/RandomHobby.exe",
+]
 
 
 
