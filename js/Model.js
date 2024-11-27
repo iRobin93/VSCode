@@ -200,6 +200,13 @@ let textArray15 = [
     "IsTheNumber30",
     "TwoNumbersSumOrMultiplied",
     "RandomHobby",
+    "GetDate",
+    "GetDateTwo",
+    "ForTask1",
+    "ForTask2",
+    "ForTask3",
+    "CrocodileGame",
+    "TekstTukling",
 
 ];
 
@@ -212,6 +219,13 @@ let hrefArray15 = [
     "StartProgram:Emne3/2of6/IsTheNumber30/bin/Debug/net8.0/IsTheNumber30.exe",
     "StartProgram:Emne3/2of6/TwoNumbersSumOrMultiplied/TwoNumbersSumOrMultiplied/bin/Debug/net8.0/TwoNumbersSumOrMultiplied.exe",
     "StartProgram:Emne3/2of6/RandomHobby/bin/Debug/net8.0/RandomHobby.exe",
+    "StartProgram:Emne3/2of6/GetDate/bin/Debug/net8.0/GetDate.exe",
+    "StartProgram:Emne3/2of6/GetDateTwo/bin/Debug/net8.0/GetDateTwo.exe",
+    "StartProgram:Emne3/2of6/ForTask1/bin/Debug/net8.0/ForTask1.exe",
+    "StartProgram:Emne3/2of6/ForTask2/bin/Debug/net8.0/ForTask2.exe",
+    "StartProgram:Emne3/2of6/ForTask3/bin/Debug/net8.0/ForTask3.exe",
+    "StartProgram:Emne3/2of6/CrocodileGame/bin/Debug/net8.0/CrocodileGame.exe",
+    "StartProgram:Emne3/2of6/TekstTukling/bin/Debug/net8.0/TekstTukling.exe",
 ]
 
 
