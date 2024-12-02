@@ -227,7 +227,7 @@ let hrefArray15 = [
     "StartProgram:Emne3/2of6/ForTask3/bin/Debug/net8.0/ForTask3.exe",
     "StartProgram:Emne3/2of6/CrocodileGame/bin/Debug/net8.0/CrocodileGame.exe",
     "StartProgram:Emne3/2of6/TekstTukling/bin/Debug/net8.0/TekstTukling.exe",
-    "StartProgram:Emne3/2of6/ParProgrammering-Pokemon/bin/Debug/net8.0/ParProgrammering-Pokemon.exe",
+    "StartProgram:Emne3/3of6/ParProgrammering-Pokemon/bin/Debug/net8.0/ParProgrammering-Pokemon.exe",
 ]
 
 
