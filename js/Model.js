@@ -5,7 +5,7 @@ let rgbArrayEmne = [];
 let targetBlank = "_blank"
 let weeksInEmne1 = [1, 2, 3, 4, 5, 6, 7];
 let weeksInEmne2 = [8, 9, 10, 11, 12];
-let weeksInEmne3 = [13, 14 ,15];
+let weeksInEmne3 = [13, 14 ,15, 16];
 
 let textArray1 =
     ["Introduksjon tekst",
@@ -229,6 +229,24 @@ let hrefArray15 = [
     "StartProgram:Emne3/2of6/TekstTukling/bin/Debug/net8.0/TekstTukling.exe",
     "StartProgram:Emne3/3of6/ParProgrammering-Pokemon/bin/Debug/net8.0/ParProgrammering-Pokemon.exe",
 ]
+
+
+let textArray16 = [
+    "MakeAPokemonClass",
+    "NyreTransplantasjon",
+    "OverloadsTest",
+    "SocialMedia",
+    "Studentadministrasjonssystem",
+];
+
+let hrefArray16 = [
+   "StartProgram:Emne3/3of6/MakeAPokemonClass/bin/Debug/net8.0/MakeAPokemonClass.exe",
+   "StartProgram:Emne3/3of6/NyreTransplantasjon/bin/Debug/net8.0/NyreTransplantasjon.exe",
+   "StartProgram:Emne3/3of6/OverloadsTest/bin/Debug/net8.0/OverloadsTest.exe",
+   "StartProgram:Emne3/3of6/SocialMedia/bin/Debug/net8.0/SocialMedia.exe",
+   "StartProgram:Emne3/3of6/Studentadministrasjonssystem/bin/Debug/net8.0/Studentadministrasjonssystem.exe",
+]
+
 
 
 
