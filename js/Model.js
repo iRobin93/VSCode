@@ -235,16 +235,18 @@ let textArray16 = [
     "MakeAPokemonClass",
     "NyreTransplantasjon",
     "OverloadsTest",
-    "SocialMedia",
+    "FriendFace",
     "Studentadministrasjonssystem",
+    "BossFight",
 ];
 
 let hrefArray16 = [
    "StartProgram:Emne3/3of6/MakeAPokemonClass/bin/Debug/net8.0/MakeAPokemonClass.exe",
    "StartProgram:Emne3/3of6/NyreTransplantasjon/bin/Debug/net8.0/NyreTransplantasjon.exe",
    "StartProgram:Emne3/3of6/OverloadsTest/bin/Debug/net8.0/OverloadsTest.exe",
-   "StartProgram:Emne3/3of6/SocialMedia/bin/Debug/net8.0/SocialMedia.exe",
+   "StartProgram:Emne3/3of6/FriendFace/bin/Debug/net8.0/FriendFace.exe",
    "StartProgram:Emne3/3of6/Studentadministrasjonssystem/bin/Debug/net8.0/Studentadministrasjonssystem.exe",
+   "StartProgram:Emne3/3of6/BossFight/bin/Debug/net8.0/BossFight.exe",
 ]
 
 
