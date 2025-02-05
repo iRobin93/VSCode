@@ -1,11 +1,12 @@
 let numberWeeks = 7;
-let numberEmner = 3;
+let numberEmner = 4;
 let rgbArray = [];
 let rgbArrayEmne = [];
 let targetBlank = "_blank"
 let weeksInEmne1 = [1, 2, 3, 4, 5, 6, 7];
 let weeksInEmne2 = [8, 9, 10, 11, 12];
 let weeksInEmne3 = [13, 14 ,15, 16];
+let weeksInEmne4 = [17];
 
 let textArray1 =
     ["Introduksjon tekst",
@@ -250,6 +251,13 @@ let hrefArray16 = [
 ]
 
 
+let textArray17 = [
+ "BreakfastCheck"
+];
+
+let hrefArray17 = [
+    "https://irobin93.github.io/BreakfastCheck/"
+];
 
 
 function pushRgbArray() {
@@ -266,10 +274,10 @@ function pushRgbArray() {
     }
 }
 function pushRgbArrayEmne() {
-
-    rgbArrayEmne.push("#FF5733")
-    rgbArrayEmne.push("#33FF57")
-    rgbArrayEmne.push("#33A1FF")
-
-
+    rgbArrayEmne.push("#FF5733");
+    rgbArrayEmne.push("#33FF57");
+    rgbArrayEmne.push("#33A1FF");
+    rgbArrayEmne.push("#FF33A1");
+    rgbArrayEmne.push("#A133FF");
+    rgbArrayEmne.push("#FF9133");
 }
