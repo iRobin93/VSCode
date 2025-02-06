@@ -43,11 +43,15 @@ function displayComment(name, comment) {
   function getCommentsFromSQL() {
 
     // Make a GET request using Axios
-    axios.get(apiUrl)
+    axios.get(apiUrl, {
+        headers: {
+          'x-functions-key': accessToken,  // Add the function key in the header
+        }
+      })
         .then(response => {
             // Handle the successful response
             comment = response.data; // The data from the response (should be the list of comments)
-              
+              console.log(comment)
             // Here you could process/display the comments in your app
             displayComments(); // Example of handling the comments
         })
@@ -62,12 +66,16 @@ function postCommentToSQL(name, comment) {
     // Check if both name and content are provided
     if (name && comment) {
         const commentData = {
-            Name: name,
+            name: name,
             theComment: comment
         };
 
         // Send POST request to backend API
-        axios.post(apiUrl, commentData)
+        axios.post(apiUrl, commentData, {
+            headers: {
+              'x-functions-key': accessToken,  // Add the function key in the header
+            }
+          })
             .then(response => {
                 // Handle success response
                 console.log('Comment posted:', response.data);
