@@ -57,9 +57,7 @@ function showView() {
 
 
     document.getElementById('app').innerHTML += createEmner(); // /*HTML*/ `
-
 }
-
 
 function createLists(thisHrefArray, thisTextArray) {
     let myLists = "<ul>";

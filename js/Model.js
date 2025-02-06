@@ -7,6 +7,8 @@ let weeksInEmne1 = [1, 2, 3, 4, 5, 6, 7];
 let weeksInEmne2 = [8, 9, 10, 11, 12];
 let weeksInEmne3 = [13, 14 ,15, 16];
 let weeksInEmne4 = [17];
+let comments;
+let apiUrl = "https://localhost:7030/Comment"
 
 let textArray1 =
     ["Introduksjon tekst",
