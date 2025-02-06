@@ -37,6 +37,14 @@ user-select: none;
     margin-bottom: 10px;
   }
 
+  #commentsContainer {
+    max-height: 400px; /* You can adjust this value as per your preference */
+    overflow-y: auto; /* This will enable vertical scrolling when the content overflows */
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
   #nameInput, #commentInput {
     width: 100%;
     padding: 8px;
