@@ -256,11 +256,13 @@ let hrefArray16 = [
 
 
 let textArray17 = [
- "BreakfastCheck"
+ "BreakfastCheck",
+ "Vue MusicApp",
 ];
 
 let hrefArray17 = [
-    "https://irobin93.github.io/BreakfastCheck/"
+    "https://irobin93.github.io/BreakfastCheck/",
+    "https://irobin93.github.io/musicapp/",
 ];
 
 
