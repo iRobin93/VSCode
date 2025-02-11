@@ -43,7 +43,7 @@ function deleteComment(button, id) {
     });
 }
 
-
+// Test
   function getCommentsFromSQLAndDisplay() {
 
     // Make a GET request using Axios
