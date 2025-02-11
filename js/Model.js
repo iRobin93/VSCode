@@ -8,8 +8,9 @@ let weeksInEmne2 = [8, 9, 10, 11, 12];
 let weeksInEmne3 = [13, 14 ,15, 16];
 let weeksInEmne4 = [17];
 let comments;
-let apiUrl = "https://ukesoversikt.azurewebsites.net/api/Comments"
-//let apiUrl = "http://localhost:7105/api/Comments"
+let lastCommentAddedId;
+//let apiUrl = "https://ukesoversikt.azurewebsites.net/api/Comments"
+let apiUrl = "http://localhost:7105/api/Comments"
 const accessToken = 'rmCRjqXjTZy1SSLm_e0gp6X_nvx9Wp0u5HcJZryLJEB6AzFubtt2xQ==';  // Obtain the Bearer token from AAD or OAuth
 
 let textArray1 =

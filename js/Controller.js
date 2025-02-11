@@ -12,20 +12,22 @@ function showWeeks(emneNr){
     writeEmne(emneNr);
 }
 
-
-function displayComment(name, comment) {
-    const commentsContainer = document.getElementById('commentsContainer');
-
-    // Create a new div for each comment
-    const commentDiv = document.createElement('div');
-    commentDiv.classList.add('comment');
-
-    // Format the display with name and comment
-    commentDiv.innerHTML = `<strong>${name}</strong>: ${comment}`;
-    
-    commentsContainer.appendChild(commentDiv); // Append the comment div to the container
-  }
-
+function deleteComment(button, id) {
+  // Assuming you have an API endpoint like '/api/comments' for deleting comments
+  axios.delete(apiUrl + "/" + id, {
+    headers: {
+      'x-functions-key': accessToken,  // Add the function key in the header
+    }
+  })
+  .then(response => {
+    console.log("Comment deleted successfully", response);
+    // Remove the commentDiv from the DOM
+    button.closest('.comment').remove();
+  })
+  .catch(error => {
+    console.error("There was an error deleting the comment:", error);
+  });
+}
 
   function displayComments() {
     const commentsContainer = document.getElementById('commentsContainer');
@@ -35,12 +37,14 @@ function displayComment(name, comment) {
         const commentElement = document.createElement('div');
         commentElement.classList.add('comment');
         commentElement.innerHTML = `<strong>${comment.name}</strong>: ${comment.theComment}`;
+        if(comment.Id === lastCommentAddedId)
+          commentElement.innerHTML += `<button onclick="deleteComment(this, ${comment.Id})">Slett</button>`
         commentsContainer.appendChild(commentElement);
     });
 }
 
 
-  function getCommentsFromSQL() {
+  function getCommentsFromSQLAndDisplay() {
 
     // Make a GET request using Axios
     axios.get(apiUrl, {
@@ -79,9 +83,9 @@ function postCommentToSQL(name, comment) {
             .then(response => {
                 // Handle success response
                 console.log('Comment posted:', response.data);
-                
+                lastCommentAddedId = response.data.Id;
                 // Optionally, you can refresh the list of comments
-                getCommentsFromSQL(); // Fetch and display the comments again
+                getCommentsFromSQLAndDisplay(); // Fetch and display the comments again
             })
             .catch(error => {
                 // Handle any error during the request
@@ -91,3 +95,4 @@ function postCommentToSQL(name, comment) {
         alert('Vennligst legg igjen Navn og Kommentar.');
     }
 }
+
