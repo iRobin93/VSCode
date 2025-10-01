@@ -30,17 +30,31 @@ function writeEmne(emneNr) {
 
 function createWeeks(emneNr) {
     let myString = "";
-    
     let thisWeekArray = eval("weeksInEmne" + emneNr);
+    if (emneNr != 4) {
 
-    for (week in thisWeekArray) {
-        
-        myString += /*HTML*/ `
+
+
+
+        for (week in thisWeekArray) {
+
+            myString += /*HTML*/ `
         
         <div class="uke" onclick="showText('${thisWeekArray[Number(week)]}', ${emneNr})" id="uke${thisWeekArray[Number(week)]}" style="background-color: ${rgbArray[week]}">
              Uke ${Number(week) + 1}
         </div>
         <div class="tekst" id="uke${thisWeekArray[Number(week)]}Text"></div>
+        `
+        }
+
+    }
+    else {
+        myString = /*HTML*/ `
+        
+        <div class="uke" onclick="showText(17, ${emneNr})" id="uke${thisWeekArray[Number(17)]}" style="background-color: ${rgbArray[17]}">
+             Alle uker
+        </div>
+        <div class="tekst" id="uke17Text"></div>
         `
     }
     return myString;
@@ -89,14 +103,14 @@ function writeUke(ukeNr, emneNr) {
 function blankUke(emneNr) { // Blanks list of links for each week in this subject
     let textObject;
     let thisWeekArray = eval("weeksInEmne" + emneNr);
-    for(week in thisWeekArray){
-              textObject = document.getElementById('uke' + thisWeekArray[week] + 'Text');
+    for (week in thisWeekArray) {
+        textObject = document.getElementById('uke' + thisWeekArray[week] + 'Text');
 
         if (textObject != undefined)
             textObject.innerHTML = "";
     }
-  
-    
+
+
 }
 
 function blankEmne() {

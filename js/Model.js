@@ -259,11 +259,13 @@ let hrefArray16 = [
 let textArray17 = [
  "BreakfastCheck",
  "Vue MusicApp",
+ "GameReview",
 ];
 
 let hrefArray17 = [
     "https://irobin93.github.io/BreakfastCheck/",
     "https://irobin93.github.io/Emne4/",
+    "https://irobin93.github.io/gamereviewclient/",
 ];
 
 
