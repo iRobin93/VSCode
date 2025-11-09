@@ -1,66 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Index Robin</title>
-  <link rel="stylesheet" href="./uke1/css/indexstyle.css" />
-
-</head>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-<body>
-
-
-  <div id="app" class="hoved">
-
-  </div>
-
-  <div id="commentSection">
-    <!-- Input field for the user's name -->
-    <input type="text" id="nameInput" placeholder="Ditt navn" /><br>
-
-    <!-- Textarea for users to type their comments -->
-    <textarea id="commentInput" placeholder="Skriv en kommentar..." rows="4" cols="50"></textarea><br>
-          <!-- Button to post the comment -->
-    <button id="submitComment">Legg igjen kommentar</button>
-    <h3>Kommentarer</h3>
-
-    <!-- This is where the comments will be shown -->
-    <div id="commentsContainer"></div>
-
-
-
-  </div>
-  <script src="./js/Model.js"></script>
-  <script src="./js/View.js"></script>
-  <script src="./js/Controller.js"></script>
-
-
-  <script>
-
-    getCommentsFromSQLAndDisplay();
-    // Handle the post comment button click
-    document.getElementById('submitComment').addEventListener('click', function () {
-      const nameInput = document.getElementById('nameInput');
-      const commentInput = document.getElementById('commentInput');
-
-      const name = nameInput.value.trim(); // Get the name
-      const comment2 = commentInput.value.trim(); // Get the comment
-
-      // Ensure both the name and comment are provided
-      if (name && comment2) {
-        postCommentToSQL(name, comment2);
-        nameInput.value = ''; // Clear the name input field after posting
-        commentInput.value = ''; // Clear the comment input field after posting
-      } else {
-        alert("Vennligst legg igjen Navn og Kommentar.");
-      }
-    });
-
-
-  </script>
-</body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="0; url=https://irobin93.github.io/Portfolio/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting...</title>
+  </head>
+  <body
+    style="
+      font-family: system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #fff7ed;
+      color: #d97706;
+    "
+  >
+    <h1>🔄 Omdirigerer...</h1>
+    <p>
+      Hvis du ikke blir sendt videre automatisk,
+      <a href="https://irobin93.github.io/Portfolio/">klikk her</a>.
+    </p>
+    <script>
+      window.location.replace("https://irobin93.github.io/Portfolio/");
+    </script>
+  </body>
 </html>
